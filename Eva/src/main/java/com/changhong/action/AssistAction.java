@@ -328,9 +328,4 @@ public class AssistAction {
 		resultType = 2;
 		return "deletePatent";
 	}
-	//测试git是否可以成功
-	private void testGit()
-	{
-		System.out.println("test git");
-	}
 }

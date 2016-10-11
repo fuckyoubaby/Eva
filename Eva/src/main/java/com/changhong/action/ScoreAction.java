@@ -748,7 +748,13 @@ public class ScoreAction {
 			}else {
 				temp_liucheng = flowsheetRegSum/flowsheetRegNum;
 			}
-			hegui = score*shejiguidingWeight+temp_liucheng*(1-shejiguidingWeight);
+			//对合规的权重进行盘判定，如果设计合规的权重为100%，则合规总分就不进行加权计算。
+			if (1-shejiguidingWeight<0.01) {
+				hegui = score+temp_liucheng;
+			}else {
+				hegui = score*shejiguidingWeight+temp_liucheng*(1-shejiguidingWeight);
+			}
+			
 			//沟通管理
 			Secondweight secondweight_workEx = secondWeightService.getSecondweightByModeIdAndType(modeId, FinalConstant.COMMUNICATION_MANAGEMENT_enum.工作积极性.toString());
 			Secondweight secondweight_com = secondWeightService.getSecondweightByModeIdAndType(modeId, FinalConstant.COMMUNICATION_MANAGEMENT_enum.沟通能力.toString());
