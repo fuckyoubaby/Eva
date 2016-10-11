@@ -261,8 +261,6 @@ zhuanyejishu = {
     ]
 };
 $(function() {
-           /*  option.series[0].data[0].value=[12,32,34,53,53,65];  // 加载数据到data中
-            option.series[0].data[0].name ='ESOP系统'; */
             var zhuanyeChart = echarts.init(document.getElementById('zhuanyejishu'));  
             zhuanyeChart.setOption(zhuanyejishu, true);   //为echarts对象加载数据
         });
