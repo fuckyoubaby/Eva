@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 //import org.hibernate.annotations.common.reflection.ReflectionUtil;
-
+//测试一下
 import com.changhong.entities.Department;
 import com.changhong.entities.Employee;
 import com.changhong.entities.Job;
