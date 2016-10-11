@@ -1,0 +1,44 @@
+@charset "utf-8";
+/* CSS Document */
+.login_bg{
+	width:470px;
+	height:310px;
+	margin:110px auto auto auto;
+	background-image:url(../images/u0.png);
+	background-repeat:no-repeat;
+}
+.logo{
+	margin:10px auto auto 105px;
+	width:260px;
+	height:90px;	
+}
+.editText{
+	margin:15px auto auto auto;
+	line-height:normal;
+	color:#000;
+	text-align:left;
+	font-family: 'Arial Normal', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 13px;
+}
+#userName{
+	margin:0px auto auto 105px;
+	width:260px;
+	height:25px;
+}
+#password{
+	margin:0px auto auto 105px;
+	width:260px;
+	height:25px;
+}
+#login_button{
+	margin:0px auto auto 105px;
+	width:260px;
+	height:32px;
+}
+.radioDiv{
+	margin:0px auto auto 300px;
+	width:170px;
+	height:35px;	
+}

@@ -1,0 +1,39 @@
+@charset "utf-8";
+/* CSS Document */
+.content{
+	height:800px;
+	width:1000px;
+	margin:10px 0px 0px 10px;
+}
+.top{
+	height:60px;
+	width:930px;
+	background-image:url(../images/score/u0.png);
+	background-repeat:no-repeat;
+}
+.bottom{
+	height:500px;
+	width:930px;
+	margin:20px 0px 0px 0px;
+}
+.left{
+	height:430px;
+	width:430px;
+	float:left;
+}
+.right{
+	height:430px;
+	width:430px;
+	float:right;
+}
+.left_top{
+	margin:0 auto;
+	height:390px;
+	width:430px;
+	display:block;
+	background-image:url(../images/score/u49.png);
+	background-repeat:no-repeat;
+}
+#myChart{
+	margin:10px auto;
+}

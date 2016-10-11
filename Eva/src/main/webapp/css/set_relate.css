@@ -1,0 +1,51 @@
+@charset "utf-8";
+/* CSS Document */
+
+.image_text{
+	width:100px;
+	height:34px;
+	line-height:34px;
+	text-align:center;
+}
+.content{
+	margin:84px auto auto 92px;
+	width:860px;
+	height:390px;
+	background-image:url(../images/other/background.png);
+	background-repeat:no-repeat;
+}
+.null_div{
+	height:20px;
+	width:500px;
+}
+.info{
+	margin:10px auto auto 50px;
+	width:500px;
+	height:400px;
+}
+.top_line_div{
+	margin:10px auto auto 0px;
+	width:700px;
+	height:10px;
+	background-image:url(../images/project/project_info_line.png);
+	background-repeat:no-repeat;
+}
+.change_text{
+	line-height:28px;
+	text-align:center;
+	width:87px;
+	height:28px;
+	background-image:url(../images/set/change.png);
+	background-repeat:no-repeat;
+}0
+.password{
+	margin:10px auto auto 50px;
+	width:500px;
+	height:400px;
+}
+.save_button{
+	width:56px;
+	height:30px;
+	background-image:url(../images/set/save.png);
+	background-repeat:no-repeat;
+}

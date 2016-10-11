@@ -1,0 +1,63 @@
+@charset "utf-8";
+/* CSS Document */
+.content{
+	margin:10px auto auto 50px;
+	width:700px;
+	height:550px;
+}
+.title_div{
+	width:700px;
+	height:60px;
+}
+.title_text{
+	width:700px;
+	height:40px;
+}
+.writer{
+	width:700px;
+	height:20px;
+	font-size:13px;
+	line-height:20px;
+	text-align:center;
+}
+.title{
+	font-size:20px;
+	font-weight:bold;
+	line-height:40px;
+	text-align:center;
+}
+.top_line_div{
+	margin:10px auto auto 0px;
+	width:700px;
+	height:10px;
+	background-image:url(../images/project/project_info_line.png);
+	background-repeat:no-repeat;
+}
+.content_title_div
+{
+	width:700px;
+	height:40px;
+}
+.content_title{
+	font-size:18px;
+	font-weight:bold;
+	line-height:40px;
+	text-align:center;
+}
+.content_div{
+	width:700px;
+	height:150px;
+}
+table{
+	font-size:15px;
+}
+.download_div{
+	margin:0px auto auto 160px;
+	width:80px;
+	height:30px;
+	line-height:30px;
+	background-image:url(../images/experience/download_bg.png);
+	background-repeat:no-repeat;
+	text-align:center;
+	font-size:18px;
+}
