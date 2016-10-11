@@ -214,6 +214,274 @@ $(function() {
             var myChart = echarts.init(document.getElementById('zhuzhungtu'));  
             myChart.setOption(option2, true);   //为echarts对象加载数据
         });
+zhuanyejishu = {
+    title : {
+        text: '员工专业技术分数和总平均值',
+        subtext: ''
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+     legend: {
+        data:['总体平均值','个人值']
+    }, 
+    toolbox: {
+        show : true,
+        feature : {
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : ['一般设计缺陷','低级错误']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'平均值',
+            type:'bar',
+            data:[${yibanshejiquexian_avg}, ${dijicuowu_avg}],
+        },
+        {
+            name:'员工值',
+            type:'bar',
+             /* data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,3,2],  */
+             data:d.slice(0, 2),            
+        }
+    ]
+};
+$(function() {
+           /*  option.series[0].data[0].value=[12,32,34,53,53,65];  // 加载数据到data中
+            option.series[0].data[0].name ='ESOP系统'; */
+            var zhuanyeChart = echarts.init(document.getElementById('zhuanyejishu'));  
+            zhuanyeChart.setOption(zhuanyejishu, true);   //为echarts对象加载数据
+        });
+        
+        
+hegui = {
+    title : {
+        text: '员工合规分数和总平均值',
+        subtext: ''
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+     legend: {
+        data:['总体平均值','个人值']
+    }, 
+    toolbox: {
+        show : true,
+        feature : {
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : ['设计规定','流程规定']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'平均值',
+            type:'bar',
+            data:[ ${shejihegui_avg}, ${liuchenghegui_avg}],
+        },
+        {
+            name:'员工值',
+            type:'bar',
+             /* data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,3,2],  */
+             data:d.slice(2, 4),            
+        }
+    ]
+};
+$(function() {
+           /*  option.series[0].data[0].value=[12,32,34,53,53,65];  // 加载数据到data中
+            option.series[0].data[0].name ='ESOP系统'; */
+            var zhuanyeChart = echarts.init(document.getElementById('hegui'));  
+            zhuanyeChart.setOption(hegui, true);   //为echarts对象加载数据
+        });
+
+goutongguanli = {
+    title : {
+        text: '员工自我成长分数和总平均值',
+        subtext: ''
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+     legend: {
+        data:['总体平均值','个人值']
+    }, 
+    toolbox: {
+        show : true,
+        feature : {
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : ['工作积极性','沟通能力','工作计划性']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'平均值',
+            type:'bar',
+            data:[ ${gongzuojijixing_avg}, ${gongtongnengli_avg}, ${gongzuojihuaxing_avg}],
+        },
+        {
+            name:'员工值',
+            type:'bar',
+             /* data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,3,2],  */
+             data:d.slice(4, 7),            
+        }
+    ]
+};
+$(function() {
+           /*  option.series[0].data[0].value=[12,32,34,53,53,65];  // 加载数据到data中
+            option.series[0].data[0].name ='ESOP系统'; */
+            var zhuanyeChart = echarts.init(document.getElementById('goutongguanli'));  
+            zhuanyeChart.setOption(goutongguanli, true);   //为echarts对象加载数据
+        });
+
+
+ziwochengzhang = {
+    title : {
+        text: '员工沟通管理分数和总平均值',
+        subtext: ''
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+     legend: {
+        data:['总体平均值','个人值']
+    }, 
+    toolbox: {
+        show : true,
+        feature : {
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : ['学习积极性','考试']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'平均值',
+            type:'bar',
+            data:[  ${xuexijijixing_avg}, ${kaoshi_avg}],
+        },
+        {
+            name:'员工值',
+            type:'bar',
+             /* data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,3,2],  */
+             data:d.slice(7, 9),            
+        }
+    ]
+};
+$(function() {
+           /*  option.series[0].data[0].value=[12,32,34,53,53,65];  // 加载数据到data中
+            option.series[0].data[0].name ='ESOP系统'; */
+            var zhuanyeChart = echarts.init(document.getElementById('ziwochengzhang'));  
+            zhuanyeChart.setOption(ziwochengzhang, true);   //为echarts对象加载数据
+        });
+        
+        
+ duigongsigongxian = {
+    title : {
+        text: '员工对公司贡献分数和总平均值',
+        subtext: ''
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+     legend: {
+        data:['总体平均值','个人值']
+    }, 
+    toolbox: {
+        show : true,
+        feature : {
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : ['专利','经验库','标准化','重要信息收集','项目文档','其他','培训']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'平均值',
+            type:'bar',
+            data:[ ${zhuanli_avg}, ${jingyanku_avg}, ${biaozhunhua_avg},${zhongyaoxinxishouji_avg},${xiangmuwendang_avg},${qita_avg},${peixun_avg}],
+        },
+        {
+            name:'员工值',
+            type:'bar',
+             /* data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,3,2],  */
+             data:d.slice(9, 16),            
+        }
+    ]
+};
+$(function() {
+           /*  option.series[0].data[0].value=[12,32,34,53,53,65];  // 加载数据到data中
+            option.series[0].data[0].name ='ESOP系统'; */
+            var zhuanyeChart = echarts.init(document.getElementById('duigongsigongxian'));  
+            zhuanyeChart.setOption(duigongsigongxian, true);   //为echarts对象加载数据
+        });
+ 
 
 </script>
 </head>
@@ -344,6 +612,15 @@ $(function() {
 			<!--end table row-->
 		</div>
 <div id="zhuzhungtu" style="width:1000px; height:400px;margin: 50px auto;"></div>
-	</div>
+<div style="width:1000px; height:400px;margin: 50px auto;">
+	<div id="zhuanyejishu" style="width: 400px; height: 400px; float: left; margin: 50px auto;"></div>
+	<div id="hegui" style="width: 400px; height: 400px; float: right; margin: 50px auto;"></div>
+</div>
+<div style="width:1000px; height:400px;margin: 50px auto;">
+	<div id="goutongguanli" style="width: 400px; height: 400px; float: left; margin: 50px auto;"></div>
+	<div id="ziwochengzhang" style="width: 400px; height: 400px; float: right; margin: 50px auto;"></div>
+</div>
+<div id="duigongsigongxian" style="width:1000px; height:400px;margin: 50px auto;"></div>
+</div>
 </body>
 </html>
