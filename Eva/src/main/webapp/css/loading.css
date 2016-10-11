@@ -1,0 +1,12 @@
+@charset "UTF-8";
+/*
+	creator:郭潇阳
+	copy-right:长虹网络公司
+	date:2016/1/19
+	description:处理结果显示或load显示的CSS文件
+	example:
+	<link href="css/loading.css" rel="stylesheet" type="text/css" />
+*/
+.loading{height:32px;background:#398FFF;line-height:32px;text-align:center;position:fixed;top:0;left:0;color:#fff;overflow:hidden;
+display:inline-block; padding:0 10px;z-index:200;font-size:16px;padding-left:15px;padding-right:15px;
+vertical-align:middle;border-radius:2px;-webkit-box-shadow:3px 3px 1px 1px rgba(0,0,0,.6);box-shadow:3px 3px 1px 1px rgba(0,0,0,.6);}

@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+validator.Checked=src/main/webapp/js/jquery-ui.min.js,src/main/webapp/js/jquery-1.11.3.min.js,src/main/webapp/js/echarts.min.js,src/main/webapp/js/jquery-2.1.4.min.js,src/main/webapp/js/Chart.min.js
+validator.Revalidate=true
+validator.Unchecked=
