@@ -70,7 +70,7 @@
 			</h3>
 			<div class="hr mg-b15"></div>
 			<!--body-->
-			<form id="project_add" action="projectAction!save.action" role="form">
+			<form id="project_add" action="<%=basePath %>/projectAction!save.action" role="form">
 				<div class="form-group">
 					<label class="control-label">项目名称</label>
 					<input type="text" name="projectName" id="projectName" class="form-control"  />

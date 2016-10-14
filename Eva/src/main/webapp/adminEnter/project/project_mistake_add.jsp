@@ -33,33 +33,7 @@
 			.form-title{width:100%;padding:10px 15px;font-size:16px;line-height: 1.1;background-color:#f5f5f5;border:1px solid transparent;border-bottom-color: #ddd;border-radius: 5px 5px 0 0;}
 			.form-content{padding:15px 35px;}
 			.form-control-feedback {top:25px !important; right:-30px}
-			
 		</style>
-		<script type="text/javascript">
-			function selectReview()
-			{
-				var phaseId = document.getElementById("phaseId").value;
-				$.ajax({
-					type:"post",
-					url:"projectAction!getReviewByPhaseId.action",
-					dataType:"json",
-					data:"phaseId="+phaseId,
-					cache:false,
-					success:createReview,
-					error:errorReview
-				});
-			}
-			function createReview(list){
-				$('#reviewId').empty();
-				$.each(list,function(n,value){
-  					$('#reviewId').append("<option value='"+value.reviewId+"'>"+value.reviewName+"</option>");
-  				});
-			}
-			function errorReview(err)
-			{
-				alert("err");
-			}
-		</script>
 	</head>
 	<body>
 	<% Project project = (Project)session.getAttribute("project"); %>
@@ -85,6 +59,14 @@
 									<div class="form-control-static"><%=project.getProjectState() %></div>
 								</div>
 							</c:if>
+							<div class="form-group">
+								<label class="control-label">项目阶段</label>
+								<div class="form-control-static">${comment.phase.phaseName}</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">评审名称</label>
+								<div class="form-control-static">${comment.name}</div>
+							</div>
 						</div>
 					</div>	
 				</div>
@@ -92,8 +74,7 @@
 				<div class="col-md-6">
 					<div class="form-border">
 						<div class="form-title">输入问题信息</div>
-						<form id="mistake_add" action="problemAction!save.action" class="form-content" method="post">
-							
+						<form id="mistake_add" action="<%=basePath %>/problemAction!save.action" class="form-content" method="post">
 							<div class="form-group">
 								<label class="control-label">名称</label>
 								<input type="text" name="problemName" class="form-control"/>
@@ -109,15 +90,6 @@
 									<option value="B">B</option>
 									<option value="C">C</option>
 								</select>
-							</div>
-							<div class="form-group">
-								<label class="control-label">问题阶段</label>
-									<select name="phaseId" id="phaseId" class="form-control" onchange="selectReview();">
-										<option value="">请选择阶段</option>
-										<c:forEach items="${phases }" var="phase">
-											<option value="${phase.phaseId }">${phase.phaseName }</option>
-										</c:forEach>
-									</select>
 							</div>
 							<div class="form-group">
 								<label class="control-label">问题类型</label>
@@ -222,17 +194,6 @@
 									message: '请选择问题级别！'
 								}
 							}
-						},
-						phaseId:{
-							trigger:'blur',
-							validators : {
-								notEmpty : {
-									message: '请选择问题所在阶段！'
-								}
-							}
-						},
-						reviewId:{
-							
 						},
 						problemTypeId:{
 							trigger:'blur',

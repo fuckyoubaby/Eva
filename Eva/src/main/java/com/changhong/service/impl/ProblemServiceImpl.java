@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.changhong.dao.CommentDao;
 import com.changhong.dao.EmployeeDao;
 import com.changhong.dao.PhaseDao;
 import com.changhong.dao.ProblemDao;
@@ -20,6 +21,7 @@ import com.changhong.dao.ProblemTypeDao;
 import com.changhong.dao.ProjectDao;
 import com.changhong.dao.ReviewDao;
 import com.changhong.dao.impl.ProblemStateDaoImpl;
+import com.changhong.entities.Comment;
 import com.changhong.entities.Employee;
 import com.changhong.entities.Phase;
 import com.changhong.entities.Problem;
@@ -50,6 +52,9 @@ public class ProblemServiceImpl implements ProblemService{
 	private ProblemStateDao problemStateDao;
 	@Autowired
 	private ProblemTypeDao problemTypeDao;
+	@Autowired
+	private CommentDao commentDao;
+	
 	@Override
 	public List<Problem> getProblems(int offset, int length, String keyword) {
 		// TODO Auto-generated method stub
@@ -155,9 +160,10 @@ public class ProblemServiceImpl implements ProblemService{
 
 	@Override
 	public BatchResultTemplate saveTemplates(List<ProblemModel> lists,
-			Date createDate, int phaseId, int reviewId, String employeeId,String projectId) {
+			Date createDate, int phaseId, String commentId,String employeeId,String projectId) {
 		Phase phase = phaseDao.get(Phase.class, phaseId);
-		Review review = reviewDao.get(Review.class, reviewId);
+		Review review = null;
+		Comment comment = commentDao.get(Comment.class, commentId);
 		Employee employee = employeeDao.get(Employee.class, employeeId);
 		Project project = projectDao.get(Project.class, projectId);
 		for(int i=lists.size()-1;i>=0;i--){
@@ -169,7 +175,7 @@ public class ProblemServiceImpl implements ProblemService{
 		Map<String,Problemtype> types = initTypes(problemTypeDao);
 		List<Problem> problems = null;
 		try{
-			problems = models2Problems(lists, employee, phase, review, project, states,types);
+			problems = models2Problems(lists, employee, phase, review,comment, project, states,types);
 		}catch(Exception e){
 			e.printStackTrace();
 			problems = null;
@@ -180,10 +186,11 @@ public class ProblemServiceImpl implements ProblemService{
 	}
 	@Override
 	public BatchResultTemplate saveTemplates(List<ProblemModel> lists,
-			Date createDate, int phaseId, int reviewId, String employeeId,
+			Date createDate, int phaseId, String commentId, String employeeId,
 			Project project) {
 		Phase phase = phaseDao.get(Phase.class, phaseId);
-		Review review = reviewDao.get(Review.class, reviewId);
+		Review review = null;
+		Comment comment = commentDao.get(Comment.class, commentId);
 		Employee employee = employeeDao.get(Employee.class, employeeId);
 		Map<String,Problemstate> states = initStates(problemStateDao);
 		Map<String,Problemtype> types = initTypes(problemTypeDao);
@@ -211,7 +218,7 @@ public class ProblemServiceImpl implements ProblemService{
 		
 		List<Problem> problems = null;
 		try{
-			problems = models2Problems(lists, employee, phase, review, project, states,types);
+			problems = models2Problems(lists, employee, phase, review,comment, project, states,types);
 		}catch(Exception e){
 			e.printStackTrace();
 			return saveTemplates(problems);
@@ -242,18 +249,18 @@ public class ProblemServiceImpl implements ProblemService{
 	}
 	
 	
-	private List<Problem> models2Problems(List<ProblemModel> lists, Employee employee,Phase phase, Review review, Project project, Map<String,Problemstate> states,Map<String,Problemtype> types) throws NoSuchFieldException,
+	private List<Problem> models2Problems(List<ProblemModel> lists, Employee employee,Phase phase, Review review,Comment comment, Project project, Map<String,Problemstate> states,Map<String,Problemtype> types) throws NoSuchFieldException,
 	SecurityException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		List<Problem> problems = new ArrayList<Problem>();
 		Problem problem = null;
 		for(int i=0;i<lists.size();i++){
-			problem = model2Problem(lists.get(i),employee,phase,review,project,states,types);
+			problem = model2Problem(lists.get(i),employee,phase,review,comment, project,states,types);
 			problems.add(problem);
 		}
 		return problems;
 	}
 	
-	private Problem model2Problem(ProblemModel pm, Employee employee, Phase phase, Review review,Project project,Map<String,Problemstate> states,Map<String,Problemtype> types)
+	private Problem model2Problem(ProblemModel pm, Employee employee, Phase phase, Review review,Comment comment,Project project,Map<String,Problemstate> states,Map<String,Problemtype> types)
 			throws NoSuchFieldException, SecurityException, NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		Field[] fields = pm.getClass().getDeclaredFields();
 		Problem problem = new Problem();
@@ -274,6 +281,7 @@ public class ProblemServiceImpl implements ProblemService{
 		problem.setEmployee(employee);
 		problem.setPhase(phase);
 		problem.setReview(review);
+		problem.setComment(comment);
 		problem.setProject(project);
 		return problem;
 	}
@@ -295,5 +303,17 @@ public class ProblemServiceImpl implements ProblemService{
 	@Override
 	public int getCountForUser(int phaseId,int reviewId, String employeeId, String projectId) {
 		return problemDao.getCountForUser(phaseId,reviewId, employeeId, projectId);
+	}
+
+	@Override
+	public List<Problem> getProblemsByCommentId(Params params, String commentId) {
+		
+		return problemDao.getProblemsByCommentId(params, commentId);
+	}
+
+	@Override
+	public int getProblemsCountByCommentId(Params params, String commentId) {
+		// TODO Auto-generated method stub
+		return problemDao.getProblemsCountByCommentId(params, commentId);
 	}
 }

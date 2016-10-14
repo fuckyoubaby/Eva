@@ -15,6 +15,7 @@
 		<link rel="stylesheet" type="text/css" href="<%=basePath %>/css/bootstrap.css"/>
 		<script src="<%=basePath %>/js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="<%=basePath %>/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+		<script src="<%=basePath %>/js/bootstrapValidator.min.js" type="text/javascript" charset="utf-8" ></script>
 		<style type="text/css">
 			.mg-b15{margin-bottom:15px}
 			.mg-b30{margin-bottom:30px}
@@ -28,7 +29,8 @@
 			.clear{clear:both;}
 			.form-border{border:1px solid #ccc;border-radius:5px;}
 			.form-title{width:100%;padding:10px 15px;font-size:16px;line-height: 1.1;background-color:#f5f5f5;border:1px solid transparent;border-bottom-color: #ddd;border-radius: 5px 5px 0 0;}
-			.form-content{padding:15px;}
+			.form-content{padding:15px 35px;}
+			.form-control-feedback {top:25px !important; right:-30px}
 		</style>
 	</head>
 	<body>
@@ -55,10 +57,14 @@
 									<div class="form-control-static"><%=project.getProjectState() %></div>
 								</div>
 							</c:if>
-							<!-- <div class="form-group">
-								<label class="control-label">评审</label>
-								<div class="form-control-static">电路评审</div>
-							</div> -->
+							<div class="form-group">
+								<label class="control-label">项目阶段</label>
+								<div class="form-control-static">${problem.phase.phaseName}</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">评审名称</label>
+								<div class="form-control-static">${problem.comment.name}</div>
+							</div>
 						</div>
 					</div>	
 				</div>
@@ -66,8 +72,7 @@
 				<div class="col-md-6">
 					<div class="form-border">
 						<div class="form-title">输入问题信息</div>
-						<form action="problemAction!update.action" class="form-content" method="post">
-							
+						<form id="mistake_update" action="<%=basePath %>/problemAction!update.action" class="form-content" method="post">
 							<div class="form-group">
 								<label class="control-label">名称</label>
 								<input type="text" name="problemName" value="${problem.problemName }" class="form-control"/>
@@ -87,40 +92,12 @@
 								</select>
 							</div>
 							<div class="form-group">
-								<label class="control-label">问题阶段</label>
-									<select name="phaseId" id="phaseId" class="form-control" onchange="selectReview();">
-										<option value="">请选择阶段</option>
-										<c:forEach items="${phases }" var="phase">
-											<option value="${phase.phaseId }" ${phase.phaseId == problem.phase.phaseId?'selected':'' }>${phase.phaseName }</option>
-										</c:forEach>
-										<!-- <option>设计阶段</option>
-										<option>样品阶段</option>
-										<option>交付阶段</option> -->
-									</select>
-							</div>
-							<div class="form-group">
-								<label class="control-label">评审阶段</label>
-								<%-- <select name="reviewId" id="reviewId" class="form-control">
-									 <option value="">请选择评审阶段</option>
-									<c:forEach items="${reviews }" var="review">
-										<option value="${review.reviewId }">${review.reviewName }</option>
-									</c:forEach>
-									<!-- <option value="工艺评审">工艺评审</option>
-									<option value="结构评审">结构评审</option>
-									<option value="电路评审">电路评审</option> -->
-								</select> --%>
-								<div class="form-control-static">设计评审</div>
-							</div>
-							<div class="form-group">
 								<label class="control-label">问题类型</label>
 								<select name="problemTypeId" id="questionType" class="form-control">
 									<option value="${problem.problemtype.typeId }">${problem.problemtype.typeName }</option>
 									<c:forEach items="${problemtypes }" var="problemType">
 										<option value="${problemType.typeId }">${problemType.typeName }</option>
 									</c:forEach>
-									<!-- <option value="工艺评审">工艺评审</option>
-									<option value="结构评审">结构评审</option>
-									<option value="电路评审">电路评审</option> -->
 								</select>
 							</div>
 							<div class="form-group">
@@ -130,34 +107,115 @@
 									<c:forEach items="${problemstates }" var="problemState">
 										<option value="${problemState.stateId }">${problemState.problemStateName }</option>
 									</c:forEach>
-									<!-- <option value="工艺评审">工艺评审</option>
-									<option value="结构评审">结构评审</option>
-									<option value="电路评审">电路评审</option> -->
 								</select>
 							</div>
 							<div class="form-group">
 								<label class="control-label">责任人</label>
-								<!-- <div class="form-control-static">需选择<a href="javascript:void(0);">（添加）</a></div> -->
 								<select name="employeeId" id="status" class="form-control">
 										<option value="${problem.employee.id }">${problem.employee.name }</option>
 										<c:forEach items="${employees}" var="employee">
 											<option value="${employee.id }">${employee.name }</option>
 										</c:forEach>
-										
-									</select>
+								</select>
 							</div>
 							<div class="form-group">
 								<label class="control-label">原因</label>
-								<textarea name="reason" id="reason" rows="3" class="form-control">${problem.explaintion }</textarea>
+								<textarea name="reason" id="reason" rows="3" class="form-control">${problem.explaintion}</textarea>
 							</div>
 							
 							<div class="form-group">
 								<input type="submit" class="btn btn-info" value="保存"/>
+								<a class="btn btn-info" href="<%=basePath %>/commentAction!getInfoById.action?id=${problem.comment.id}">取消</a>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript">
+		$(function(){
+			var feedbackIcons = {
+					feedbackIcons : {
+						valid: 'glyphicon glyphicon-ok',
+		                invalid: 'glyphicon glyphicon-remove',
+		                validating: 'glyphicon glyphicon-refresh'
+					}
+			};
+			var formOptions = {
+				fields:{
+					problemName : {
+						trigger:'blur',
+						validators : {
+							notEmpty : {
+								message: '请填写问题名称！'
+							},
+							stringLength: {
+			                        max: 30,
+			                        message: '请确保内容在30字内！'
+			                    }
+						}
+					},
+					problemContent:{
+						trigger:'blur',
+						validators : {
+							notEmpty : {
+								message: '请填写问题内容！'
+							},
+							stringLength: {
+			                        max: 120,
+			                        message: '请确保内容在120字内！'
+			                    }
+						}
+					},
+					problemLevel:{
+						trigger:'blur',
+						validators : {
+							notEmpty : {
+								message: '请选择问题级别！'
+							}
+						}
+					},
+					problemTypeId:{
+						trigger:'blur',
+						validators : {
+							notEmpty : {
+								message: '请选择问题类型！'
+							}
+						}
+					},
+					problemStateId:{
+						trigger:'blur',
+						validators : {
+							notEmpty : {
+								message: '请选择问题解决状态！'
+							}
+						}
+					},
+					employeeId:{
+						trigger:'blur',
+						validators : {
+							notEmpty : {
+								message: '请选择问题责任人！'
+							}
+						}
+					},
+					reason:{
+						trigger:'blur',
+						validators : {
+							callback:{
+								message:'原因内容限定在120字内！',
+								callback:function(value, validator){
+									if(!value) return true;
+									else return value.length<=120;
+								}
+							}
+						}
+					}
+				}
+			};
+			$.extend(formOptions, feedbackIcons);
+			$("#mistake_update").bootstrapValidator(formOptions);
+		});
+		</script>
 	</body>
 </html>

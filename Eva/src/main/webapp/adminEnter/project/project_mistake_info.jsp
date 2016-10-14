@@ -27,13 +27,22 @@
 			.main-more-process{width:98%;margin-left: 1%;margin-top:20px;}
 			.icon-padr{padding-right: 5px;}
 		</style>
+		<script type="text/javascript">
+			function deleteEntity(){
+				var url = '<%=basePath %>/problemAction!delete.action?problemId=${problem.problemId}';
+				var r = confirm('确认删除此问题?');
+				if(r){
+					window.location.href=url;
+				}
+			};
+		</script>
 	</head>
 	<body>
 		<div class="container">
 			<div class="page-header h3 bolder">${problem.problemName }</div>
 			<div class="row mg-b15">
 				<div class="col-md-1">阶段</div>
-				<div class="col-md-3">${problem.phase.phaseName }--${problem.review.reviewName }</div>
+				<div class="col-md-3">${problem.phase.phaseName }--设计评审【${problem.comment.name}】</div>
 			</div>
 			<div class="row mg-b30">
 				<div class="col-md-1">责任人</div>
@@ -50,9 +59,8 @@
 				<div class="col-md-7">
 					<p>${problem.problemContent }</p>
 					<c:if test="${not empty problem.imageurl}">
-						<img src="${basePath}/${problem.imageurl}" class="img-responsive" />
+						<img src="<%=basePath %>/${problem.imageurl}" class="img-responsive" />
 					</c:if>
-					
 				</div>
 			</div>
 			<div class="row mg-b15">
@@ -83,11 +91,12 @@
 			<div class="main-more-process">
 				<span class="help-text mg-b15"><a href="javasc:void(0);">更多操作>></a></span>
 				<div class="row mg-b15" style="padding-left:85px;">
-					<a href="problemAction!getProblemByIdForUpdate.action?problemId=${problem.problemId }" class="btn btn-info" ><i class="glyphicon glyphicon-edit icon-padr"></i>编辑问题</a>
-					<a href="problemAction!delete.action?problemId=${problem.problemId }"><button type="button" class="btn btn-info" style="margin-left:30px;"><i class="glyphicon glyphicon-trash icon-padr"></i>删除问题</button></a>
+					<a href="<%=basePath %>/problemAction!getProblemByIdForUpdate.action?problemId=${problem.problemId }" class="btn btn-info" ><i class="glyphicon glyphicon-edit icon-padr"></i>编辑问题</a>
+					<a href="javascript:void(0);" onclick="javascript:deleteEntity()"><button type="button" class="btn btn-info" style="margin-left:30px;"><i class="glyphicon glyphicon-trash icon-padr"></i>删除问题</button></a>
 				</div>
 			<!--end more process-->
 			</div>
 		</div>
+		
 	</body>
 </html>

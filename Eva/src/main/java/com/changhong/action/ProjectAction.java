@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.changhong.entities.Comment;
 import com.changhong.entities.Employee;
 import com.changhong.entities.Employeeprojectr;
 import com.changhong.entities.Exam;
@@ -31,6 +32,7 @@ import com.changhong.entities.Problemstate;
 import com.changhong.entities.Problemtype;
 import com.changhong.entities.Project;
 import com.changhong.entities.Review;
+import com.changhong.service.CommentService;
 import com.changhong.service.EmployeeProjectRService;
 import com.changhong.service.EmployeeService;
 import com.changhong.service.JobService;
@@ -84,6 +86,8 @@ public class ProjectAction {
 	private ProblemTypeService problemTypeService;
 	@Autowired
 	private JobService jobService;
+	@Autowired
+	private CommentService commentService;
 	
 	private String pageNo;
 	private String pageSize;
@@ -107,6 +111,10 @@ public class ProjectAction {
 	private Date endTime;
 	private String employeeList;
 	private String projectManager;
+	
+	
+	
+	private Comment comment;
 	
 	
 	private List<Employeeprojectr> employeeprojectrs;
@@ -611,16 +619,21 @@ public class ProjectAction {
 		ActionContext context = ActionContext.getContext();
 		Project p = (Project) context.getSession().get("project");
 		employees = employeeProjectRService.getEmployeeByProjectId(p.getProjectId());
-		//employees = employeeService.getAllEmployees();
+
+		/*
+		 * 加入设计评审（电路评审）后
 		phases = phaseService.getAll();
 		reviews = reviewService.getAllReview();
+		*/
+		String commentId = (String) context.getSession().get("commentId");
+		comment = commentService.getEntity(commentId);
 		problemstates = problemStateService.getList();
 		problemtypes = problemTypeService.getProblemtypes();
 		return "employeeForAddProblem";
 	}
 	
 	
-	//寮�彂鐢ㄦ埛绔敤鍒扮殑鏂规硶
+	
 	public String getPorjectByEmployeeId(){
 		
 		log.info("getprojectbYemployeeid");
@@ -652,5 +665,11 @@ public class ProjectAction {
 		phases = phaseService.getAll();
 		log.info("phases = "+phases.size());
 		return "projectForUser";
+	}
+	public Comment getComment() {
+		return comment;
+	}
+	public void setComment(Comment comment) {
+		this.comment = comment;
 	}
 }

@@ -42,12 +42,12 @@ public interface ProblemService {
 	 * @param lists 读取Excel文件解析的模板对象链表
 	 * @param createDate 评审创建日期
 	 * @param phaseId 项目流程Id
-	 * @param reviewId 项目评审Id
+	 * @param commandId 评审ID
 	 * @param employeeId 问题所属责任人
 	 * @param projectId 所属项目
 	 * @return
 	 */
-	public BatchResultTemplate saveTemplates(List<ProblemModel> lists, Date createDate, int phaseId, int reviewId, String employeeId,String projectId);
+	public BatchResultTemplate saveTemplates(List<ProblemModel> lists, Date createDate, int phaseId, String commentId, String employeeId,String projectId);
 	
 	/**
 	 * 批量添加
@@ -59,7 +59,7 @@ public interface ProblemService {
 	 * @param project 所属项目
 	 * @return
 	 */
-	public BatchResultTemplate saveTemplates(List<ProblemModel> lists, Date createDate, int phaseId, int reviewId, String employeeId,Project project);
+	public BatchResultTemplate saveTemplates(List<ProblemModel> lists, Date createDate, int phaseId, String commentId, String employeeId,Project project);
 	
 	
 	public List<Problem> getProblemsByPageAndReviewForUser(int offset,int length,int reviewId, String employeeId, String projectId);
@@ -67,4 +67,18 @@ public interface ProblemService {
 	
 	public List<Problem> getProblemsByPageAndReviewForUser(int offset,int length,int phaseId,int reviewId, String employeeId, String projectId);
 	public int getCountForUser(int phaseId, int reviewId, String employeeId, String projectId);
+	
+	/**
+	 * 通过评审ID获取问题列表
+	 * @param commentId
+	 * @return
+	 */
+	public List<Problem> getProblemsByCommentId(Params params, String commentId);
+	
+	/**
+	 * 通过评审ID获取问题数量
+	 * @param commentId
+	 * @return
+	 */
+	public int getProblemsCountByCommentId(Params params, String commentId);
 }

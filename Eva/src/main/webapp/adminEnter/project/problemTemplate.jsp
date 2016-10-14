@@ -12,10 +12,10 @@
 		<td>${problem.problemstate.problemStateName}</td>
 		<td>${problem.problemtype.typeName}</td>
 		<td>
-		<fmt:formatDate value="${problem.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+		<fmt:formatDate value="${problem.createTime}" pattern="yyyy-MM-dd"/>
 		</td>
 		<td>${problem.employee.name}</td>
-		<td><a href="problemAction!getProblemById.action?problemId=${problem.problemId }" >查看</a></td>
+		<td><a href="problemAction!getProblemById.action?problemId=${problem.problemId}" >查看</a></td>
 		
 		<%-- <td><a href="projectAction!getProjectById.action?projectId=${project.projectId }">查看</a></td> --%>
 	</tr>
