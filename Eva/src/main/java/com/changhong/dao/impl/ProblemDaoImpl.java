@@ -1,9 +1,12 @@
 package com.changhong.dao.impl;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -316,5 +319,69 @@ public class ProblemDaoImpl extends BaseDaoImpl<Problem> implements ProblemDao{
 				query.setParameter("phaseId", phaseId);
 			}
 			return query.list().size();
+		}
+
+		@Override
+		public void deleteByCommentId(String commentId) {
+
+			String hql ="delete from Problem as model where model.comment.id=:commentId ";
+			Query query = getSession().createQuery(hql);
+			query.setParameter("commentId", commentId);
+			query.executeUpdate();
+		}
+
+		@Override
+		public List<Problem> getProblemsByCommentId(Params params,
+				String commentId) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("from Problem as model where 1=1 and model.comment.id=:commentId ");
+			if(StringUtils.isNotBlank(params.getOrderName())){
+				sb.append(" order by model."+params.getOrderName());
+				if(StringUtils.isNotBlank(params.getOrderType())){
+					sb.append(" "+params.getOrderType());
+				}
+			}
+			
+			Query query = getSession().createQuery(sb.toString());
+			query.setParameter("commentId", commentId);
+			
+			query.setFirstResult(params.getPageNo());
+			query.setMaxResults(params.getPageSize());
+			return query.list();
+		}
+
+		@Override
+		public int getProblemsCountByCommentId(Params params, String commentId) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("select count(model.problemId) from Problem as model where 1=1 and model.comment.id=:commentId ");
+			
+			Query query = getSession().createQuery(sb.toString());
+			query.setParameter("commentId", commentId);
+			return ((Long)query.uniqueResult()).intValue();
+		}
+
+		@Override
+		public int getCommentAmountByTime( Date startTime,
+				Date endTime) {
+			String sql ="select count(commentId) from problem where commentId!='' and createTime>=? and createTime<=? and problemBelong=? group by commentId ";
+			SQLQuery query = getSession().createSQLQuery(sql);
+			query.setDate(0, startTime);
+			query.setDate(1, endTime);
+			Object result = query.uniqueResult();
+			int value = result==null?0:((BigInteger)result).intValue();
+			return value;
+		}
+
+		@Override
+		public int getCommentAmountByEmployeeId(String employeeId,
+				Date startTime, Date endTime) {
+			String sql ="select count(commentId) from problem where commentId!='' and createTime>=? and createTime<=? and problemBelong=? group by commentId ";
+			SQLQuery query = getSession().createSQLQuery(sql);
+			query.setDate(0, startTime);
+			query.setDate(1, endTime);
+			query.setString(2, employeeId);
+			Object result = query.uniqueResult();
+			int value = result==null?0:((BigInteger)result).intValue();
+			return value;
 		}
 }

@@ -27,6 +27,7 @@ public class Problem implements java.io.Serializable {
 	private Project project;
 	private Problemstate problemstate;
 	private Phase phase;
+	private Comment comment;
 	private Problemtype problemtype;
 	private String problemName;
 	private String problemContent;
@@ -44,7 +45,7 @@ public class Problem implements java.io.Serializable {
 
 	/** full constructor */
 	public Problem(Employee employee, Review review, Project project,
-			Problemstate problemstate, Phase phase, Problemtype problemtype,
+			Problemstate problemstate, Phase phase, Comment comment, Problemtype problemtype,
 			String problemName, String problemContent, String problemLevel,
 			String problemLoction, String explaintion, String imageurl,
 			Date createTime) {
@@ -53,6 +54,7 @@ public class Problem implements java.io.Serializable {
 		this.project = project;
 		this.problemstate = problemstate;
 		this.phase = phase;
+		this.comment = comment;
 		this.problemtype = problemtype;
 		this.problemName = problemName;
 		this.problemContent = problemContent;
@@ -123,6 +125,16 @@ public class Problem implements java.io.Serializable {
 
 	public void setPhase(Phase phase) {
 		this.phase = phase;
+	}
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "commentId")
+	public Comment getComment() {
+		return comment;
+	}
+
+	public void setComment(Comment comment) {
+		this.comment = comment;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)

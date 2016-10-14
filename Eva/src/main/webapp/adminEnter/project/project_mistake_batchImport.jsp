@@ -35,7 +35,17 @@
 		<div class="container">
 			<h3 class="bolder mg-b20">${project.projectName}评审问题批量录入</h3>
 			<div class="hr mg-b15"></div>
-			<div class="mg-b15">要导入的评审：${param.phaseName} / ${param.reviewName}
+			<div class="mg-b15">要导入的评审：
+			<%
+   				String value1=request.getParameter("phaseName");
+   				value1= java.net.URLDecoder.decode(value1);
+   				out.print(value1);
+			%> / 设计评审
+			<%
+	   			String value=request.getParameter("reviewName");
+	   			value= java.net.URLDecoder.decode(value);
+	   			out.print("【"+value+"】");
+			%>
 			</div>
 			<div class="hr mg-b15"></div>	
 			<div class="wu-example mg-b15" id="uploader">
@@ -76,16 +86,6 @@
 							</tr>
 						</tbody>
 					</table>
-					<!-- <form class="form-horizontal" role="form">	
-						<div class="form-group"> 
-							<label class="control-label" for="employeeId">选择问题责任人</label>
-							<div class="col-offset-sm-1 col-sm-2">
-								<select name="employeeId" class="form-control" id="employeeId">
-									<option value="-1">请选择</option>
-								</select>
-							</div>
-						</div>
-					</form>	 -->
 					<div class="hr mg-b15"></div>
 					<div class="form-inline mg-b15"> 
 						<label for="employeeId">选择问题责任人</label>
@@ -94,7 +94,8 @@
 						</select>
 					</div>
 					<div class="menu-lists">
-						<button type="button" id="import-btn" class="btn btn-info" onclick="importFile()">批量添加</button>
+						<button type="button" id="import-btn" class="btn btn-info" onclick="importFile()">添加</button>
+						<a type="button" class="btn btn-info" href="${basePath}/commentAction!getInfoById.action?id=${commentId}">返回</a>
 					</div>
 				</div>
 			</div>	
@@ -104,8 +105,7 @@
 		        $list = $('#thelist'),
 		        $btn = $('#ctlBtn'),
 		        state = 'pending',
-		        phaseId='${param.phaseId}',
-		        reviewId='${param.reviewId}',
+		        phaseId='${param.phaseId}'*1,
 		        uploader;
 			 //   var examId=${param.examId};
 		
@@ -282,7 +282,7 @@
 			    	var $btn = $("#import-btn");
 			    	$btn.attr("disabled","disabled");
 			    	$btn.text("处理中..."); 
-			    	var datas ={importFileName:importFileName,phaseId:phaseId,reviewId:reviewId,employeeId:employeeId};
+			    	var datas ={importFileName:importFileName,phaseId:phaseId,employeeId:employeeId};
 			    	loadData(importFileUrl,datas,function(data){
 			    		var json;
 			    		if(!data.result){
@@ -290,7 +290,7 @@
 			    		}else json = data;
 			    		printJSON(json);
 			    		alert(json.msg);
-			    		$("#import-btn").removeAttr("disabled").text("批量添加");
+			    		$("#import-btn").removeAttr("disabled").text("继续添加");
 			    	});
 			    };
 			    $(function(){

@@ -5,14 +5,12 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>管理员项目-过程详情/项目评审</title>
+		<title>管理员项目-过程详情</title>
 		<link rel="stylesheet" type="text/css" href="${basePath}/css/bootstrap.css"/>
 		<link rel="stylesheet" type="text/css" href="${basePath}/css/tz_page.css"/>
 		<script src="${basePath}/js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${basePath}/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${basePath}/js/tz_page.js" type="text/javascript" charset="utf-8"></script>
-		<link href="<%=basePath%>/css/loading.css" rel="stylesheet" type="text/css" />
-		<link href="<%=basePath%>/css/animate.css" rel="stylesheet" type="text/css" />
 		<style type="text/css">
 			a{text-decoration: none;outline: none;}
 			a:hover{text-decoration: none;}
@@ -53,15 +51,6 @@
 			.main-table .r_table table thead tr{background-color:#EEE;}
 			.main-table .r_table table tbody tr td:first-child{text-overflow:ellipsis;white-space:nowrap;max-width:110px;overflow:hidden;}
 			.word-press{text-overflow:ellipsis;white-space:nowrap;max-width:110px;overflow:hidden;}
-			.r_table tbody tr td.t_td{width:90px;}
-			.r_table tbody tr td.t_td .t_action{width:74px;margin:0 auto;display:none;}
-			.r_table tbody tr td.t_td:hover .t_action{display:block;}
-			.r_table tbody tr td.t_td a{color:#fff;margin:-5px 0;padding:5px;text-decoration:none;}
-			.r_table tbody tr td.t_td a:hover{background:#2f3437;}
-			.a_see{ background-color:#6297bc;}
-			.a_edit{background-color:#28b779}
-			.a_delete{background-color:#ff912f}
-			
 			/*end main table*/
 			
 			/*start more process*/
@@ -81,21 +70,13 @@
 			.r_table table th i.icon-hidden{visibility:hidden;padding-left:5px;}
 			.r_table table th:hover i.icon-hidden{visibility: visible;}
 		</style>
-		<script type="text/javascript" src="${basePath}/js/loading_upgrade.js"></script>
-		<script type="text/javascript">
-			this.myLoading=function(data){
-				var load = new loading(data);
-				load.init();
-			};
-		</script>
 	</head>
 	<body>
-	<% Project project = (Project)session.getAttribute("project"); %>
 		<div class="container">
-			<div class="page-header h3 mg-b30"><a href="${basePath}/projectAction!getProjectById.action?projectId=${project.projectId}"><%=project.getProjectName() %></a></div>
+			<div class="page-header h3 mg-b30"><a href="${basePath}/projectAction!getProjectById.action?projectId=${project.projectId}">${project.projectName}</a></div>
 			<div class="row mg-b15">
 				<div class="col-md-2">编号</div>
-				<div class="col-md-4"><%=project.getProjectId() %></div>
+				<div class="col-md-4">${project.projectId}</div>
 			</div>
 			<div class="row mg-b30">
 				<div class="col-md-2">阶段</div>
@@ -104,55 +85,34 @@
 			<div class="row hr mg-b30"></div>
 			<div class="h4 ">项目评审展示</div>
 			<span class="help-text mg-b30">点击查看评审阶段问题</span>
-		<div id="crumbs" class="row mg-b15" data-indexno='${indexNo}'>
+			<div id="crumbs" class="row mg-b15" data-indexno='${indexNo}'>
 				<ul>
-					<c:forEach items="${reviews }" var="review" varStatus="status">
+					<c:forEach items="${reviews}" var="review" varStatus="status">
 						<li data-review="${review.reviewId}" ${(review.reviewId==indexNo)?'class="actived"':''}>
 							<a onclick="reviewToggle(this)" >${review.reviewName }</a>
 						</li>
-						<%-- <c:choose>
-   							<c:when test="${review.priority<project.review.priority}">  
-               					<li class="todo"><a onclick="getByPhase(${review.reviewId});">${review.reviewName }</a></li>
-						   </c:when>
-						   <c:when test="${review.priority==project.review.priority}">  
-               					<li class="doing"><a onclick="getByPhase(${review.reviewId});">${review.reviewName }</a></li>
-						   </c:when>
-						   <c:otherwise> 
-						  	 <li class="todo"><a href="javascript:volid(0);">${phase.phaseName }</a></li>
-   						   </c:otherwise>
-						</c:choose> --%>
 					</c:forEach>
 				</ul>
 				<div class="clear"></div>
-				<!-- <div class="r_cofig_process"><a href="project_evaluation_config.html">配置项目评审</a></div> -->
+				
 			</div>
 			<div class="main-table">
 				<div class="r_title">
 					<i class="glyphicon glyphicon-calendar icon-btton"></i>
-					<span class="table-title">项目评审数据展示</span>
+					<span class="table-title">设计评审展示</span>
 				</div>
 				<!--start the table info area-->
 				<div class="r_table">
 					<table class="table">
 						<thead><tr>
-							<th>设计规定</th>
-							<th>流程规定</th>
-							<th>工作计划差</th>
-							<th>沟通低效</th>
-							<th>工作积极性</th>
-							<th>扣分说明</th>
-							<th class="p-hover" data-colname='createTime'>创建时间<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
-							<th>责任人</th>
+							<th class="p-hover" data-colname='name'>评审名称<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
+							<th class="p-hover" data-colname='date'>评审日期<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
 							<th>操作</th>
 						</tr></thead>
 						<tbody id="tbody">
-								<tr>
-									<td colspan="9" style="padding:100px;">
-										<div class="empty" style="text-align: center;font-size: 18px;line-height: 25px;">
-											<img src="<%=basePath%>images/loading.gif" width="25" height="25" style="vertical-align: text-top;margin-right: 5px;" />正在加载数据....
-										</div>
-									</td>
-								</tr>
+							<tr><td colspan="3" style="padding:100px;">
+					  			<div class="empty" style="text-align: center;font-size: 18px;line-height: 25px;"><img src="<%=basePath%>/images/loading.gif" width="25" height="25" style="vertical-align: text-top;margin-right: 5px;" />正在加载数据....</div>
+					  		</td></tr>
 						</tbody>
 					</table>
 					<div class="page"></div>
@@ -165,17 +125,15 @@
 			<div class="main-more-process">
 				<span class="help-text mg-b15"><a href="javasc:void(0);">更多操作>></a></span>
 				<div class="row mg-b30" style="padding-left:85px;">
-					<a href="projectReviewAction!addProblem.action?phaseId=${phase.phaseId}" class="btn btn-info" ><i class="glyphicon glyphicon-plus icon-padr"></i>添加新问题</a>
-					<a href="javascript:void(0);" onclick="importProblem();" class="btn btn-info" style="margin-left:30px;"><i class="glyphicon glyphicon-export icon-padr"></i>批量导入问题</a>
+					<a href="${basePath}/commentAction!addNewComment.action" class="btn btn-info" ><i class="glyphicon glyphicon-plus icon-padr"></i>添加新评审</a>
 				</div>
 			<!--end more process-->
 			</div>
 		
 		</div>
 	<script type="text/javascript">
-		var index =   $("#crumbs").data("indexno")*1;
+		var index = $("#crumbs").data("indexno")*1;
 		var reviewId;
-		var phaseId = '${phaseId}'*1;
 		var chUser = {
 		 orderby:function(orders){
 				chUser.orders = orders;
@@ -190,15 +148,14 @@
 				},
 			//模板技术查询分页===减少页面的拼接
 			load:function(pno,psize,callback){
-				//var pid = $("#province").val();
-				var params = {pageNo:pno,pageSize:psize,phaseId:phaseId};
+				var params = {pageNo:pno,pageSize:psize};
 				if(chUser.orders){$.extend(params,chUser.orders);}
 				//第二种方式,load原理代码
 				$.ajax({
-					type:'post',
+					type:"post",
 					data:params,
 					//配置请求地址，返回结果是jsp模板页面
-					url:'${basePath}/projectReviewAction!getPRItemsByPhaseId.action',
+					url:'${basePath}/commentAction!getCommentsByProjectAndPhase.action',
 					success:function(data){
 						$("#tbody").html(data);
 						if(callback){
@@ -226,12 +183,12 @@
 		function initLoading(){
 			var $crumb = $("#crumbs");
 			var $li_first = $crumb.find("ul li:first");
-			console.log("indexNo--"+index);
 			if(index==0){
 				$li_first.addClass("actived");
 			}
 			reviewId=$li_first.data("review");
 		};
+
 		//初始化的时候
 		initLoading();
 		chUser.load(0,5,function(itemcount){
@@ -252,6 +209,7 @@
 			}else{
 				if(targetIndex!=index){
 					window.location.href=url+targetIndex;
+					return;
 				}					
 			}
 		};
@@ -261,17 +219,9 @@
 			var phaseId="${phase.phaseId}";
 			var phaseName="${phase.phaseName}";
 			var paramValue="phaseId="+phaseId+"&phaseName="+phaseName+"&reviewId="+reviewId+"&reviewName="+reviewName;
-			var uri = "${basePath}/adminEnter/project/projectReview_mistake_batchImport.jsp?"+paramValue;
+			var uri = "${basePath}/adminEnter/project/project_mistake_batchImport.jsp?"+paramValue;
+			//uri = encodeURI(uri);
 			window.location.href=uri;
-		};
-		
-		function deleteProRew(obj){
-			var hrefUrl = $(obj).data("purl");
-			console.log(hrefUrl);
-			var r = confirm("确认删除此记录？");
-			if(r){
-				window.location.href=hrefUrl;
-			}
 		};
 		
 		$(function(){
@@ -279,12 +229,15 @@
 				var orderName = $(this).data("colname"),
 				ordertype = $(this).data("ordertype"),
 				opts={};
+				//alert(orderName);
 				if(ordertype){ordertype=(ordertype=='asc')?'desc':'asc';}
 				else{ordertype='desc';}
 				$(this).data("ordertype",ordertype);
+				console.log(ordertype);
 				if(!orderName) return;
 				if(orderName){opts.orderName=orderName;}
 				if(ordertype){opts.orderType=ordertype;}
+				console.log(orderName);
 				chUser.orderby(opts);
 			});
 		});

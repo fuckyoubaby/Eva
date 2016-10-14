@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSONWriter.Context;
+import com.changhong.entities.Comment;
 import com.changhong.entities.Employee;
 import com.changhong.entities.Phase;
 import com.changhong.entities.Problem;
@@ -19,6 +20,7 @@ import com.changhong.entities.Problemstate;
 import com.changhong.entities.Problemtype;
 import com.changhong.entities.Project;
 import com.changhong.entities.Review;
+import com.changhong.service.CommentService;
 import com.changhong.service.EmployeeProjectRService;
 import com.changhong.service.EmployeeService;
 import com.changhong.service.PhaseService;
@@ -34,17 +36,20 @@ import com.opensymphony.xwork2.ActionContext;
 @Action("problemAction")
 @Results(
 		{
-			
-			@Result(name="reviews",location="/adminEnter/project/project_process_info.jsp"),
-			@Result(name="reviews1",location="/adminEnter/project/project_process_info.jsp"),
+//			@Result(name="reviews",location="/adminEnter/project/project_process_info.jsp"),
+//			@Result(name="reviews1",location="/adminEnter/project/project_process_info.jsp"),
+			@Result(name="reviews",location="/adminEnter/project/project_process_comments_index.jsp"),
+			@Result(name="reviews1",location="/adminEnter/project/project_process_comments_index.jsp"),
 			@Result(name="reviews2",location="/adminEnter/project/project_process_preview_info.jsp"),
 			
 			@Result(name="problemReview",location="/adminEnter/project/problemTemplate.jsp"),
-			
+			/*comment_info.jsp ajax 查询返回的页面*/
+			@Result(name="problemsTemplate", location="/adminEnter/project/problemTemplate.jsp"),
 			@Result(name="problem",location="/adminEnter/project/project_mistake_info.jsp"),
 			
-			@Result(name="update",location="/adminEnter/project/project_index.jsp"),
-			@Result(name="delete",location="/adminEnter/project/project_index.jsp"),
+			@Result(name="redirectProblem",type="redirectAction",params={
+					"actionName","/commentAction!getInfoById.action",
+					"id","${id}" }),
 			@Result(name="save",location="/adminEnter/project/project_index.jsp"),
 			@Result(name="problemForUpdate",location="/adminEnter/project/project_mistake_update.jsp"),
 			
@@ -55,10 +60,7 @@ import com.opensymphony.xwork2.ActionContext;
 			@Result(name="reviewsForUser1",location="/userEnter/project/project_process_info.jsp"),
 			@Result(name="reviewsForUser2",location="/userEnter/project/project_process_preview_info.jsp"),
 			@Result(name="problemForUser",location="/userEnter/project/project_mistake_info.jsp"),
-			
-			@Result(name="redirectProblem",type="redirectAction",
-				params={"actionName","problemAction!getReviewByPhaseId",
-					"phaseId","${phaseId}","message","${message}"}),
+
 		}
 		)
 public class ProblemAction {
@@ -81,6 +83,10 @@ public class ProblemAction {
 	
 	@Autowired
 	private ProjectService projectService;
+	
+	@Autowired
+	private CommentService commentService;
+	
 	
 	private String phaseId;
 	/**
@@ -127,6 +133,8 @@ public class ProblemAction {
 	private String projectId;
 	private Review reviewbyId;
 	private Project project;
+	
+	private String id;
 	
 	public Project getProject() {
 		return project;
@@ -242,6 +250,14 @@ public class ProblemAction {
 
 	public String getProblemContent() {
 		return problemContent;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public void setProblemContent(String problemContent) {
@@ -363,7 +379,7 @@ public class ProblemAction {
 		//log.info("reviews size = "+reviews.size());
 		//log.info("indexNo=="+indexNo);
 		String result = "reviews";
-		System.out.println("索引号admin projectInfo indexNo="+indexNo);
+		log.info("索引号admin projectInfo indexNo="+indexNo);
 		if(indexNo!=0){                //完全没用
 			int endIndex = indexNo%2==0?2:1;
 			result+=endIndex;
@@ -378,15 +394,6 @@ public class ProblemAction {
 	
 	public String getProblemsByReview()
 	{
-		/*if (reviewId<=0) {
-			ActionContext context = ActionContext.getContext();
-			keyword = (String) context.getSession().get("phaseId");
-			problems = problemService.getProblems(pageNo, pageSize, keyword);
-			itemcount = problemService.getCountByPhase(keyword);
-		}else {
-			problems = problemService.getProblemsByReviewId(pageNo, pageSize, reviewId);
-			itemcount = problemService.getCountByReview(reviewId);
-		}*/
 		log.info("reviewId = "+reviewId);
 		ActionContext context = ActionContext.getContext();
 		String phaseId =  (String) context.getSession().get("phaseId");
@@ -396,6 +403,17 @@ public class ProblemAction {
 		itemcount = problemService.getCountByReviewForProject(params, project.getProjectId(), reviewId, Integer.parseInt(phaseId));
 		log.info("itemcount = "+itemcount+"problems.size = "+problems.size());
 		return "problemReview";
+	}
+	public String getProblemsByComment()
+	{
+		ActionContext context = ActionContext.getContext();
+		Params params = new Params(0, pageNo, pageSize, keyword, orderName, orderType);
+		String commentId = (String) context.getSession().get("commentId");
+		
+		problems = problemService.getProblemsByCommentId(params, commentId);
+		itemcount = problemService.getProblemsCountByCommentId(params, commentId);
+		
+		return "problemsTemplate";
 	}
 	
 	public String getProblemById(){
@@ -408,23 +426,15 @@ public class ProblemAction {
 	{
 		ActionContext context = ActionContext.getContext();
 		problem = (Problem) context.getSession().get("problem");
-		Project project = (Project)context.getSession().get("project");
 		
 		Employee employee = employeeService.getEmployee(employeeId);
-		Phase phase = phaseService.getPhase(Integer.parseInt(phaseId));
 		Problemtype problemtype = problemTypeService.getProblemtype(problemTypeId);
 		Problemstate problemstate = problemStateService.getProblemstateById(problemStateId);
 		
 		if(employee!=null){
 			problem.setEmployee(employee);
 		}
-		if(phase!=null){
-			if(phase.getPhaseId().intValue()!=problem.getPhase().getPhaseId().intValue()){
-				Review review = reviewService.getReviewByNameAndPhase(phase.getPhaseId(), "设计评审");
-				problem.setPhase(phase);
-				problem.setReview(review);
-			}
-		}
+
 		if(StringUtils.isNotBlank(problemContent)){
 			problem.setProblemContent(problemContent);
 		}
@@ -443,11 +453,9 @@ public class ProblemAction {
 		if(problemtype!=null){
 			problem.setProblemtype(problemtype);
 		}
-		if(project!=null){
-			problem.setProject(project);
-		}
-		
 		problemService.update(problem);
+		context.getSession().put("problem",problem);
+		setId(problem.getComment().getId());
 		
 		return "update";
 	}
@@ -455,37 +463,36 @@ public class ProblemAction {
 	{
 		ActionContext context = ActionContext.getContext();
 		problem = (Problem) context.getSession().get("problem");
-		setPhaseId(problem.getPhase().getPhaseId()+"");
+		String commentId  = (String)context.getSession().get("commentId");
+		setId(commentId);
 		problemService.delete(problem);
 		return "redirectProblem";
 	}
 	public String save()
 	{
 		Project project = (Project) ActionContext.getContext().getSession().get("project");
+		String commenId = (String) ActionContext.getContext().getSession().get("commentId");
 		Problem problem = new Problem();
 		if(StringUtils.isBlank(employeeId) || StringUtils.isBlank(problemName) || StringUtils.isBlank(problemLevel)
-				|| StringUtils.isBlank(phaseId) ){
+				|| StringUtils.isBlank(commenId)){
 			return "save";
 		}
-		
+		setId(commenId);
 		Employee employee = employeeService.getEmployee(employeeId);
 		if(employee==null){
-			return "save";
-		}
-		Phase phase = phaseService.getPhase(Integer.parseInt(phaseId));
-		Review review = reviewService.getReviewByNameAndPhase(Integer.parseInt(phaseId), "设计评审");
-		if(phase==null || review ==null){
-			return "save";
+			return "redirectProblem";
 		}
 		
 		Problemtype problemtype = problemTypeService.getProblemtype(problemTypeId);
 		Problemstate problemstate = problemStateService.getProblemstateById(problemStateId);
 		if(problemtype==null || problemstate == null){
-			return "save";
+			return "redirectProblem";
 		}
 		
 		//Date date = new Date();
 		
+		Comment c = commentService.getEntity(commenId);
+		Phase p = c.getPhase();
 		problem.setCreateTime(prdate);
 		problem.setProblemContent(problemContent);
 		problem.setProblemName(problemName);
@@ -493,13 +500,16 @@ public class ProblemAction {
 		problem.setProblemLevel(problemLevel);
 		problem.setProblemstate(problemstate);
 		problem.setProblemtype(problemtype);
+		
 		problem.setEmployee(employee);
 		problem.setProject(project);
 		
-		problem.setPhase(phase);
-		problem.setReview(review);
+		problem.setPhase(p);
+		problem.setReview(null);
+		problem.setComment(c);
 		
 		problemService.add(problem);
+		setPhaseId(c.getPhase().getPhaseId()+"");
 		return "redirectProblem";
 	}
 	public String getProblemByIdForUser(){
@@ -545,13 +555,13 @@ public class ProblemAction {
 		String employeeId = (String) context.getSession().get("employeeId");
 		String pProjectId =(String)context.getSession().get("projectId");
 		String phaseIduser = context.getSession().get("phaseId").toString();     
-		System.out.println("employeeId="+employeeId);
-		System.out.println("pProjectId="+pProjectId);
-		System.out.println("phaseIduser="+phaseIduser);
-		System.out.println("reviewId="+reviewId);
+		log.info("employeeId="+employeeId);
+		log.info("pProjectId="+pProjectId);
+		log.info("phaseIduser="+phaseIduser);
+		log.info("reviewId="+reviewId);
 		problems = problemService.getProblemsByPageAndReviewForUser(pageNo, pageSize,Integer.parseInt(phaseIduser), reviewId, employeeId, pProjectId);
 		itemcount = problemService.getCountForUser(Integer.parseInt(phaseIduser),reviewId, employeeId, pProjectId);     //差阶段Id
-		System.out.println("itemcount="+itemcount);
+		log.info("itemcount="+itemcount);
 		return "problemReviewForUser";
 	}
 

@@ -441,7 +441,6 @@ public class FileProcessAction extends ActionSupport{
 	public String designProblemImport(){
 		log.info("itemName="+itemName);
 		log.info("phaseId="+phaseId);
-		log.info("reviewId="+reviewId);
 		log.info("employeeId="+employeeId);
 		//log.info("projectId"+projectId);
 		log.info("importFileName="+importFileName);
@@ -455,6 +454,7 @@ public class FileProcessAction extends ActionSupport{
 		}
 		
 		Employee admin =  (Employee) ActionContext.getContext().getSession().get(FinalConstant.SESSION_LOGINER);
+		String commentId = (String) ActionContext.getContext().getSession().get("commentId");
 		String cUser  = (admin==null)?"anyone":admin.getId();
 		String currentDirectory = ServletActionContext.getServletContext().getRealPath(FinalConstant.UPLOAD_PATH);
 		currentDirectory=currentDirectory+"\\"+itemName+"\\"+cUser;
@@ -474,7 +474,7 @@ public class FileProcessAction extends ActionSupport{
 			return "success";
 		}
 		Project project = (Project) ActionContext.getContext().getSession().get(FinalConstant.SESSION_CURRENT_PROJECT);
-		BatchResultTemplate brt = problemServiceImpl.saveTemplates(lists, createDate, phaseId, reviewId, employeeId, project);
+		BatchResultTemplate brt = problemServiceImpl.saveTemplates(lists, createDate, phaseId,commentId, employeeId, project);
 		
 		obj.put(FinalConstant.JSON_RESULT, FinalConstant.RESULT_SUCCESS);
 		obj.put(FinalConstant.JSON_MSG, "添加"+brt.getImportRecodes()+"条数据，重复数据:"+brt.getRepeatRecodes()+
