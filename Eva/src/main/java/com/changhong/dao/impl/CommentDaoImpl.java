@@ -1,6 +1,7 @@
 package com.changhong.dao.impl;
 
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -94,6 +95,15 @@ public class CommentDaoImpl extends BaseDaoImpl<Comment> implements CommentDao {
 		}
 
 		return ((Long)query.uniqueResult()).intValue();
+	}
+
+	@Override
+	public int getCountByDate(Date startDate, Date endDate) {
+		String hql = "from Comment where date>=? and date<=?";
+		Query query = getSession().createQuery(hql);
+		query.setParameter(0, startDate);
+		query.setParameter(1, endDate);
+		return query.list().size();
 	}
 	
 	

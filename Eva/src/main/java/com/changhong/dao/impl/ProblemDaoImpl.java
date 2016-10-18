@@ -375,13 +375,16 @@ public class ProblemDaoImpl extends BaseDaoImpl<Problem> implements ProblemDao{
 		@Override
 		public int getCommentAmountByEmployeeId(String employeeId,
 				Date startTime, Date endTime) {
-			String sql ="select count(commentId) from problem where commentId!='' and createTime>=? and createTime<=? and problemBelong=? group by commentId ";
+			String sql ="select count(distinct commentId) from problem where commentId!='' and createTime>=? and createTime<=? and problemBelong=? group by commentId";
 			SQLQuery query = getSession().createSQLQuery(sql);
 			query.setDate(0, startTime);
 			query.setDate(1, endTime);
 			query.setString(2, employeeId);
 			Object result = query.uniqueResult();
 			int value = result==null?0:((BigInteger)result).intValue();
+			
 			return value;
 		}
+
+		
 }

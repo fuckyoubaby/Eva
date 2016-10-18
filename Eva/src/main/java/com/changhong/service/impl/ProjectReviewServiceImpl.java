@@ -304,4 +304,11 @@ public class ProjectReviewServiceImpl implements ProjectReviewService{
 			int phaseId, String employeeId) {
 		return projectReviewDao.getAmountByProjectIdForPageForUser(projectId, phaseId, employeeId);
 	}
+
+	@Override
+	public int getCountByEmployeeIdAndDate(String employee, Date startDate,
+			Date endDate) {
+		// TODO Auto-generated method stub
+		return projectReviewDao.getCountByDateAndEmployee(employee, startDate, endDate);
+	}
 }

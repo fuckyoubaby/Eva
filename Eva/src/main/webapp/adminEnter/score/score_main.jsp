@@ -320,7 +320,7 @@ $(function() {
 
 goutongguanli = {
     title : {
-        text: '员工自我成长分数和总平均值',
+        text: '员工沟通管理分数和总平均值',
         subtext: ''
     },
     tooltip : {
@@ -373,7 +373,7 @@ $(function() {
 
 ziwochengzhang = {
     title : {
-        text: '员工沟通管理分数和总平均值',
+        text: '员工自我成长分数和总平均值',
         subtext: ''
     },
     tooltip : {
@@ -420,8 +420,8 @@ ziwochengzhang = {
 $(function() {
            /*  option.series[0].data[0].value=[12,32,34,53,53,65];  // 加载数据到data中
             option.series[0].data[0].name ='ESOP系统'; */
-            var zhuanyeChart = echarts.init(document.getElementById('ziwochengzhang'));  
-            zhuanyeChart.setOption(ziwochengzhang, true);   //为echarts对象加载数据
+            var ziwochengzhangChart = echarts.init(document.getElementById('ziwochengzhang'));  
+            ziwochengzhangChart.setOption(ziwochengzhang, true);   //为echarts对象加载数据
         });
         
         
@@ -612,7 +612,7 @@ $(function() {
 	<div id="zhuanyejishu" style="width: 400px; height: 400px; float: left; margin: 50px auto;"></div>
 	<div id="hegui" style="width: 400px; height: 400px; float: right; margin: 50px auto;"></div>
 </div>
-<div style="width:1000px; height:400px;margin: 50px auto;">
+<div style="width:1000px; height:600px;margin: 50px auto;">
 	<div id="goutongguanli" style="width: 400px; height: 400px; float: left; margin: 50px auto;"></div>
 	<div id="ziwochengzhang" style="width: 400px; height: 400px; float: right; margin: 50px auto;"></div>
 </div>

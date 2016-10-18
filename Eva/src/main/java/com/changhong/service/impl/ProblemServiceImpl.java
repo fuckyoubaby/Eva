@@ -316,4 +316,13 @@ public class ProblemServiceImpl implements ProblemService{
 		// TODO Auto-generated method stub
 		return problemDao.getProblemsCountByCommentId(params, commentId);
 	}
+
+	@Override
+	public int getCountByCommentIdAndEmployeeIdAndDate(String employeeId,
+			Date startDate, Date endDate) {
+		// TODO Auto-generated method stub
+		return problemDao.getCommentAmountByEmployeeId(employeeId, startDate, endDate);
+	}
+
+	
 }

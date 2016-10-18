@@ -1,5 +1,6 @@
 package com.changhong.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.changhong.base.BaseDao;
@@ -37,4 +38,11 @@ public interface CommentDao extends BaseDao<Comment> {
 			String projectId);
 	
 
+	/**
+	 *   计算某段时间内的评审次数
+	 * @param startDate  评审开始时间
+	 * @param endDate  评审结束时间
+	 * @return
+	 */
+	public int getCountByDate(Date startDate,Date endDate);
 }

@@ -5,6 +5,7 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -88,6 +89,18 @@
 					<div class="form-group">
 						<label for="socreName" class="control-label">评分名字</label>
 						<input type="text" name="socreName" class="form-control"/>
+					</div>
+				</div>
+				<div class="col-md-6 form-inline">
+					<div class="form-group">
+						<label for="socreName" class="control-label">参评人员</label>
+						<select id="employeeType" name="employeeType" class="form-control">
+							<option value="0">所有员工</option>
+							<c:forEach items="${jobs }" var="job">
+								<option value="${job.jobId}">${job.jobName}</option>
+							</c:forEach>
+							
+						</select>
 					</div>
 				</div>
 			</div>

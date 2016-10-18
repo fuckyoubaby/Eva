@@ -38,7 +38,7 @@
 						<i class="glyphicon glyphicon-calendar icon-padr"></i>评分相关<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu pull-right">
-						<li ><a href="../score/make_score.jsp" target="main">评分处理</a></li>
+						<li ><a href="scoreAction!getAllJob.action" target="main">评分处理</a></li>
 						<li ><a href="../score/score_model_index.jsp" target="main">配置模型</a></li>
 						<li ><a href="../score/score_made_index.jsp" target="main">评分结果展示</a></li>
 					</ul> 

@@ -109,4 +109,7 @@ public interface ProjectReviewService {
 	
 	List<Projectreview> getProjectreviewsByProjectIdForPageForUser(int pageNo,int pageSize, String projectId, int phaseId,String employeeId);
 	int getAmountByProjectIdForPageForUser(String projectId, int phaseId,String employeeId);
+	
+	
+	int getCountByEmployeeIdAndDate(String employee,Date startDate,Date endDate);
 }

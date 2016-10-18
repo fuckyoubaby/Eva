@@ -81,4 +81,7 @@ public interface ProblemService {
 	 * @return
 	 */
 	public int getProblemsCountByCommentId(Params params, String commentId);
+	
+	public int getCountByCommentIdAndEmployeeIdAndDate(String employeeId,Date startDate,Date endDate);
+	
 }

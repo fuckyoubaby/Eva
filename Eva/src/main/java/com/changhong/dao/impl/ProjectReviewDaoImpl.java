@@ -185,4 +185,15 @@ public class ProjectReviewDaoImpl extends BaseDaoImpl<Projectreview> implements 
 		return query.list().size();
 	}
 
+	@Override
+	public int getCountByDateAndEmployee(String employeeId, Date startDate,
+			Date endDate) {
+		String hql = "from Projectreview where employee.id=? and prdate>=? and prdate<=?";
+		Query query = getSession().createQuery(hql);
+		query.setParameter(0, employeeId);
+		query.setParameter(1, startDate);
+		query.setParameter(2, endDate);
+		return query.list().size();
+	}
+
 }

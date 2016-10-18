@@ -1,5 +1,6 @@
 package com.changhong.dao.impl;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.changhong.base.impl.BaseDaoImpl;
 import com.changhong.dao.ResultDao;
+import com.changhong.entities.RankObject;
 import com.changhong.entities.Result;
 import com.changhong.util.Params;
 
@@ -147,5 +149,22 @@ public class ResultDaoImpl extends BaseDaoImpl<Result> implements ResultDao{
 		}
 		
 	}
+	@Override
+	public void getResult() {
+
+		String sql = "select rank() scoreRank from result";
+		Query query = getSession().createSQLQuery(sql);
+		query.setFirstResult(0);
+		query.setMaxResults(10);
+		List result = query.list();
+		Iterator iterator = result.iterator();
+		while (iterator.hasNext()) {
+			Object[] row = (Object[]) iterator.next();
+			int scoreRank = (Integer) row[0];
+			System.out.println("QQQQQQQQQQ="+iterator.hasNext());
+			//System.out.println("QQQQQQQQQQQ scoreRank = "+scoreRank+"  name= "+nameString);
+		}
+	}
+	
 
 }

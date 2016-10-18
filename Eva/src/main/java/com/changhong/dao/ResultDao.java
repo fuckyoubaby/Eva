@@ -3,6 +3,7 @@ package com.changhong.dao;
 import java.util.List;
 
 import com.changhong.base.BaseDao;
+import com.changhong.entities.RankObject;
 import com.changhong.entities.Result;
 import com.changhong.util.Params;
 
@@ -21,4 +22,8 @@ public interface ResultDao extends BaseDao<Result>{
 	Result getMax(String colName, int voerallId);
 	
 	Result getResultByEmployeeIdAndOverallId(String employeeId,int overallId);
+	
+	
+	void getResult();
+	
 }

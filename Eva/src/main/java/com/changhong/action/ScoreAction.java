@@ -16,6 +16,7 @@ import com.changhong.entities.Assist;
 import com.changhong.entities.Employee;
 import com.changhong.entities.Employeetrainr;
 import com.changhong.entities.Experience;
+import com.changhong.entities.Job;
 import com.changhong.entities.Mode;
 import com.changhong.entities.Modecomprehensive;
 import com.changhong.entities.Modeproblemmoder;
@@ -31,6 +32,7 @@ import com.changhong.service.AssistService;
 import com.changhong.service.EmployeeExamService;
 import com.changhong.service.EmployeeService;
 import com.changhong.service.ExperienceService;
+import com.changhong.service.JobService;
 import com.changhong.service.ModeComprehensiveService;
 import com.changhong.service.ModeProblemModeRService;
 import com.changhong.service.ModeService;
@@ -54,7 +56,8 @@ import com.opensymphony.xwork2.ActionContext;
 	@Result(name="overallScorePageForEmployee",location="/userEnter/score/overallScoreTemplate.jsp"),
 	@Result(name="saveModeId",location="/adminEnter/score/result_index.jsp"),
 	@Result(name="resultModeId",location="/adminEnter/score/resultTemplate.jsp"),
-	@Result(name="result",location="/adminEnter/score/score_main.jsp")
+	@Result(name="result",location="/adminEnter/score/score_main.jsp"),
+	@Result(name="jobs",location="/adminEnter/score/make_score.jsp")
 })
 public class ScoreAction {
 
@@ -93,6 +96,8 @@ public class ScoreAction {
 	private AssistService assistService;
 	@Autowired
 	private TrainOrgService trainOrgService;
+	@Autowired
+	private JobService jobService;
 	
 	private Date start_time;
 	private Date end_time;
@@ -110,7 +115,11 @@ public class ScoreAction {
 	private String orderType;
 	
 	
-	
+	private double compliance_avg;
+	private double learningAbility_avg;
+	private double designAbility_avg;
+	private double work_avg;
+	private double communication_avg;
 	
 	private List<Overallscore> overallscores;
 	
@@ -118,8 +127,53 @@ public class ScoreAction {
 	private List<com.changhong.entities.Result> results;
 	
 	
+	private List<Job> jobs;
+	private int employeeType;
 	
 	
+	
+	public double getCompliance_avg() {
+		return compliance_avg;
+	}
+	public void setCompliance_avg(double compliance_avg) {
+		this.compliance_avg = compliance_avg;
+	}
+	public double getLearningAbility_avg() {
+		return learningAbility_avg;
+	}
+	public void setLearningAbility_avg(double learningAbility_avg) {
+		this.learningAbility_avg = learningAbility_avg;
+	}
+	public double getDesignAbility_avg() {
+		return designAbility_avg;
+	}
+	public void setDesignAbility_avg(double designAbility_avg) {
+		this.designAbility_avg = designAbility_avg;
+	}
+	public double getWork_avg() {
+		return work_avg;
+	}
+	public void setWork_avg(double work_avg) {
+		this.work_avg = work_avg;
+	}
+	public double getCommunication_avg() {
+		return communication_avg;
+	}
+	public void setCommunication_avg(double communication_avg) {
+		this.communication_avg = communication_avg;
+	}
+	public int getEmployeeType() {
+		return employeeType;
+	}
+	public void setEmployeeType(int employeeType) {
+		this.employeeType = employeeType;
+	}
+	public List<Job> getJobs() {
+		return jobs;
+	}
+	public void setJobs(List<Job> jobs) {
+		this.jobs = jobs;
+	}
 	public String getOrderName() {
 		return orderName;
 	}
@@ -210,7 +264,13 @@ public class ScoreAction {
 		log.info("starttime = "+start_time+"  endtime = "+end_time+"  modeid = "+chooseItem);
 		return "success";
 	}
-	public String saveOverall()
+	
+	public String getAllJob()
+	{
+		jobs = jobService.getJobs();
+		return "jobs";
+	}
+	public String saveOverall() throws InterruptedException
 	{
 		Overallscore overallscore2 = new Overallscore();
 		overallscore2.setStartTime(start_time);
@@ -232,7 +292,16 @@ public class ScoreAction {
 			
 			thread.start();
 
+		//thread.join();  //等待上面的线程执行完毕 进行计算平均值
 		
+		
+		
+		/*Thread thread2 = new Thread(){
+			public void run() {
+				
+			};
+		};
+		thread2.start();*/
 		
 		return "success";
 		
@@ -260,19 +329,28 @@ public class ScoreAction {
 	public String getResultByModeId()
 	{
 		log.info("orderName = "+orderName+"  orderType="+orderType);
-		int modeId = (Integer) ActionContext.getContext().getSession().get("modeId");
+		int modeId = (Integer) ActionContext.getContext().getSession().get("modeId"); //此处modeId实际上是overallId，
 		/*results = resultService.getResultsByPageAndModeId(pageNo, pageSize, modeId);
 		itemcount = resultService.getCountByModeId(modeId);*/
 		Params params = new Params(0, pageNo, pageSize, keyword, orderName, orderType);
 		results = resultService.getResultsByPageAndModeId(params, modeId);
 		itemcount = resultService.getCountByModeId(params,modeId);
+		
+		
+		
 		return "resultModeId";
 	}
 	
 	
 	private void calScore()
 	{
-		List<Employee> employees = employeeService.getAllEmployees();
+		List<Employee> employees = new ArrayList<Employee>();
+		if (employeeType == 0) {
+			employees = employeeService.getAllEmployees();
+		}else {
+			employees = employeeService.getEmployeesByJobId(employeeType);
+		}
+		
 		modeId = chooseItem;
 		Mode mode = modeService.getModeById(modeId);
 		//统计某个员工的各个维度的得分
@@ -324,6 +402,9 @@ public class ScoreAction {
 			//培训组织者
 			double peixunzuzhizhe = 0;
 			double peixunzuzhizheWeight = 0;
+			
+			//获取某个员工某段时间的评审次数
+			int pingshenTimes = problemService.getCountByCommentIdAndEmployeeIdAndDate(employees.get(i).getId(), start_time, end_time);
 			 
 			//根据员工的id找出在某段时间内该员工所犯的所有问题
 			List<Problem> problems = new ArrayList<Problem>();
@@ -341,13 +422,13 @@ public class ScoreAction {
 						yibanshejiWeight = secondweight_yibanshejiquexian.getWeightly();
 						if (problems.get(j).getProblemLevel().equals("A")) {
 							yibansheji+=secondweight_yibanshejiquexian.getA();
-							yibanshejiNum++;
+							//yibanshejiNum++;
 						}else if (problems.get(j).getProblemLevel().equals("B")) {
 							yibansheji+=secondweight_yibanshejiquexian.getB();
-							yibanshejiNum++;
+							//yibanshejiNum++;
 						}else if (problems.get(j).getProblemLevel().equals("C")) {
 							yibansheji+=secondweight_yibanshejiquexian.getC();
-							yibanshejiNum++;
+							//yibanshejiNum++;
 						}
 						
 					}	
@@ -365,10 +446,10 @@ public class ScoreAction {
 							dijicuowu+=secondweight_dijicuowu.getA();
 							dijicuowuNum++;
 						}else if (problems.get(j).getProblemLevel().equals("B")) {
-							dijicuowu+=secondweight_dijicuowu.getA();
+							dijicuowu+=secondweight_dijicuowu.getB();
 							dijicuowuNum++;
 						}else if (problems.get(j).getProblemLevel().equals("C")) {
-							dijicuowu+=secondweight_dijicuowu.getA();
+							dijicuowu+=secondweight_dijicuowu.getC();
 							dijicuowuNum++;
 						}
 						
@@ -387,10 +468,10 @@ public class ScoreAction {
 							shejiguiding+=secondweight_shejiguiding.getA();
 							shejiguidingNum++;
 						}else if (problems.get(j).getProblemLevel().equals("B")) {
-							shejiguiding+=secondweight_shejiguiding.getA();
+							shejiguiding+=secondweight_shejiguiding.getB();
 							shejiguidingNum++;
 						}else if (problems.get(j).getProblemLevel().equals("C")) {
-							shejiguiding+=secondweight_shejiguiding.getA();
+							shejiguiding+=secondweight_shejiguiding.getC();
 							shejiguidingNum++;
 						}
 						
@@ -406,6 +487,7 @@ public class ScoreAction {
 			second_yibansheji.setMode(mode);
 			second_yibansheji.setOneLevel(FinalConstant.PROFESSIONAL_SKILL);
 			second_yibansheji.setSecondLevel(FinalConstant.PROFESSIONAL_SKILL_enum.一般设计缺陷.toString());
+			yibanshejiNum = pingshenTimes;
 			if (yibanshejiNum==0) {
 				second_yibansheji.setScore(0.0);
 			}else {
@@ -421,6 +503,7 @@ public class ScoreAction {
 			second_dijicuowu.setMode(mode);
 			second_dijicuowu.setOneLevel(FinalConstant.PROFESSIONAL_SKILL);
 			second_dijicuowu.setSecondLevel(FinalConstant.PROFESSIONAL_SKILL_enum.低级错误.toString());
+			dijicuowuNum = pingshenTimes;
 			if (dijicuowuNum==0) {
 				second_dijicuowu.setScore(0.0);
 			}else {
@@ -431,8 +514,9 @@ public class ScoreAction {
 			secondLevelScoreService.save(second_dijicuowu);
 			
 			//设计合规二级结果保存
-			int designRegNum = projectReviewService.getCountNotZero(employees.get(i).getId(), start_time, end_time,"designReg");
-			Long designRegSum = projectReviewService.getSumByCol(employees.get(i).getId(), start_time, end_time,"designReg");
+			//int designRegNum = projectReviewService.getCountNotZero(employees.get(i).getId(), start_time, end_time,"designReg");
+			int designRegNum = projectReviewService.getCountByEmployeeIdAndDate(employees.get(i).getId(), start_time, end_time);//计算某段时间内进行的评审次数
+			Long designRegSum = projectReviewService.getSumByCol(employees.get(i).getId(), start_time, end_time,"designReg"); //计算某段时间没某一列的所有数据的和
 			
 			Secondlevelscore second_shejiguiding = new Secondlevelscore();
 			second_shejiguiding.setEmployee(employees.get(i));
@@ -440,6 +524,7 @@ public class ScoreAction {
 			second_shejiguiding.setOneLevel(FinalConstant.COMPLIANCE);
 			second_shejiguiding.setSecondLevel(FinalConstant.COMPLIANCE_enum.设计规定.toString());
 			double tem_sheji = 0.0;
+			shejiguidingNum = pingshenTimes;
 			if (shejiguidingNum==0) {
 				tem_sheji = 0.0;
 			}else {
@@ -460,7 +545,8 @@ public class ScoreAction {
 			
 			
 			//流程合规二级结果保存
-			int flowsheetRegNum = projectReviewService.getCountNotZero(employees.get(i).getId(), start_time, end_time, "flowsheetReg");
+			//int flowsheetRegNum = projectReviewService.getCountNotZero(employees.get(i).getId(), start_time, end_time, "flowsheetReg");
+			int flowsheetRegNum = projectReviewService.getCountByEmployeeIdAndDate(employees.get(i).getId(), start_time, end_time);
 			Long flowsheetRegSum = projectReviewService.getSumByCol(employees.get(i).getId(), start_time, end_time, "flowsheetReg");
 			
 			Secondlevelscore second_liuchenghegui = new Secondlevelscore();
@@ -740,7 +826,7 @@ public class ScoreAction {
 			if (dijicuowuNum!=0) {
 				temp_dijicuowu = dijicuowu/dijicuowuNum;
 			}
-			zhuanyejishu = temp_yibansheji*yibanshejiWeight+temp_dijicuowu*dijicuowuWeight;
+			zhuanyejishu = temp_yibansheji*yibanshejiWeight+temp_dijicuowu*dijicuowuWeight;//根据一般设计错误和低级错误进行加权计算
 			//合规
 			double temp_liucheng = 0.0;
 			if (flowsheetRegNum==0) {
@@ -749,7 +835,7 @@ public class ScoreAction {
 				temp_liucheng = flowsheetRegSum/flowsheetRegNum;
 			}
 			//对合规的权重进行盘判定，如果设计合规的权重为100%，则合规总分就不进行加权计算。
-			if (1-shejiguidingWeight<0.01) {
+			if (1-shejiguidingWeight<0.00001) {
 				hegui = score+temp_liucheng;
 			}else {
 				hegui = score*shejiguidingWeight+temp_liucheng*(1-shejiguidingWeight);
@@ -807,6 +893,35 @@ public class ScoreAction {
 			resultService.save(result);
 			
 		}//employees 循环
+		//saveAvg();
+	}
+	
+	
+	public void saveAvg()
+	{
+		//获取到一级结果的平均值 并转成一条记录保存到数据库中
+		communication_avg = resultService.getAVG("communication", overallscore.getId());
+		compliance_avg = resultService.getAVG("compliance", overallscore.getId());
+		learningAbility_avg = resultService.getAVG("learningAbility", overallscore.getId());
+		designAbility_avg = resultService.getAVG("designAbility", overallscore.getId());
+		work_avg = resultService.getAVG("work", overallscore.getId());
+		
+		com.changhong.entities.Result result = new com.changhong.entities.Result();
+		result.setCommunication(communication_avg);
+		result.setCompliance(compliance_avg);
+		result.setLearningAbility(learningAbility_avg);
+		result.setDesignAbility(designAbility_avg);
+		result.setWork(work_avg);
+		Employee employee = new Employee();
+		employee.setId("00000000");
+		employee.setName("平均值");
+		result.setEmployee(employee);
+		result.setStartTime(start_time);
+		result.setEndTime(end_time);
+		result.setOverallscore(overallscore);
+		
+		resultService.save(result);
+		
 		
 	}
 }

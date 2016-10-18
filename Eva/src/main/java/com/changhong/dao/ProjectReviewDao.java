@@ -44,4 +44,13 @@ public interface ProjectReviewDao extends BaseDao<Projectreview>{
 	public List<Projectreview> getProjectreviewsByProjectIdForPageForUser(int pageNo, int pageSize, String projectId, int phaseId,
 			String employeeId);
 	public int getAmountByProjectIdForPageForUser(String projectId,int phaseId, String employeeId);
+	
+	/**计算某段时间内的评审次数
+	 * 
+	 * @param employeeId  员工id
+	 * @param startDate  评审开始 时间
+	 * @param endDate   评审结束时间
+	 * @return
+	 */
+	public int getCountByDateAndEmployee(String employeeId,Date startDate,Date endDate);
 }
