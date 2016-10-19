@@ -1,8 +1,10 @@
 package com.changhong.dao.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.changhong.base.impl.BaseDaoImpl;
 import com.changhong.dao.ResultDao;
+import com.changhong.entities.Employee;
 import com.changhong.entities.RankObject;
 import com.changhong.entities.Result;
 import com.changhong.util.Params;
@@ -152,16 +155,58 @@ public class ResultDaoImpl extends BaseDaoImpl<Result> implements ResultDao{
 	@Override
 	public void getResult() {
 
-		String sql = "select rank() scoreRank from result";
+		/*String sql = "select {B.*},{E.*},(select count(1)+1 from result R where R.designAbility>B.designAbility)scoreRank from result B join employee E on E.id=B.employee order by scoreRank;";
+		Query query = getSession().createSQLQuery(sql).addEntity("B",Result.class).addJoin("E", "B.employee");
+		
+		List result = query.list();
+		
+		Iterator iterator = result.iterator();
+		while (iterator.hasNext()) {
+			Object[] row = (Object[]) iterator.next();
+			System.out.println("length = "+row.length);
+			Result result2 = (Result) row[0];
+			System.out.println("result2 = "+result2.getResultId());
+			Employee employee = (Employee) row[1];
+			System.out.println("employee = "+employee.getName());
+			
+		}*/
+		
+		String sql = "select {B.*},{E.*},(select count(1)+1 from result R where R.designAbility>B.designAbility) scoreRank from result B join employee E on E.id=B.employee order by scoreRank;";
+		Query query = getSession().createSQLQuery(sql).addEntity("B",Result.class).addJoin("E", "B.employee");
+		
+		List result = query.list();
+		
+		Iterator iterator = result.iterator();
+		while (iterator.hasNext()) {
+			Object[] row = (Object[]) iterator.next();
+			System.out.println("length = "+row.length);
+			Result result2 = (Result) row[0];
+			System.out.println("result2 = "+result2.getResultId());
+			Employee employee = (Employee) row[1];
+			System.out.println("employee = "+employee.getName());
+			int it = (Integer) row[2];
+			
+		}
+	}
+	@Override
+	public void getResultsRankByType(int overallId, Params params) {
+		String sql = "";
+		
+		if (params.getKeyword()!=null&&!params.getKeyword().equals("")) {
+			sql = "select B.*,(select count(1)+1 from result R where R."+params.getKeyword()+">B."+params.getKeyword()+"PM from result B order by PM;";
+		}else {
+			sql = "select B.*,(select count(1)+1 from result R where R.designAbility>B.designAbility)PM from result B order by PM;";
+		}
+		
+		
 		Query query = getSession().createSQLQuery(sql);
-		query.setFirstResult(0);
-		query.setMaxResults(10);
+		
 		List result = query.list();
 		Iterator iterator = result.iterator();
 		while (iterator.hasNext()) {
 			Object[] row = (Object[]) iterator.next();
 			int scoreRank = (Integer) row[0];
-			System.out.println("QQQQQQQQQQ="+iterator.hasNext());
+			System.out.println("QQQQQQQQQQ="+scoreRank);
 			//System.out.println("QQQQQQQQQQQ scoreRank = "+scoreRank+"  name= "+nameString);
 		}
 	}

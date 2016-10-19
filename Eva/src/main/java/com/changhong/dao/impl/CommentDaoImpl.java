@@ -106,6 +106,4 @@ public class CommentDaoImpl extends BaseDaoImpl<Comment> implements CommentDao {
 		return query.list().size();
 	}
 	
-	
-
 }

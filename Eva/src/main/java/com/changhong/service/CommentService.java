@@ -62,5 +62,9 @@ public interface CommentService {
 	public int getCommentsCountByPhaseForProject(Params params, int phaseId,
 			String projectId);
 	
+	public List<Comment> getCommentsByPhaseForProjectForUser(Params params,
+			int phaseId, String projectId);
 	
+	public int getCommentsCountByPhaseForProjectForUser(Params params, int phaseId,
+			String projectId);
 }

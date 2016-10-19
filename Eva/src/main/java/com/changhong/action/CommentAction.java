@@ -27,6 +27,7 @@ import com.opensymphony.xwork2.inject.util.FinalizableSoftReference;
 @Results({
 	@Result(name="commentTemplate", location ="/adminEnter/project/projectCommentTemplate.jsp"),
 	@Result(name="commentInfo", location="/adminEnter/project/project_comment_info.jsp"),
+	
 	@Result(name="addComment", location="/adminEnter/project/project_comment_add.jsp"),
 	@Result(name="commentIndex", type="redirectAction", params={
 			"actionName","problemAction!getReviewByPhaseId",
@@ -34,8 +35,10 @@ import com.opensymphony.xwork2.inject.util.FinalizableSoftReference;
 	@Result(name="commentUpdate",location="/adminEnter/project/project_comment_update.jsp"),
 	@Result(name="toCommentInfo",type="redirectAction", params={
 			"actionName","commentAction!getInfoById.action",
-			"id","${id}" })
-
+			"id","${id}" }),
+			
+	@Result(name="commentTemplateForUser",location="/userEnter/project/projectCommentTemplate.jsp"),
+	@Result(name="commentInfoForUser", location="/userEnter/project/project_comment_info.jsp")
 })
 public class CommentAction {
 	
@@ -164,6 +167,26 @@ public class CommentAction {
 		return "commentIndex";
 	}
 	
+	public String getCommentsByProjectAndPhaseForUser(){
+		ActionContext context = ActionContext.getContext();
+		Project project = (Project) context.getSession().get(FinalConstant.SESSION_CURRENT_PROJECT);
+		String phaseId = (String) context.getSession().get("phaseId");
+		int phaseIdInt = Integer.parseInt(phaseId);
+		Params params = new Params(0, pageNo, pageSize, null, orderName, orderType);
+		
+		setCommentLists(commentService.getCommentsByPhaseForProject(params, phaseIdInt, project.getProjectId()));
+		setItemCount(commentService.getCommentsCountByPhaseForProject(params, phaseIdInt, project.getProjectId()));
+		return "commentTemplateForUser";
+	}
+	
+	public String getInfoByIdForUser(){
+		Comment c = commentService.getEntity(id);
+		ActionContext.getContext().getSession().put("commentId", id);
+		if(c!=null){
+			setComment(c);
+		}
+		return "commentInfoForUser";
+	}
 	
 	public int getPageNo() {
 		return pageNo;

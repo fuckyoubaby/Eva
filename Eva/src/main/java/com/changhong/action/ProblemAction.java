@@ -54,12 +54,13 @@ import com.opensymphony.xwork2.ActionContext;
 			@Result(name="problemForUpdate",location="/adminEnter/project/project_mistake_update.jsp"),
 			
 			//@Result(name="reviewsForUser",location="/userEnter/project/project_process_info.jsp"),
-			@Result(name="problemReviewForUser",location="/userEnter/project/problemTemplate.jsp"),
+			//@Result(name="problemReviewForUser",location="/userEnter/project/problemTemplate.jsp"),
 			
-			@Result(name="reviewsForUser",location="/userEnter/project/project_process_info.jsp"),
-			@Result(name="reviewsForUser1",location="/userEnter/project/project_process_info.jsp"),
+			@Result(name="reviewsForUser",location="/userEnter/project/project_process_comments_index.jsp"),
+			@Result(name="reviewsForUser1",location="/userEnter/project/project_process_comments_index.jsp"),
 			@Result(name="reviewsForUser2",location="/userEnter/project/project_process_preview_info.jsp"),
 			@Result(name="problemForUser",location="/userEnter/project/project_mistake_info.jsp"),
+			@Result(name="problemsTemplateForUser",location="/userEnter/project/problemTemplate.jsp")
 
 		}
 		)
@@ -512,12 +513,14 @@ public class ProblemAction {
 		setPhaseId(c.getPhase().getPhaseId()+"");
 		return "redirectProblem";
 	}
+	
 	public String getProblemByIdForUser(){
 		ActionContext context = ActionContext.getContext();
 		problem = problemService.getProblemById(problemId);
 		context.getSession().put("problem", problem);
 		return "problemForUser";
 	}
+	
 	public String getProblemByIdForUpdate(){
 		ActionContext context = ActionContext.getContext();
 		problem = problemService.getProblemById(problemId);
@@ -532,7 +535,6 @@ public class ProblemAction {
 		return "problemForUpdate";
 	}
 	
-	
 	//用户端用到的方法
 	public String getReviewByPhaseIdForUser()
 	{
@@ -540,7 +542,7 @@ public class ProblemAction {
 		reviews = reviewService.getReviewsByPhaseId(Integer.parseInt(phaseId));  //通过阶段编号得到评审 ,这里得到阶段编号
 		context.getSession().put("projectId", projectId);
 		context.getSession().put("phaseId", phaseId);
-		//phase = phaseService.getPhase(Integer.parseInt(phaseId));
+		phase = phaseService.getPhase(Integer.parseInt(phaseId));
 		String reviewsForUser = "reviewsForUser";
 		if(indexNo!=0){                
 			int endIndex = indexNo%2==0?2:1;
@@ -550,7 +552,7 @@ public class ProblemAction {
 	}
 	
 
-	public String getProblemsByReviewForUser(){      //现在值传入了employeeId，还要传入项目编号和评审编号，确定的问题的范围
+	/*public String getProblemsByReviewForUser(){      //现在值传入了employeeId，还要传入项目编号和评审编号，确定的问题的范围
 		ActionContext context = ActionContext.getContext();
 		String employeeId = (String) context.getSession().get("employeeId");
 		String pProjectId =(String)context.getSession().get("projectId");
@@ -563,6 +565,17 @@ public class ProblemAction {
 		itemcount = problemService.getCountForUser(Integer.parseInt(phaseIduser),reviewId, employeeId, pProjectId);     //差阶段Id
 		log.info("itemcount="+itemcount);
 		return "problemReviewForUser";
+	}*/
+	
+	public String getProblemsByCommentForUser()
+	{
+		ActionContext context = ActionContext.getContext();
+		Params params = new Params(0, pageNo, pageSize, keyword, orderName, orderType);
+		String commentId = (String) context.getSession().get("commentId");
+		String employeeId = (String)context.getSession().get("employeeId");
+		problems = problemService.getProblemsByCommentIdForUser(params, employeeId, commentId);
+		itemcount = problemService.getProblemsCountByCommentIdForUser(params, employeeId, commentId);
+		return "problemsTemplateForUser";
 	}
 
 	public int getIndexNo() {

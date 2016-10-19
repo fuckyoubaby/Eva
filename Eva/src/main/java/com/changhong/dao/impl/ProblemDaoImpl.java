@@ -386,5 +386,36 @@ public class ProblemDaoImpl extends BaseDaoImpl<Problem> implements ProblemDao{
 			return value;
 		}
 
-		
+
+		@Override
+		public List<Problem> getProblemsByCommentIdForUser(Params params,
+				String employeeId, String commentId) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("from Problem as model where 1=1 and model.comment.id=:commentId and model.employee.id=:employeeId");
+			if(StringUtils.isNotBlank(params.getOrderName())){
+				sb.append(" order by model."+params.getOrderName());
+				if(StringUtils.isNotBlank(params.getOrderType())){
+					sb.append(" "+params.getOrderType());
+				}
+			}
+			
+			Query query = getSession().createQuery(sb.toString());
+			query.setParameter("commentId", commentId);
+			query.setParameter("employeeId", employeeId);
+			query.setFirstResult(params.getPageNo());
+			query.setMaxResults(params.getPageSize());
+			return query.list();
+		}
+
+		@Override
+		public int getProblemsCountByCommentIdForUser(Params params,
+				String employeeId, String commentId) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("select count(model.problemId) from Problem as model where 1=1 and model.comment.id=:commentId and model.employee.id=:employeeId");
+			
+			Query query = getSession().createQuery(sb.toString());
+			query.setParameter("commentId", commentId);
+			query.setParameter("employeeId", employeeId);
+			return ((Long)query.uniqueResult()).intValue();
+		}
 }

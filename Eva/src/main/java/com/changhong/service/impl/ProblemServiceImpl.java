@@ -318,6 +318,7 @@ public class ProblemServiceImpl implements ProblemService{
 	}
 
 	@Override
+
 	public int getCountByCommentIdAndEmployeeIdAndDate(String employeeId,
 			Date startDate, Date endDate) {
 		// TODO Auto-generated method stub
@@ -325,4 +326,15 @@ public class ProblemServiceImpl implements ProblemService{
 	}
 
 	
+
+	public List<Problem> getProblemsByCommentIdForUser(Params params,
+			String employeeId, String commentId) {
+		return problemDao.getProblemsByCommentIdForUser(params, employeeId, commentId);
+	}
+
+	@Override
+	public int getProblemsCountByCommentIdForUser(Params params,
+			String employeeId, String commentId) {
+		return problemDao.getProblemsCountByCommentIdForUser(params, employeeId, commentId);
+	}
 }

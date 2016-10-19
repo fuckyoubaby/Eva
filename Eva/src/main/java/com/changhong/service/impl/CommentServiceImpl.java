@@ -62,6 +62,18 @@ public class CommentServiceImpl implements CommentService {
 				phaseId, projectId);
 	}
 
+	@Override
+	public List<Comment> getCommentsByPhaseForProjectForUser(Params params,
+			int phaseId, String projectId) {
+		return commentDao.getCommentsByPhaseForProject(params, phaseId, projectId);
+	}
+
+	@Override
+	public int getCommentsCountByPhaseForProjectForUser(Params params,
+			int phaseId, String projectId) {
+		return commentDao.getCommentsCountByPhaseForProject(params, phaseId, projectId);
+	}
+
 
 
 }

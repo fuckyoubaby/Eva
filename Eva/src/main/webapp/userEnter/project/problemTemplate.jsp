@@ -9,7 +9,7 @@
 <c:if test="${problems!=null && fn:length(problems)>0}">
 	<c:forEach items="${problems}" var="problem">
 	<tr data-itemcount='${itemcount}'>
-		<td class="word-press">${problem.problemContent}</td>
+		<td class="word-press">${problem.problemName}</td>
 		<td>${problem.problemLevel}</td>
 		<td>${problem.problemstate.problemStateName}</td>
 		<td>${problem.problemtype.typeName}</td>

@@ -37,6 +37,12 @@ public interface CommentDao extends BaseDao<Comment> {
 	public int getCommentsCountByPhaseForProject(Params params, int phaseId,
 			String projectId);
 	
+	
+	/*public List<Comment> getCommentsByPhaseForProjectForUser(Params params,
+			int phaseId, String projectId);
+	
+	public int getCommentsCountByPhaseForProjectForUser(Params params, int phaseId,
+			String projectId);*/
 
 	/**
 	 *   计算某段时间内的评审次数

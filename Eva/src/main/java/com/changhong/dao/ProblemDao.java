@@ -85,5 +85,8 @@ public interface ProblemDao extends BaseDao<Problem>{
 	 */
 	public int getProblemsCountByCommentId(Params params, String commentId);
 	
-	
+
+	public List<Problem> getProblemsByCommentIdForUser(Params params, String employeeId,String commentId);
+	public int getProblemsCountByCommentIdForUser(Params params, String employeeId,String commentId);
+
 }
