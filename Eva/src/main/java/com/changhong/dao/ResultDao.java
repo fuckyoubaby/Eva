@@ -29,6 +29,6 @@ public interface ResultDao extends BaseDao<Result>{
 	 * 根据各个维度进行排名  
 	 * @param overallId   评审的id
 	 */
-	void  getResultsRankByType(int overallId,Params params);
+	List<Result>  getResultsRankByCol(int overallId,Params params);
 	
 }

@@ -86,4 +86,10 @@ public class ResultServiceImpl implements ResultService{
 		return resultDao.getResultByEmployeeIdAndOverallId(employeeId, overallId);
 	}
 
+	@Override
+	public List<Result> getResultsRankByCol(int overallId, Params params) {
+		// TODO Auto-generated method stub
+		return resultDao.getResultsRankByCol(overallId, params);
+	}
+
 }

@@ -26,4 +26,13 @@ public interface ResultService {
 	Result getMax(String colName,int overallId);
 	
 	Result getResultByEmployeeIdAndOverallId(String employeeId,int overallId);
+	
+	
+	/**
+	 * 根据overallId和列名字获取数据和排名
+	 * @param overallId
+	 * @param params
+	 * @return
+	 */
+	List<Result>  getResultsRankByCol(int overallId,Params params);
 }

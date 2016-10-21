@@ -118,7 +118,7 @@ public class ProjectReviewDaoImpl extends BaseDaoImpl<Projectreview> implements 
 	@Override
 	public Long getSumByCol(String employeeId, Date startDate, Date endDate,
 			String colName) {
-		String hql = "select SUM("+colName+") from Projectreview where employee.id=? and prdate>=? and prdate<=?";
+		String hql = "select SUM("+colName+") from Projectreview where employee.id=? and prdate>=? and prdate<=? and "+colName+"!=0";
 		Query query = getSession().createQuery(hql);
 		query.setParameter(0, employeeId);
 		query.setParameter(1, startDate);

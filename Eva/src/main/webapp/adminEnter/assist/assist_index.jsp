@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>辅助项录入</title>
+<title>辅助项展示</title>
 <link rel="stylesheet" href="../../css/bootstrap.css" />
 <link rel="stylesheet" href="<%=basePath%>/css/jquery-ui.css" />
 <link rel="stylesheet" href="<%=basePath%>/css/jquery.multiselect.css" />

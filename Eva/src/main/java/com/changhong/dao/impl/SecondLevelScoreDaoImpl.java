@@ -42,7 +42,7 @@ public class SecondLevelScoreDaoImpl extends BaseDaoImpl<Secondlevelscore> imple
 	@Override
 	public List<Secondlevelscore> getSecondlevelscoresByModeIdAndEmployeeId(
 			int modeId, String employeeId) {
-		String hql = "from Secondlevelscore where mode.modeId=? and employee.id=?";
+		String hql = "from Secondlevelscore where overallscore.id=? and employee.id=?";
 		Query query = getSession().createQuery(hql);
 		query.setParameter(0, modeId);
 		query.setParameter(1, employeeId);

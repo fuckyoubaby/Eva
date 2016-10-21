@@ -42,11 +42,10 @@ public class Overallscore implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Overallscore(Mode mode, Employee employee, Date startTime,
+	public Overallscore(Mode mode,  Date startTime,
 			Date endTime, String name, Date createTime, Integer employeeNum,
 			Set<Result> results) {
 		this.mode = mode;
-		this.employee = employee;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.name = name;
@@ -67,7 +66,7 @@ public class Overallscore implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "mode")
 	public Mode getMode() {
 		return this.mode;
@@ -77,7 +76,7 @@ public class Overallscore implements java.io.Serializable {
 		this.mode = mode;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	/*@ManyToOne(fetch = FetchType.EAGER)//not-found="ignore"
 	@JoinColumn(name = "Employee")
 	public Employee getEmployee() {
 		return this.employee;
@@ -86,7 +85,7 @@ public class Overallscore implements java.io.Serializable {
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
-
+*/
 	@Temporal(TemporalType.DATE)
 	@Column(name = "startTime", length = 0)
 	public Date getStartTime() {
@@ -126,6 +125,7 @@ public class Overallscore implements java.io.Serializable {
 		this.createTime = createTime;
 	}
 
+	
 	@Column(name = "employeeNum")
 	public Integer getEmployeeNum() {
 		return this.employeeNum;
@@ -135,7 +135,7 @@ public class Overallscore implements java.io.Serializable {
 		this.employeeNum = employeeNum;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "overallscore")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "overallscore")
 	public Set<Result> getResults() {
 		return this.results;
 	}
