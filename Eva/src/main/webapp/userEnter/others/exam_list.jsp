@@ -157,6 +157,13 @@
 				chUser.orderby(opts);
 			});
 		});
+		document.onkeydown=function(){
+				if(event.keyCode==13)
+				{
+					chUser.search();
+					return false;
+				}
+		}; 
 	</script>
 	</body>
 </html>

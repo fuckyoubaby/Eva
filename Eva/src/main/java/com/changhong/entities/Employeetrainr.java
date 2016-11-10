@@ -46,7 +46,7 @@ public class Employeetrainr implements java.io.Serializable {
 		this.employeeTrainRid = employeeTrainRid;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee")
 	public Employee getEmployee() {
 		return this.employee;
@@ -56,7 +56,7 @@ public class Employeetrainr implements java.io.Serializable {
 		this.employee = employee;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "train")
 	public Train getTrain() {
 		return this.train;

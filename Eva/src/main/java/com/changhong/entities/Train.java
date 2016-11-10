@@ -147,7 +147,7 @@ public class Train implements java.io.Serializable {
 		this.joinNum = joinNum;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee")
 	public Employee getEmployee(){
 		return this.employee;
@@ -156,7 +156,7 @@ public class Train implements java.io.Serializable {
 		this.employee = employee;
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.REMOVE, mappedBy = "train")//cascade = CascadeType.ALL, 
+	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE, mappedBy = "train")//cascade = CascadeType.ALL, 
 	public Set<Employeetrainr> getEmployeetrainrs() {
 		return this.employeetrainrs;
 	}
@@ -165,7 +165,7 @@ public class Train implements java.io.Serializable {
 		this.employeetrainrs = employeetrainrs;
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.REMOVE,mappedBy = "train")
+	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE,mappedBy = "train")
 	public Set<Trainorg> getTrainorgs(){
 		return this.trainorgs;
 	}

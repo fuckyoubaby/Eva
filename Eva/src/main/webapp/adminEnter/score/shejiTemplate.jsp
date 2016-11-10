@@ -11,6 +11,7 @@
 		<td>${mode.scoreRank }</td>
 		<td>${mode.result.employee.id }</td>
 		<td>${mode.result.employee.name }</td>
+		<td>${mode.pingshenTimes }</td>
 		 <c:forEach items="${mode.list }" var="li">
 			<td>${li.score }</td>
 		</c:forEach>

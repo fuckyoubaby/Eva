@@ -47,6 +47,8 @@ public class Comment implements java.io.Serializable {
 	 * 评审日期 
 	 */
 	private Date date;
+	
+	private String employeeId;
 
 	// Constructors
 
@@ -55,11 +57,12 @@ public class Comment implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Comment(Project project, Phase phase, String name, Date date) {
+	public Comment(Project project, Phase phase, String name, Date date,String employeeId) {
 		this.project = project;
 		this.phase = phase;
 		this.name = name;
 		this.date = date;
+		this.employeeId = employeeId;
 	}
 
 	// Property accessors
@@ -112,6 +115,15 @@ public class Comment implements java.io.Serializable {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	@Column(name = "employeeId", nullable = false, length = 50)
+	public String getEmployeeId() {
+		return this.employeeId;
+	}
+
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
 	}
 
 }

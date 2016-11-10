@@ -84,7 +84,7 @@ public class Project implements java.io.Serializable {
 		this.projectId = projectId;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "projectManager")
 	public Employee getEmployee() {
 		return this.employee;
@@ -94,7 +94,7 @@ public class Project implements java.io.Serializable {
 		this.employee = employee;
 	}
 
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="reviewId")
 	public Review getReview(){
 		return this.review;
@@ -180,7 +180,7 @@ public class Project implements java.io.Serializable {
 		this.projectState = projectState;
 	}
 
-	@OneToMany( fetch = FetchType.EAGER,cascade = CascadeType.REMOVE, mappedBy = "project")//cascade = CascadeType.ALL,
+	@OneToMany( fetch = FetchType.LAZY,cascade = CascadeType.REMOVE, mappedBy = "project")//cascade = CascadeType.ALL,
 	public Set<Employeeprojectr> getEmployeeprojectrs() {
 		return this.employeeprojectrs;
 	}
@@ -189,7 +189,7 @@ public class Project implements java.io.Serializable {
 		this.employeeprojectrs = employeeprojectrs;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.REMOVE, mappedBy = "project")//cascade = CascadeType.ALL, 
+	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE, mappedBy = "project")//cascade = CascadeType.ALL, 
 	public Set<Problem> getProblems() {
 		return this.problems;
 	}

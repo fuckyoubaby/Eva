@@ -50,6 +50,7 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 		session.clear();
 		session.delete(entity);
 		
+		
 	}
 
 	@Override
@@ -98,7 +99,7 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 		Session session = getSession();
 		for(int i=0;i<size;i++){
 			//session.save(lists.get(i));
-			session.saveOrUpdate(lists.get(i));
+			session.merge(lists.get(i));
 			if(i%20==0){
 				session.flush();
 				session.clear();

@@ -170,8 +170,8 @@
 									message: '请填写问题名称！'
 								},
 								stringLength: {
- 			                        max: 30,
- 			                        message: '请确保内容在30字内！'
+ 			                        max: 225,
+ 			                        message: '请确保内容在225字内！'
  			                    }
 							}
 						},

@@ -10,14 +10,14 @@
 	<base href="<%=basePath%>" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title></title>
-	<link rel="stylesheet" type="text/css" href="skins/default/style.css" />
+	<!-- <link rel="stylesheet" type="text/css" href="skins/default/style.css" /> -->
 	<style>
 		html{overflow-x:hidden;}
 		a:hover{text-decoration:none}
 		.aswitch1{background:url('images/switch.png') no-repeat;width:8px; height:50px; margin-left:1px; display:block;text-decoration:none}
 		.aswitch2{background:url('images/switch.png') no-repeat;width:8px; height:50px; margin-left:1px; display:block; background-position:right;text-decoration:none}
 	</style>
-	<script src="js/util.js"></script>
+	<!-- <script src="js/util.js"></script> -->
 	<script>
 	
 		function switchbar(){

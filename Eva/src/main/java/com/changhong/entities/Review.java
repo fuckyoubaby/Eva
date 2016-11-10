@@ -54,7 +54,7 @@ public class Review implements java.io.Serializable {
 		this.reviewId = reviewId;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "phase")
 	public Phase getPhase() {
 		return this.phase;
@@ -84,7 +84,7 @@ public class Review implements java.io.Serializable {
 		this.priority = priority;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "review")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "review")
 	public Set<Problem> getProblems() {
 		return this.problems;
 	}

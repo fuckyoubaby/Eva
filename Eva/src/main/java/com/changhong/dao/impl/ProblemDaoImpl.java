@@ -80,7 +80,7 @@ public class ProblemDaoImpl extends BaseDaoImpl<Problem> implements ProblemDao{
 	@Override
 	public List<Problem> getProblemByEmployeeId(String employeeId,
 			Date startTime, Date endTime) {
-		String hql = "from Problem where employee.id=? and createTime>=? and createTime<=?";
+		String hql = "from Problem where employee.id=? and createTime>=? and createTime<=? and comment is not null";
 		Query query = getSession().createQuery(hql);
 		query.setParameter(0, employeeId);
 		query.setParameter(1, startTime);
@@ -363,7 +363,7 @@ public class ProblemDaoImpl extends BaseDaoImpl<Problem> implements ProblemDao{
 		@Override
 		public int getCommentAmountByTime( Date startTime,
 				Date endTime) {
-			String sql ="select count(commentId) from problem where commentId!='' and createTime>=? and createTime<=? and problemBelong=? group by commentId ";
+			String sql ="select count(commentId) from problem where commentId!='' and createTime>=? and createTime<=? group by commentId ";
 			SQLQuery query = getSession().createSQLQuery(sql);
 			query.setDate(0, startTime);
 			query.setDate(1, endTime);
@@ -375,7 +375,7 @@ public class ProblemDaoImpl extends BaseDaoImpl<Problem> implements ProblemDao{
 		@Override
 		public int getCommentAmountByEmployeeId(String employeeId,
 				Date startTime, Date endTime) {
-			String sql ="select count(distinct commentId) from problem where commentId!='' and createTime>=? and createTime<=? and problemBelong=? group by commentId";
+			String sql ="select count(distinct commentId) from problem where commentId!='' and createTime>=? and createTime<=? and problemBelong=?";
 			SQLQuery query = getSession().createSQLQuery(sql);
 			query.setDate(0, startTime);
 			query.setDate(1, endTime);

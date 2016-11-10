@@ -77,7 +77,7 @@ public class Problem implements java.io.Serializable {
 		this.problemId = problemId;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "problemBelong")
 	public Employee getEmployee() {
 		return this.employee;
@@ -87,7 +87,7 @@ public class Problem implements java.io.Serializable {
 		this.employee = employee;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "review")
 	public Review getReview() {
 		return this.review;
@@ -97,7 +97,7 @@ public class Problem implements java.io.Serializable {
 		this.review = review;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "problemBelongProject")
 	public Project getProject() {
 		return this.project;
@@ -107,7 +107,7 @@ public class Problem implements java.io.Serializable {
 		this.project = project;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "problemState")
 	public Problemstate getProblemstate() {
 		return this.problemstate;
@@ -117,7 +117,7 @@ public class Problem implements java.io.Serializable {
 		this.problemstate = problemstate;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "phase")
 	public Phase getPhase() {
 		return this.phase;
@@ -127,7 +127,7 @@ public class Problem implements java.io.Serializable {
 		this.phase = phase;
 	}
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "commentId")
 	public Comment getComment() {
 		return comment;
@@ -137,7 +137,7 @@ public class Problem implements java.io.Serializable {
 		this.comment = comment;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "problemType")
 	public Problemtype getProblemtype() {
 		return this.problemtype;
@@ -147,7 +147,7 @@ public class Problem implements java.io.Serializable {
 		this.problemtype = problemtype;
 	}
 
-	@Column(name = "problemName", length = 50)
+	@Column(name = "problemName", length = 255)
 	public String getProblemName() {
 		return this.problemName;
 	}

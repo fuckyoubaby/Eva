@@ -11,6 +11,7 @@ import com.changhong.util.Params;
 
 public interface ProblemService {
 
+	List<Problem> getProblems();
 	List<Problem> getProblems(int offset,int length,String keyword);
 	int getCountByPhase(String keyword);
 	void add(Problem problem);

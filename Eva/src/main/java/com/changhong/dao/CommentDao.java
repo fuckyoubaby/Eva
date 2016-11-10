@@ -51,4 +51,6 @@ public interface CommentDao extends BaseDao<Comment> {
 	 * @return
 	 */
 	public int getCountByDate(Date startDate,Date endDate);
+	
+	int getCountByDateAndEmployeeId(String employeeId,Date startDate,Date endDate);
 }

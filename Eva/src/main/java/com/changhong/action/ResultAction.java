@@ -271,22 +271,37 @@ public class ResultAction {
 		com.changhong.entities.Result communication_Result = resultService.getMax("communication", overallId);
 		if (communication_Result!=null) {
 			communication_max = communication_Result.getCommunication();
+			if (communication_max==0) {
+				communication_max = 5.0;
+			}
 		}
 		com.changhong.entities.Result compliance_Result = resultService.getMax("compliance", overallId);
 		if (compliance_Result!=null) {
 			compliance_max = compliance_Result.getCompliance();
+			if (compliance_max==0) {
+				compliance_max = 5.0;
+			}
 		}
 		com.changhong.entities.Result learningAbility_Result = resultService.getMax("learningAbility", overallId);
 		if (learningAbility_Result!=null) {
 			learningAbility_max = learningAbility_Result.getLearningAbility();
+			if (learningAbility_max == 0) {
+				learningAbility_max=5.0;
+			}
 		}
 		com.changhong.entities.Result designAbility_Result = resultService.getMax("designAbility", overallId);
 		if (designAbility_Result!=null) {
 			designAbility_max = designAbility_Result.getDesignAbility();
+			if (designAbility_max == 0) {
+				designAbility_max = 5.0;
+			}
 		}
 		com.changhong.entities.Result work_Result = resultService.getMax("work", overallId);
 		if (work_Result!=null) {
 			work_max = work_Result.getWork();
+			if (work_max==0) {
+				work_max = 5.0;
+			}
 		}
 		
 		yibanshejiquexian_avg = secondLevelScoreService.getAvg(FinalConstant.PROFESSIONAL_SKILL_enum.一般设计缺陷.toString(), overallId);
@@ -325,22 +340,37 @@ public class ResultAction {
 		com.changhong.entities.Result communication_Result = resultService.getMax("communication", overallId);
 		if (communication_Result!=null) {
 			communication_max = communication_Result.getCommunication();
+			if (communication_max==0) {
+				communication_max = 5.0;
+			}
 		}
 		com.changhong.entities.Result compliance_Result = resultService.getMax("compliance", overallId);
 		if (compliance_Result!=null) {
 			compliance_max = compliance_Result.getCompliance();
+			if (compliance_max==0) {
+				compliance_max = 5.0;
+			}
 		}
 		com.changhong.entities.Result learningAbility_Result = resultService.getMax("learningAbility", overallId);
 		if (learningAbility_Result!=null) {
 			learningAbility_max = learningAbility_Result.getLearningAbility();
+			if (learningAbility_max == 0) {
+				learningAbility_max=5.0;
+			}
 		}
 		com.changhong.entities.Result designAbility_Result = resultService.getMax("designAbility", overallId);
 		if (designAbility_Result!=null) {
 			designAbility_max = designAbility_Result.getDesignAbility();
+			if (designAbility_max == 0) {
+				designAbility_max = 5.0;
+			}
 		}
 		com.changhong.entities.Result work_Result = resultService.getMax("work", overallId);
 		if (work_Result!=null) {
 			work_max = work_Result.getWork();
+			if (work_max==0) {
+				work_max = 5.0;
+			}
 		}
 		
 		

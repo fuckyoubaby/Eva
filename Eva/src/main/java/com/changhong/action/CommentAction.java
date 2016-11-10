@@ -1,5 +1,6 @@
 package com.changhong.action;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,9 +13,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.changhong.entities.Comment;
+import com.changhong.entities.CommentExt;
+import com.changhong.entities.Employee;
 import com.changhong.entities.Phase;
 import com.changhong.entities.Project;
 import com.changhong.service.CommentService;
+import com.changhong.service.EmployeeProjectRService;
+import com.changhong.service.EmployeeService;
 import com.changhong.service.PhaseService;
 import com.changhong.support.FinalConstant;
 import com.changhong.util.Params;
@@ -50,6 +55,16 @@ public class CommentAction {
 	@Autowired
 	private PhaseService phaseService;
 	
+	@Autowired
+	private EmployeeService employeeService;
+	
+	@Autowired
+	private EmployeeProjectRService employeeProjectRService;
+	
+	
+	private List<Employee> employees;
+	
+	private String commentEmployee;//评审责任人
 	//请求参数区域
 	/* getCommentsByProjectAndPhase() 参数区域 */
 	private int pageNo;
@@ -78,13 +93,62 @@ public class CommentAction {
 	/* saveComment() 返回值 */
 	private String phaseId;
 	
+	private List<CommentExt> commentExts;
+	
+	private Employee employee;
+
+	
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	public List<CommentExt> getCommentExts() {
+		return commentExts;
+	}
+
+	public void setCommentExts(List<CommentExt> commentExts) {
+		this.commentExts = commentExts;
+	}
+
+	public List<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(List<Employee> employees) {
+		this.employees = employees;
+	}
+
+	
+	public String getCommentEmployee() {
+		return commentEmployee;
+	}
+
+	public void setCommentEmployee(String commentEmployee) {
+		this.commentEmployee = commentEmployee;
+	}
+
 	public String getCommentsByProjectAndPhase(){
 		ActionContext context = ActionContext.getContext();
 		Project project = (Project) context.getSession().get(FinalConstant.SESSION_CURRENT_PROJECT);
 		String phaseId = (String) context.getSession().get("phaseId");
 		int phaseIdInt = Integer.parseInt(phaseId);
 		Params params = new Params(0, pageNo, pageSize, null, orderName, orderType);
+		List<Comment> comments = commentService.getCommentsByPhaseForProject(params, phaseIdInt, project.getProjectId());
 		
+		for (int i = 0; i <comments.size(); i++) {
+			CommentExt commentExt = new CommentExt();
+			commentExts = new ArrayList<CommentExt>();
+			Employee employee = employeeService.getEmployee(comments.get(i).getEmployeeId());
+			
+			commentExt.setComment(comments.get(i));
+			commentExt.setName(employee.getName());
+			
+			commentExts.add(commentExt);
+		}
 		setCommentLists(commentService.getCommentsByPhaseForProject(params, phaseIdInt, project.getProjectId()));
 		setItemCount(commentService.getCommentsCountByPhaseForProject(params, phaseIdInt, project.getProjectId()));
 		return "commentTemplate";
@@ -95,7 +159,11 @@ public class CommentAction {
 		ActionContext.getContext().getSession().put("commentId", id);
 		if(c!=null){
 			setComment(c);
+			if (c.getEmployeeId()!=null) {
+				employee = employeeService.getEmployee(c.getEmployeeId());
+			}
 		}
+		
 		return "commentInfo";
 	}
 	
@@ -105,7 +173,10 @@ public class CommentAction {
 			int pId = Integer.parseInt(phaseId);
 			setPhase(phaseService.getPhase(pId));
 		}
-		
+		ActionContext context = ActionContext.getContext();
+		Project p = (Project) context.getSession().get("project");
+		employees = employeeProjectRService.getEmployeeByProjectId(p.getProjectId());
+		//employees = employeeService.getAllEmployees();
 		return "addComment";
 	}
 	
@@ -118,7 +189,7 @@ public class CommentAction {
 			int pId = Integer.parseInt(phId);
 			phaseExamp = phaseService.getPhase(pId); 
 			if(phaseExamp!=null && project!=null && StringUtils.isNotBlank(commentName) && commentDate!=null){
-				Comment c = new Comment(project, phaseExamp, commentName, commentDate);
+				Comment c = new Comment(project, phaseExamp, commentName, commentDate,commentEmployee);
 				commentService.saveEntity(c);
 			}
 		}

@@ -105,5 +105,16 @@ public class CommentDaoImpl extends BaseDaoImpl<Comment> implements CommentDao {
 		query.setParameter(1, endDate);
 		return query.list().size();
 	}
+
+	@Override
+	public int getCountByDateAndEmployeeId(String employeeId, Date startDate,
+			Date endDate) {
+		String hql = "from Comment where date>=? and date<=? and employeeId=?";
+		Query query = getSession().createQuery(hql);
+		query.setParameter(0, startDate);
+		query.setParameter(1, endDate);
+		query.setParameter(2, employeeId);
+		return query.list().size();
+	}
 	
 }

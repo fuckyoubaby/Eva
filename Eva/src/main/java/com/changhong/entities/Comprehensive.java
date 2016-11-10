@@ -102,7 +102,7 @@ public class Comprehensive implements java.io.Serializable {
 		this.type = type;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "comprehensive")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comprehensive")
 	public Set<Mode> getModes() {
 		return this.modes;
 	}

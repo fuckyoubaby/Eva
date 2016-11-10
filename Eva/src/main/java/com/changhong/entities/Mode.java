@@ -67,7 +67,7 @@ public class Mode implements java.io.Serializable {
 		this.modeId = modeId;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "comprehensive")
 	public Comprehensive getComprehensive() {
 		return this.comprehensive;
@@ -77,7 +77,7 @@ public class Mode implements java.io.Serializable {
 		this.comprehensive = comprehensive;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "problemMode")
 	public Problemmode getProblemmode() {
 		return this.problemmode;
@@ -87,7 +87,7 @@ public class Mode implements java.io.Serializable {
 		this.problemmode = problemmode;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee")
 	public Employee getEmployee() {
 		return this.employee;
@@ -116,7 +116,7 @@ public class Mode implements java.io.Serializable {
 		this.createTime = createTime;
 	}
 
-	@OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "mode")
+	@OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "mode")
 	public Set<Result> getResults() {
 		return this.results;
 	}
@@ -125,7 +125,7 @@ public class Mode implements java.io.Serializable {
 		this.results = results;
 	}
 
-	@OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "mode")
+	@OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "mode")
 	public Set<Employeemoder> getEmployeemoders() {
 		return this.employeemoders;
 	}
@@ -134,7 +134,7 @@ public class Mode implements java.io.Serializable {
 		this.employeemoders = employeemoders;
 	}
 	
-	@OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "mode")
+	@OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "mode")
 	public Set<Overallscore> getOverallscores() {
 		return this.overallscores;
 	}

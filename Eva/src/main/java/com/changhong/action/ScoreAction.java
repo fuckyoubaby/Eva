@@ -1,6 +1,7 @@
 package com.changhong.action;
 
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -134,7 +135,7 @@ public class ScoreAction {
 	private List<Job> jobs;
 	private int employeeType;
 	
-	
+	private int pingshenToatleTimes;
 	
 	public List<ResultShowTemplate> getResultShowTemplates() {
 		return resultShowTemplates;
@@ -337,6 +338,7 @@ public class ScoreAction {
 	}
 	public String getResultByModeId()
 	{
+		pingshenToatleTimes = 0;
 		log.info("orderName = "+orderName+"  orderType="+orderType);
 		int modeId = (Integer) ActionContext.getContext().getSession().get("modeId"); //此处modeId实际上是overallId，
 		Params params = new Params(0, pageNo, pageSize, keyword, orderName, orderType);
@@ -359,12 +361,16 @@ public class ScoreAction {
 			resultShowTemplate.setScoreRank(i+1);
 			resultShowTemplate.setResult(results.get(i));
 			
+			int pingshenTimes = problemService.getCountByCommentIdAndEmployeeIdAndDate( results.get(i).getEmployee().getId(), results.get(i).getOverallscore().getStartTime(), results.get(i).getOverallscore().getEndTime());
+			
 			List<Secondlevelscore> doubles = new ArrayList<Secondlevelscore>();
 			String oneLevelName = "";
 			if (orderName.equals("compliance")) {
 				oneLevelName = "合规";
+				resultShowTemplate.setPingshenTimes(pingshenTimes);
 			}else if (orderName.equals("designAbility")) {
 				oneLevelName = "专业技术";
+				resultShowTemplate.setPingshenTimes(pingshenTimes);
 			}else if (orderName.equals("learningAbility")) {
 				oneLevelName = "自我成长";
 			}else if (orderName.equals("work")) {
@@ -380,7 +386,7 @@ public class ScoreAction {
 				}
 			}
 			log.info("doubles.size = "+doubles.size());
-			
+			System.out.println("将要放置doubles");
 			resultShowTemplate.setList(doubles);
 			resultShowTemplates.add(resultShowTemplate);
 			
@@ -513,10 +519,13 @@ public class ScoreAction {
 			}
 			//获取某个员工某段时间的评审次数
 			int pingshenTimes = problemService.getCountByCommentIdAndEmployeeIdAndDate(employees.get(i).getId(), start_time, end_time);
-			 
+			
+			log.info("员工"+employees.get(i).getName()+"设计评审次数为："+pingshenTimes);
 			//根据员工的id找出在某段时间内该员工所犯的所有问题
 			List<Problem> problems = new ArrayList<Problem>();
 			problems = problemService.getProblemsByEmployeeId(employees.get(i).getId(), start_time, end_time);
+			
+			log.info("员工"+employees.get(i).getName()+"所有的问题个数："+problems.size());
 			//对各个问题分别分析类别
 			
 			/*if (secondweight_yibanshejiquexian!=null) {
@@ -538,18 +547,24 @@ public class ScoreAction {
 			for (int j = 0; j < problems.size(); j++) {
 				//一般设计缺陷
 				if (problems.get(j).getProblemtype().getTypeName().equals(FinalConstant.PROFESSIONAL_SKILL_enum.一般设计缺陷.toString())) {
-					
+					log.info("员工"+employees.get(i).getName()+"一般设计缺陷："+problems.get(j).getProblemId());
 					if (secondweight_yibanshejiquexian==null) {
 					}else {
 						
 						if (problems.get(j).getProblemLevel().equals("A")) {
+							
 							yibansheji+=secondweight_yibanshejiquexian.getA();
+							log.info("员工"+employees.get(i).getName()+"一般设计缺陷的A问题："+problems.get(j).getProblemLevel()+" 一般设计缺陷总分"+yibansheji);
 							//yibanshejiNum++;
 						}else if (problems.get(j).getProblemLevel().equals("B")) {
+							
 							yibansheji+=secondweight_yibanshejiquexian.getB();
+							log.info("员工"+employees.get(i).getName()+"一般设计缺陷的B问题："+problems.get(j).getProblemLevel()+" 一般设计缺陷总分"+yibansheji);
 							//yibanshejiNum++;
 						}else if (problems.get(j).getProblemLevel().equals("C")) {
+							
 							yibansheji+=secondweight_yibanshejiquexian.getC();
+							log.info("员工"+employees.get(i).getName()+"一般设计缺陷的C问题："+problems.get(j).getProblemLevel()+" 一般设计缺陷总分"+yibansheji);
 							//yibanshejiNum++;
 						}
 						
@@ -566,34 +581,39 @@ public class ScoreAction {
 						
 						if (problems.get(j).getProblemLevel().equals("A")) {
 							dijicuowu+=secondweight_dijicuowu.getA();
+							log.info("员工"+employees.get(i).getName()+"低级错误的A问题："+problems.get(j).getProblemLevel()+" 低级错误总分"+dijicuowu);
 							dijicuowuNum++;
 						}else if (problems.get(j).getProblemLevel().equals("B")) {
 							dijicuowu+=secondweight_dijicuowu.getB();
+							log.info("员工"+employees.get(i).getName()+"低级错误的B问题："+problems.get(j).getProblemLevel()+" 低级错误总分"+dijicuowu);
 							dijicuowuNum++;
 						}else if (problems.get(j).getProblemLevel().equals("C")) {
 							dijicuowu+=secondweight_dijicuowu.getC();
+							log.info("员工"+employees.get(i).getName()+"低级错误的C问题："+problems.get(j).getProblemLevel()+" 低级错误总分"+dijicuowu);
 							dijicuowuNum++;
 						}
 						
 					}	
 				}else 
-				
 				//设计评审中的   设计规定扣分
-				if (problems.get(j).getProblemtype().getTypeName().equals(FinalConstant.COMPLIANCE_enum.设计规定.toString())) {
+				if (problems.get(j).getProblemtype().getTypeName().equals(FinalConstant.COMPLIANCE_enum.设计规定.toString())||problems.get(j).getProblemtype().getTypeName().equals("不合规")) {
 					
-					
+					log.info("设计规定扣分项统计");
 					if (secondweight_shejiguiding==null) {
-						
+						log.info("secondweight_shejiguiding == null");
 					}else {
-						
+						log.info("问题级别"+problems.get(j).getProblemLevel());
 						if (problems.get(j).getProblemLevel().equals("A")) {
 							shejiguiding+=secondweight_shejiguiding.getA();
+							log.info("员工"+employees.get(i).getName()+"设计规定的A问题："+problems.get(j).getProblemLevel()+" 设计规定总分"+shejiguiding);
 							shejiguidingNum++;
 						}else if (problems.get(j).getProblemLevel().equals("B")) {
 							shejiguiding+=secondweight_shejiguiding.getB();
+							log.info("员工"+employees.get(i).getName()+"设计规定的B问题："+problems.get(j).getProblemLevel()+" 设计规定总分"+shejiguiding);
 							shejiguidingNum++;
 						}else if (problems.get(j).getProblemLevel().equals("C")) {
 							shejiguiding+=secondweight_shejiguiding.getC();
+							log.info("员工"+employees.get(i).getName()+"设计规定的C问题："+problems.get(j).getProblemLevel()+" 设计规定总分"+shejiguiding);
 							shejiguidingNum++;
 						}
 						
@@ -616,9 +636,8 @@ public class ScoreAction {
 				second_yibansheji.setScore((double)yibansheji/yibanshejiNum);
 			}
 			second_yibansheji.setOverallscore(overallscore);
-			log.info("secondscore "+second_yibansheji.getSecondLevel());
+			log.info("员工"+employees.get(i).getName()+"一般设计缺陷二级结果"+second_yibansheji.getScore()+"一般设计缺陷的评审次数="+yibanshejiNum+"一般设计总分="+yibansheji);
 			secondLevelScoreService.save(second_yibansheji);
-			log.info("secondscore "+second_yibansheji.getSecondLevel()+"保存成功");
 			//低级错误二级结果保存
 			Secondlevelscore second_dijicuowu = new Secondlevelscore();
 			second_dijicuowu.setEmployee(employees.get(i));
@@ -633,6 +652,7 @@ public class ScoreAction {
 			}
 			second_dijicuowu.setOverallscore(overallscore);
 			
+			log.info("员工"+employees.get(i).getName()+"低级错误二级结果"+second_dijicuowu.getScore()+"低级错误的评审次数="+dijicuowuNum+"总分="+dijicuowu);
 			secondLevelScoreService.save(second_dijicuowu);
 			
 			//设计合规二级结果保存
@@ -650,19 +670,20 @@ public class ScoreAction {
 			if (shejiguidingNum==0) {
 				tem_sheji = 0.0;
 			}else {
-				tem_sheji = shejiguiding/shejiguidingNum;
+				tem_sheji = (double)shejiguiding/shejiguidingNum;
 			}
 			
 			double tem_des = 0.0;
 			if (designRegNum==0) {
 				tem_des = 0.0;
 			}else {
-				tem_des = designRegSum/designRegNum;
+				tem_des = (double)designRegSum/designRegNum;
 			}
 			double score = tem_des+tem_sheji;
 			second_shejiguiding.setScore(score);
 			second_shejiguiding.setOverallscore(overallscore);
 			
+			log.info("员工"+employees.get(i).getName()+"设计规定二级结果"+second_shejiguiding.getScore()+"设计评审的评审次数="+shejiguidingNum+"总分="+score);
 			secondLevelScoreService.save(second_shejiguiding);
 			
 			log.info("设计合规的计算 设计评审次数 = "+shejiguidingNum+" 设计规定分数="+shejiguiding+" tem+des="+tem_des+" tem_sheji="+tem_sheji);
@@ -682,6 +703,7 @@ public class ScoreAction {
 			}else {
 				second_liuchenghegui.setScore((double)flowsheetRegSum/flowsheetRegNum);
 			}
+			log.info("员工"+employees.get(i).getName()+"流程二级结果"+second_liuchenghegui.getScore()+"流程合规的评审次数="+flowsheetRegNum+"总分="+flowsheetRegSum);
 			second_liuchenghegui.setOverallscore(overallscore);
 			
 			
@@ -703,7 +725,7 @@ public class ScoreAction {
 			}
 			second_gongzuojijixing.setOverallscore(overallscore);
 			
-			
+			log.info("员工"+employees.get(i).getName()+"工作积极性二级结果"+second_gongzuojijixing.getScore()+"评审次数="+workEntNum+"总分="+workEntSum);
 			secondLevelScoreService.save(second_gongzuojijixing);
 			
 			//沟通能力 二级结果保存
@@ -722,6 +744,7 @@ public class ScoreAction {
 			}
 			second_goutongnengli.setOverallscore(overallscore);
 			
+			log.info("员工"+employees.get(i).getName()+"沟通能力二级结果"+second_goutongnengli.getScore()+"评审次数="+communicationNum+"总分="+communicationSum);
 			secondLevelScoreService.save(second_goutongnengli);
 			
 			//工作计划性二级结果保存
@@ -738,6 +761,7 @@ public class ScoreAction {
 			}else {
 				second_gongzuojihuaxing.setScore((double)workplanSum/workplanNum);
 			}
+			log.info("员工"+employees.get(i).getName()+"工作计划性二级结果"+second_gongzuojihuaxing.getScore()+"评审次数="+workplanNum+"总分="+workEntSum);
 			second_gongzuojihuaxing.setOverallscore(overallscore);
 			
 			
@@ -944,29 +968,31 @@ public class ScoreAction {
 			double temp_yibansheji = 0.0;
 			double temp_dijicuowu = 0.0;
 			if (yibanshejiNum!=0) {
-				temp_yibansheji = yibansheji/yibanshejiNum;
+				temp_yibansheji = (double)yibansheji/yibanshejiNum;
 			}
 			if (dijicuowuNum!=0) {
-				temp_dijicuowu = dijicuowu/dijicuowuNum;
+				temp_dijicuowu = (double)dijicuowu/dijicuowuNum;
 			}
 			
 			
 			zhuanyejishu = temp_yibansheji*yibanshejiWeight+temp_dijicuowu*dijicuowuWeight;//根据一般设计错误和低级错误进行加权计算
-			
+			log.info("员工"+employees.get(i).getName()+"设计一级结果");
 			log.info("专业技术一级结果计算 temp_yibansheji= "+temp_yibansheji+" temp_dijicuowu = "+temp_dijicuowu+" yibanshejiWeight="+yibanshejiWeight+" dijicuowuWeight = "+dijicuowuWeight);
 			//合规
 			double temp_liucheng = 0.0;
 			if (flowsheetRegNum==0) {
 				temp_liucheng = 0.0;
 			}else {
-				temp_liucheng = flowsheetRegSum/flowsheetRegNum;
+				temp_liucheng = (double)flowsheetRegSum/flowsheetRegNum;
 			}
 			//对合规的权重进行盘判定，如果设计合规的权重为100%，则合规总分就不进行加权计算。
+			
 			if (1-shejiguidingWeight<0.00001) {
 				hegui = score+temp_liucheng;
 			}else {
 				hegui = score*shejiguidingWeight+temp_liucheng*(1-shejiguidingWeight);
 			}
+			log.info("员工"+employees.get(i).getName()+"合规一级结果");
 			log.info("合规一级结果计算 temp_liucheng = "+temp_liucheng+" score"+score+" shejiguidingWeight="+shejiguidingWeight);
 			
 			//沟通管理
@@ -977,22 +1003,27 @@ public class ScoreAction {
 			double temp_workPlan = 0.0;
 			
 			if (workEntNum!=0) {
-				temp_workEnt = workEntSum/workEntNum;
+				temp_workEnt = (double)workEntSum/workEntNum;
 			}
 			if (communicationNum!=0) {
-				temp_com = communicationSum/communicationNum;
+				temp_com = (double)communicationSum/communicationNum;
 			}
 			
 			if (workplanNum!=0) {
-				temp_workPlan = workplanSum/workplanNum;
+				temp_workPlan = (double)workplanSum/workplanNum;
 			}
 			goutongguanli = temp_workEnt*secondweight_workEx.getWeightly()+temp_com*secondweight_com.getWeightly()+temp_workPlan*secondweight_workPlan.getWeightly();
 			log.info("沟通管理一级结果计算 temp_workEnt="+temp_workEnt+" workent_weight"+temp_workEnt+secondweight_workEx.getWeightly()+" temp_com="+temp_com+" comweight "+secondweight_com.getWeightly()+" temp_workPlan= "+temp_workPlan+" weight = "+secondweight_workPlan.getWeightly());
 			
 			
 			//自我成长
+			if((1-xuexijijixingWeight)<0.00001)
+			{
+				ziwochengzhang = xuexijijixing+exam_score;
+			}else {
+				ziwochengzhang = xuexijijixing*xuexijijixingWeight+exam_score*(1-xuexijijixingWeight);
+			}
 			
-			ziwochengzhang = xuexijijixing*xuexijijixingWeight+exam_score*(1-xuexijijixingWeight);
 			
 			log.info("xuexijijixing ="+xuexijijixing+" xuexijijixingWeight="+xuexijijixingWeight+" exam_score="+exam_score+ " ");
 			//对公司贡献
@@ -1080,7 +1111,7 @@ public class ScoreAction {
 		double qita_avg;
 		double peixun_avg;
 		//resultShowTemplates
-		
+		 DecimalFormat df = new DecimalFormat("##.00");
 		
 		if (orderName.equals("compliance")) {//合规
 			compliance_avg = resultService.getAVG("compliance", overAllScoreId);
@@ -1095,7 +1126,7 @@ public class ScoreAction {
 			int mid;
 			while (low<=height) {
 				mid = (low+height)/2;
-				if (resultShowTemplates.get(mid).getResult().getCompliance()>communication_avg) {
+				if (resultShowTemplates.get(mid).getResult().getCompliance()>compliance_avg) {
 					low = mid+1;
 					
 				}else {
@@ -1105,9 +1136,9 @@ public class ScoreAction {
 			ResultShowTemplate rst = new ResultShowTemplate();
 			
 			Secondlevelscore sls = new Secondlevelscore();
-			sls.setScore(shejihegui_avg);
+			sls.setScore(BaoLiuXiaoShu(shejihegui_avg));
 			Secondlevelscore sls2 = new Secondlevelscore();
-			sls2.setScore(liuchenghegui_avg);
+			sls2.setScore(BaoLiuXiaoShu(liuchenghegui_avg));
 			List<Secondlevelscore> list = new ArrayList<Secondlevelscore>();
 			list.add(sls);
 			list.add(sls2);
@@ -1117,7 +1148,7 @@ public class ScoreAction {
 			employee.setId("平均值");
 			employee.setName("平均值");
 			com.changhong.entities.Result result = new com.changhong.entities.Result();
-			result.setCompliance(compliance_avg);
+			result.setCompliance(BaoLiuXiaoShu(compliance_avg));
 			result.setEmployee(employee);
 			rst.setResult(result);
 			
@@ -1144,9 +1175,9 @@ public class ScoreAction {
 			ResultShowTemplate rst = new ResultShowTemplate();
 			
 			Secondlevelscore sls = new Secondlevelscore();
-			sls.setScore(yibanshejiquexian_avg);
+			sls.setScore(BaoLiuXiaoShu(yibanshejiquexian_avg));
 			Secondlevelscore sls2 = new Secondlevelscore();
-			sls2.setScore(dijicuowu_avg);
+			sls2.setScore(BaoLiuXiaoShu(dijicuowu_avg));
 			List<Secondlevelscore> list = new ArrayList<Secondlevelscore>();
 			list.add(sls);
 			list.add(sls2);
@@ -1156,7 +1187,7 @@ public class ScoreAction {
 			employee.setId("平均值");
 			employee.setName("平均值");
 			com.changhong.entities.Result result = new com.changhong.entities.Result();
-			result.setDesignAbility(designAbility_avg);
+			result.setDesignAbility(BaoLiuXiaoShu(designAbility_avg));
 			result.setEmployee(employee);
 			rst.setResult(result);
 			
@@ -1182,9 +1213,9 @@ public class ScoreAction {
 			ResultShowTemplate rst = new ResultShowTemplate();
 			
 			Secondlevelscore sls = new Secondlevelscore();
-			sls.setScore(xuexijijixing_avg);
+			sls.setScore(BaoLiuXiaoShu(xuexijijixing_avg));
 			Secondlevelscore sls2 = new Secondlevelscore();
-			sls2.setScore(kaoshi_avg);
+			sls2.setScore(BaoLiuXiaoShu(kaoshi_avg));
 			List<Secondlevelscore> list = new ArrayList<Secondlevelscore>();
 			list.add(sls);
 			list.add(sls2);
@@ -1194,7 +1225,7 @@ public class ScoreAction {
 			employee.setId("平均值");
 			employee.setName("平均值");
 			com.changhong.entities.Result result = new com.changhong.entities.Result();
-			result.setLearningAbility(learningAbility_avg);
+			result.setLearningAbility(BaoLiuXiaoShu(learningAbility_avg));
 			result.setEmployee(employee);
 			rst.setResult(result);
 			
@@ -1226,19 +1257,19 @@ public class ScoreAction {
 			ResultShowTemplate rst = new ResultShowTemplate();
 			
 			Secondlevelscore sls = new Secondlevelscore();
-			sls.setScore(zhuanli_avg);
+			sls.setScore(BaoLiuXiaoShu(zhuanli_avg));
 			Secondlevelscore sls2 = new Secondlevelscore();
-			sls2.setScore(jingyanku_avg);
+			sls2.setScore(BaoLiuXiaoShu(jingyanku_avg));
 			Secondlevelscore sls3 = new Secondlevelscore();
-			sls3.setScore(biaozhunhua_avg);
+			sls3.setScore(BaoLiuXiaoShu(biaozhunhua_avg));
 			Secondlevelscore sls4 = new Secondlevelscore();
-			sls4.setScore(zhongyaoxinxishouji_avg);
+			sls4.setScore(BaoLiuXiaoShu(zhongyaoxinxishouji_avg));
 			Secondlevelscore sls5 = new Secondlevelscore();
-			sls5.setScore(xiangmuwendang_avg);
+			sls5.setScore(BaoLiuXiaoShu(xiangmuwendang_avg));
 			Secondlevelscore sls6 = new Secondlevelscore();
-			sls6.setScore(qita_avg);
+			sls6.setScore(BaoLiuXiaoShu(qita_avg));
 			Secondlevelscore sls7 = new Secondlevelscore();
-			sls7.setScore(peixun_avg);
+			sls7.setScore(BaoLiuXiaoShu(peixun_avg));
 			
 			List<Secondlevelscore> list = new ArrayList<Secondlevelscore>();
 			list.add(sls);
@@ -1254,7 +1285,7 @@ public class ScoreAction {
 			employee.setId("平均值");
 			employee.setName("平均值");
 			com.changhong.entities.Result result = new com.changhong.entities.Result();
-			result.setWork(work_avg);
+			result.setWork(BaoLiuXiaoShu(work_avg));
 			result.setEmployee(employee);
 			rst.setResult(result);
 			
@@ -1281,11 +1312,11 @@ public class ScoreAction {
 			ResultShowTemplate rst = new ResultShowTemplate();
 			
 			Secondlevelscore sls = new Secondlevelscore();
-			sls.setScore(gongzuojijixing_avg);
+			sls.setScore(BaoLiuXiaoShu(gongzuojijixing_avg));
 			Secondlevelscore sls2 = new Secondlevelscore();
-			sls2.setScore(gongtongnengli_avg);
+			sls2.setScore(BaoLiuXiaoShu(gongtongnengli_avg));
 			Secondlevelscore sls3 = new Secondlevelscore();
-			sls3.setScore(gongzuojihuaxing_avg);
+			sls3.setScore(BaoLiuXiaoShu(gongzuojihuaxing_avg));
 			
 			List<Secondlevelscore> list = new ArrayList<Secondlevelscore>();
 			list.add(sls);
@@ -1297,7 +1328,7 @@ public class ScoreAction {
 			employee.setId("平均值");
 			employee.setName("平均值");
 			com.changhong.entities.Result result = new com.changhong.entities.Result();
-			result.setCommunication(communication_avg);
+			result.setCommunication(BaoLiuXiaoShu(communication_avg));
 			result.setEmployee(employee);
 			rst.setResult(result);
 			
@@ -1305,5 +1336,12 @@ public class ScoreAction {
 		}
 	}
 	
+	
+	private double BaoLiuXiaoShu(double k)
+	{
+		int t = (int) (k*100);
+		double r = (double)t/100;
+		return r;
+	}
 	
 }

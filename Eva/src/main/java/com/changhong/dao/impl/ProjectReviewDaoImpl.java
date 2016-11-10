@@ -108,7 +108,7 @@ public class ProjectReviewDaoImpl extends BaseDaoImpl<Projectreview> implements 
 	@Override
 	public int getCountNotZero(String employeeId, Date startDate, Date endDate,
 			String colName) {
-		String hql = "from Projectreview where employee.id=? and prdate>=? and prdate<=? and "+colName+"!=0";
+		String hql = "from Projectreview where employee.id=? and prdate>=? and prdate<=?";
 		Query query = getSession().createQuery(hql);
 		query.setParameter(0, employeeId);
 		query.setParameter(1, startDate);
@@ -118,7 +118,7 @@ public class ProjectReviewDaoImpl extends BaseDaoImpl<Projectreview> implements 
 	@Override
 	public Long getSumByCol(String employeeId, Date startDate, Date endDate,
 			String colName) {
-		String hql = "select SUM("+colName+") from Projectreview where employee.id=? and prdate>=? and prdate<=? and "+colName+"!=0";
+		String hql = "select SUM("+colName+") from Projectreview where employee.id=? and prdate>=? and prdate<=?";
 		Query query = getSession().createQuery(hql);
 		query.setParameter(0, employeeId);
 		query.setParameter(1, startDate);

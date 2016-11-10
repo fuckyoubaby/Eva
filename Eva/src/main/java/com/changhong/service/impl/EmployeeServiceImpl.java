@@ -124,13 +124,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employeeLists = cleanBlank(employeeLists);
 		brt.setTotalRecodes(employeeLists.size());
 		int repeatCount = 0;
-		for(int i=employeeLists.size()-1;i>=0;i--){
+		/*for(int i=employeeLists.size()-1;i>=0;i--){
 			Employee e = employeeLists.get(i);
 			if(employeeDao.isExist(e.getId().trim())){
 				employeeLists.remove(i);
 				repeatCount++;
 			}
-		}
+		}*/
 		brt.setRepeatRecodes(repeatCount);
 		brt.setImportRecodes(employeeDao.save(employeeLists));
 		return brt;

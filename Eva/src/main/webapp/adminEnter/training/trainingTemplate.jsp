@@ -9,9 +9,8 @@
 	<tr data-itemcount='${itemcount}'>
 		<td><input type="checkbox" value="${train.trainId}" name="chkName" /></td>
 		<td>${train.trainName}</td>
-		<td>${train.teacher} ${train.employee.name} </td>
+		
 		<td>${train.trainTime}</td>
-		<td>${train.trainLocation}</td>
 		<td>${train.trainLevel}</td>
 		<td><a href="trainAction!getTrainById.action?trainId=${train.trainId}">查看</a></td>
 		

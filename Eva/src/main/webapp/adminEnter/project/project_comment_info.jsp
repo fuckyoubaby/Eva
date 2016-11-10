@@ -88,6 +88,10 @@
 				<div class="col-md-4">${comment.name}</div>
 			</div>
 			<div class="row mg-b15">
+				<div class="col-md-2">评审对象</div>
+				<div class="col-md-4">${employee.name}</div>
+			</div>
+			<div class="row mg-b15">
 				<div class="col-md-2">评审日期</div>
 				<div class="col-md-4"><fmt:formatDate value="${comment.date}" pattern="yyyy-MM-dd"/></div>
 			</div>
@@ -207,8 +211,8 @@
 			var reviewName = '${comment.name}';
 			var phaseId='${comment.phase.phaseId}';
 			var phaseName='${comment.phase.phaseName}';
-			phaseName=encodeURI(encodeURI(phaseName));
-			reviewName=encodeURI(encodeURI(reviewName));
+			//phaseName=encodeURI(encodeURI(phaseName));
+			//reviewName=encodeURI(encodeURI(reviewName));
 			var paramValue='phaseId='+phaseId+'&phaseName='+phaseName+'&reviewName='+reviewName;
 			var uri = '${basePath}/adminEnter/project/project_mistake_batchImport.jsp?'+paramValue;
 			window.location.href=uri;

@@ -68,9 +68,9 @@ $(function(){
 		});
 	</script>
 	<script type="text/javascript">
-			function showDiv()
+			/* function showDiv()
 			{
-				var type = document.getElementById("teacherType").value;
+				//var type = document.getElementById("teacherType").value;
 				if(type==0)
 				{
 					var inTeacher = document.getElementById("inTeacher");
@@ -84,7 +84,7 @@ $(function(){
 					inTeacher.style.display="none";
 					outTeacher.style.display="";
 				}
-			}
+			} */
 		</script>
 	</head>
 	<body>
@@ -102,7 +102,7 @@ $(function(){
 							<label class="control-label">培训名称</label>
 							<input type="text" name="trainName" class="form-control" value="${train.trainName }" />
 						</div>
-						<div class="form-group">
+						<%-- <div class="form-group">
 								<label class="control-label">培训讲师所属</label>
 								<select id="teacherType" name="teacherType" onchange="showDiv();" class="form-control">
 									<c:if test="${train.teacher!=null&& fn:length(train.teacher)>0}">
@@ -128,7 +128,7 @@ $(function(){
 			     					  $("#chosen-select").chosen({no_results_text: "Oops, nothing found!"});
 			    				</script>
 								
-						</div>
+						</div> --%>
 							<div class="form-group">
 								<label  class="control-label">组织人员  
 									<c:forEach items="${trainorgs }" var="trainorg">

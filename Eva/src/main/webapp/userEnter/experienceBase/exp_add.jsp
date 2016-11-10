@@ -6,7 +6,7 @@
 			+ path + "/";
 %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="s"uri="/struts-tags"%>
+<%@taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -165,8 +165,8 @@
 								<div class="col-md-6">
 									<select name="country" class="form-control">
 										<option value="">请选择</option>
-										<option value="">海外</option>
-										<option value="">国内</option>
+										<option value="海外">海外</option>
+										<option value="国内">国内</option>
 									</select>
 								</div>
 								<div class="col-md-6">
@@ -240,12 +240,16 @@
 							<div class="form-control-static">Amlogic S805</div>
 						</div>-->
 						<div class="form-group">
+							<label  class="control-abel">主芯片</label>
+							<div class="form-control-static"><input name="mainChip"  class="form-control"/></div>
+						</div>
+						<div class="form-group">
 							<label  class="control-abel">关键词</label>
 							<div class="form-control-static"><input name="main_word"  class="form-control"/></div>
 						</div>
 						<div class="form-group">
 							<label  class="control-abel">摘要</label>
-							<textarea name="abstruct" rows="3" class="form-control"></textarea>
+							<textarea name="expAbstruct" rows="3" class="form-control"></textarea>
 						</div>
 					</div>
 				

@@ -455,6 +455,13 @@ public class FileProcessAction extends ActionSupport{
 		
 		Employee admin =  (Employee) ActionContext.getContext().getSession().get(FinalConstant.SESSION_LOGINER);
 		String commentId = (String) ActionContext.getContext().getSession().get("commentId");
+		if(StringUtils.isBlank(commentId)){
+			obj.put(FinalConstant.JSON_RESULT, FinalConstant.RESULT_FAIL);
+			obj.put(FinalConstant.JSON_MSG, "添加失败，session出错！");
+			setResult(obj);
+			return "success";
+		}
+		
 		String cUser  = (admin==null)?"anyone":admin.getId();
 		String currentDirectory = ServletActionContext.getServletContext().getRealPath(FinalConstant.UPLOAD_PATH);
 		currentDirectory=currentDirectory+"\\"+itemName+"\\"+cUser;

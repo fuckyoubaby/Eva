@@ -69,7 +69,7 @@ public class CommentDaoTest extends BaseDaoTest {
 		Assert.isTrue(currentName.equals(newName));
 	}
 	
-	@Ignore
+	/*@Ignore
 	public void testSaveAndDelete() throws InterruptedException{
 		init();
 		Comment comment = new Comment(project, phase, "测试一哈123", new Date());
@@ -95,9 +95,9 @@ public class CommentDaoTest extends BaseDaoTest {
 		Comment d = commentDao.get(Comment.class, comment.getId());
 		Assert.isNull(d, "delete测试：id="+id+"获取的comment实例应为空");
 		log.info("删除成功"+id);
-	}
+	}*/
 	
-	@Ignore
+/*	@Ignore
 	public void testSaveAndDelete2() throws InterruptedException{
 		init();
 		Comment comment = new Comment(project, phase, "测试一哈123", new Date());
@@ -112,7 +112,7 @@ public class CommentDaoTest extends BaseDaoTest {
 		Comment d = commentDao.get(Comment.class, comment.getId());
 		Assert.isNull(d, "delete测试：id="+id+"获取的comment实例应为空");
 		log.info("删除成功"+id);
-	}
+	}*/
 	public Project getProject() {
 		return project;
 	}

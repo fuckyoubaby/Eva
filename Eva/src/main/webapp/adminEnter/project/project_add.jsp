@@ -150,6 +150,13 @@
 									message:'项目编号不能为空'
 								},
 								//等待remote或者callback
+								callback:{
+									message:'编号仅能含有数字、字母、短线、下划线!',
+									callback: function(value, validator){
+										var regex = /[^0-9a-zA-Z_-]/g;
+										return !regex.test(value);
+									}
+								},
 								remote:{
 									message:'该编号已存在，请修改！',
 									url:'<%=basePath%>ajaxRequestAction!checkProjectId.action'

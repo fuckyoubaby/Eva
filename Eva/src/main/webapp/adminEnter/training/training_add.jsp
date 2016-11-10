@@ -72,7 +72,7 @@
 		});
 	</script>
 	<script type="text/javascript">
-			function showDiv()
+			/* function showDiv()
 			{
 				var type = document.getElementById("teacherType").value;
 				if(type==0)
@@ -88,7 +88,7 @@
 					inTeacher.style.display="none";
 					outTeacher.style.display="";
 				}
-			}
+			} */
 		</script>
 	</head>
 	<body>
@@ -105,7 +105,7 @@
 								<label class="control-label">培训名称</label>
 								<input type="text" name="trainName" class="form-control" />
 							</div>
-							<div class="form-group">
+							<%-- <div class="form-group">
 								<label class="control-label">培训讲师所属</label>
 								<select id="teacherType" name="teacherType" onchange="showDiv();" class="form-control">
 									<option value="0">内部讲师</option>
@@ -128,7 +128,7 @@
 			     					  $("#chosen-select").chosen({no_results_text: "Oops, nothing found!"});
 			    				</script>
 								
-							</div>
+							</div> --%>
 							<div class="form-group">
 								<label  class="control-label">组织人员</label>
 								<!-- <div class="form-control-static">点击添加(<a href="javascript:void(0);">添加</a>)</div> -->
@@ -140,7 +140,7 @@
 									
 										<optgroup label="${map.key }">
 											<c:forEach items="${map.value }" var="employee">
-												<option value="${employee.id }">${employee.name }</option>
+												<option value="${employee.id }">${employee.name } (${employee.email })</option>
 											</c:forEach>
 										</optgroup>
 									</c:forEach>
@@ -194,7 +194,7 @@
 									
 										<optgroup label="${map.key }">
 											<c:forEach items="${map.value }" var="employee">
-												<option value="${employee.id }">${employee.name }</option>
+												<option value="${employee.id }">${employee.name } (${employee.email })</option>
 											</c:forEach>
 										</optgroup>
 									</c:forEach>
@@ -224,7 +224,7 @@
 			}
 			function clickSubmit()
 			{
-				 var teacherType = document.getElementById("teacherType").value;
+				 //var teacherType = document.getElementById("teacherType").value;
 			    /**
 			     * 下面是进行插件初始化
 			     * 你只需传入相应的键值对

@@ -79,7 +79,7 @@ public class Experience implements java.io.Serializable {
 		this.experienceId = experienceId;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee")
 	public Employee getEmployee() {
 		return this.employee;

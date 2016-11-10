@@ -209,7 +209,7 @@ label {
 		<div class="row hr mg-b30"></div>
 		<div class="row mg-b15">
 			<div class="col-md-2">地区</div>
-			<div class="col-md-4">${experience.county }</div>
+			<div class="col-md-4">${experience.area }</div>
 		</div>
 		<div class="row mg-b15">
 			<div class="col-md-2">分类</div>

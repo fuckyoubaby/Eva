@@ -4,7 +4,8 @@ import java.util.List;
 
 public class ResultShowTemplate {
 
-	private int scoreRank;
+	private int scoreRank;//名次
+	private int pingshenTimes;//评审次数
 	private Result result;
 	
 	private List<Secondlevelscore> list;
@@ -25,6 +26,12 @@ public class ResultShowTemplate {
 	}
 	public void setList(List<Secondlevelscore> list) {
 		this.list = list;
+	}
+	public int getPingshenTimes() {
+		return pingshenTimes;
+	}
+	public void setPingshenTimes(int pingshenTimes) {
+		this.pingshenTimes = pingshenTimes;
 	}
 
 	

@@ -342,19 +342,24 @@ public class TrainAction {
 		train = trainService.getTrain(trainId);
 		context.getSession().put("train", train);
 		list = employeeTrainService.getEmployeetrainrsByTrainId(trainId);
-		if (list.size()>0) {
+		//if (list.size()>0) {
 			employeesChecked = new ArrayList<Employee>();
 			for (int i = 0; i < list.size(); i++) {
 				employeesChecked.add(list.get(i).getEmployee());
 			}
 			
-		}
+		//}
 		employeesUnChecked = employeeService.getAllEmployees();
-		if (list.size()>0) {
-			employeesUnChecked.removeAll(employeesChecked);
+		//if (list.size()>0) {
+			//employeesUnChecked.removeAll(employeesChecked);
+		//}
+		for (int i = 0; i < employeesUnChecked.size(); i++) {
+			for (int j = 0; j < employeesChecked.size(); j++) {
+				if (employeesUnChecked.get(i).getId().equals(employeesChecked.get(j).getId())) {
+					employeesUnChecked.remove(i);
+				}
+			}
 		}
-		
-		
 		employeeMap = new HashMap<String, List<Employee>>();
 		List<Job> jobs = jobService.getJobs();
 		for (int i = 0; i < jobs.size(); i++) {
@@ -373,13 +378,13 @@ public class TrainAction {
 			String[] strA=employeeList.split(",");
 			Train train = new Train();
 			train.setInformation(information);
-			Employee e = new Employee();
-			if (teacherType==0) {
+			//Employee e = new Employee();
+			/*if (teacherType==0) {
 				e = employeeService.getEmployee(employeeId);
 				train.setEmployee(e);
 			}else {
 				train.setTeacher(teacher);
-			}
+			}*/
 			train.setTrainContent(trainContent);
 			train.setJoinNum(strA.length);
 			train.setTrainLevel(trainLeval);
@@ -392,9 +397,13 @@ public class TrainAction {
 			for (int i = 0; i < strA.length; i++) {
 				if (strA[i].trim()!=null&&!strA[i].equals("")) {
 					Employee employee = employeeService.getEmployee(strA[i].trim());
-					employeetrainr.setEmployee(employee);
-					employeetrainr.setTrain(train2);
-					employeeTrainService.save(employeetrainr);
+					if (employee!=null&&!employee.equals("")) {
+						employeetrainr.setEmployee(employee);
+						employeetrainr.setTrain(train2);
+						employeeTrainService.save(employeetrainr);
+					}
+					
+					
 				}
 				
 			}
@@ -418,12 +427,12 @@ public class TrainAction {
 			Train train = new Train();
 			train.setInformation(information);
 			Employee e = new Employee();
-			if (teacherType==0) {
+			/*if (teacherType==0) {
 				e = employeeService.getEmployee(employeeId);
 				train.setEmployee(e);
 			}else {
 				train.setTeacher(teacher);
-			}
+			}*/
 			train.setTrainContent(trainContent);
 			train.setJoinNum(0);
 			train.setTrainLevel(trainLeval);
@@ -463,13 +472,13 @@ public class TrainAction {
 			ActionContext context = ActionContext.getContext();
 			Train train = (Train) context.getSession().get("train");
 			train.setInformation(information);
-			Employee e = new Employee();
-			if (teacherType==0) {
+			//Employee e = new Employee();
+			/*if (teacherType==0) {
 				e = employeeService.getEmployee(employeeId);
 				train.setEmployee(e);
 			}else {
 				train.setTeacher(teacher);
-			}
+			}*/
 			train.setTrainContent(trainContent);
 			train.setTrainLevel(trainLeval);
 			train.setTrainLocation(trainArea);
@@ -518,13 +527,13 @@ public class TrainAction {
 			ActionContext context = ActionContext.getContext();
 			Train train = (Train) context.getSession().get("train");
 			train.setInformation(information);
-			Employee e = new Employee();
+			/*Employee e = new Employee();
 			if (teacherType==0) {
 				e = employeeService.getEmployee(employeeId);
 				train.setEmployee(e);
 			}else {
 				train.setTeacher(teacher);
-			}
+			}*/
 			train.setTrainContent(trainContent);
 			train.setTrainLevel(trainLeval);
 			train.setTrainLocation(trainArea);

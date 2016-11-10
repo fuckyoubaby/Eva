@@ -322,7 +322,8 @@ public class ProblemServiceImpl implements ProblemService{
 	public int getCountByCommentIdAndEmployeeIdAndDate(String employeeId,
 			Date startDate, Date endDate) {
 		// TODO Auto-generated method stub
-		return problemDao.getCommentAmountByEmployeeId(employeeId, startDate, endDate);
+		//return problemDao.getCommentAmountByEmployeeId(employeeId, startDate, endDate);
+		return commentDao.getCountByDateAndEmployeeId(employeeId, startDate, endDate);
 	}
 
 	
@@ -336,5 +337,11 @@ public class ProblemServiceImpl implements ProblemService{
 	public int getProblemsCountByCommentIdForUser(Params params,
 			String employeeId, String commentId) {
 		return problemDao.getProblemsCountByCommentIdForUser(params, employeeId, commentId);
+	}
+
+	@Override
+	public List<Problem> getProblems() {
+		// TODO Auto-generated method stub
+		return problemDao.findAll(Problem.class);
 	}
 }

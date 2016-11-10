@@ -46,7 +46,7 @@ public class Modeproblemmoder implements java.io.Serializable {
 		this.modeProblemModeRid = modeProblemModeRid;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "mode")
 	public Mode getMode() {
 		return this.mode;
@@ -56,7 +56,7 @@ public class Modeproblemmoder implements java.io.Serializable {
 		this.mode = mode;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "problemMode")
 	public Problemmode getProblemmode() {
 		return this.problemmode;

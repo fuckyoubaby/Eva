@@ -132,7 +132,7 @@
 								<th>选择</th>
 								<th class="p-hover" data-colname='id'>员工工号<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
 								<th class="p-hover" data-colname='name'>姓名<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
-								<th>岗位</th>
+								<th class="p-hover" data-colname='job.jobId'>岗位<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
 								<th class="p-hover" data-colname='phone'>手机<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
 								<th>邮箱</th>
 								<th>操作</th>
@@ -240,6 +240,13 @@
 							chUser.orderby(opts);
 						});
 					});
+					document.onkeydown=function(){
+				if(event.keyCode==13)
+					{
+						chUser.search();
+						return false;
+					}
+				}; 
 				</script>
 				<!--end table footer area-->
 			</div>

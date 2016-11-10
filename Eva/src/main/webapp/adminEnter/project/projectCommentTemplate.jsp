@@ -14,18 +14,19 @@
     }
     request.setAttribute("basePath",basePath);
 %>
-<c:if test="${commentLists!=null && fn:length(commentLists)>0}">
-	<c:forEach items="${commentLists}" var="comment">
+<c:if test="${commentExts!=null && fn:length(commentExts)>0}">
+	<c:forEach items="${commentExts}" var="commentExt">
 	<tr data-itemcount='${itemcount}'>
-		<td class="word-press">${comment.name}</td>
+		<td class="word-press">${commentExt.comment.name}</td>
 		<td>
-		<fmt:formatDate value="${comment.date}" pattern="yyyy-MM-dd"/>
+		<fmt:formatDate value="${commentExt.comment.date}" pattern="yyyy-MM-dd"/>
 		</td>
-		<td><a href="${basePath}/commentAction!getInfoById.action?id=${comment.id}">详情</a></td>
+		<td>${commentExt.name }</td>
+		<td><a href="${basePath}/commentAction!getInfoById.action?id=${commentExt.comment.id}">详情</a></td>
 	</tr>
 	</c:forEach>
 </c:if>
-<c:if test="${commentLists==null || fn:length(commentLists) ==0}">
+<c:if test="${commentExts==null || fn:length(commentExts) ==0}">
    <tr><td colspan="3" style="padding:100px;">
   	<h3 class="empty" style="text-align:center">友情提示：暂无您所需要的数据....</h3>
   </td></tr>

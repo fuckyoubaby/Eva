@@ -154,21 +154,24 @@ public class EmployeeDaoImpl extends BaseDaoImpl<Employee> implements EmployeeDa
 			}/// username  username or 1=1;  :=id    set("id",value);
 		}else {
 			if (params.getOrderName()==null||params.getOrderName().equals("")) {
-				hql = "from Employee where name like ? or id like ?";
+				hql = "from Employee where name like ? or id like ? or job.jobName like ?";
 				query = getSession().createQuery(hql);
 				query.setParameter(0, "%"+params.getKeyword()+"%");
 				query.setParameter(1, "%"+params.getKeyword()+"%");
+				query.setParameter(2, "%"+params.getKeyword()+"%");
 			}else {
 				if (params.getOrderType().equals("asc")) {
-					hql = "from Employee where (name like ? or id like ?) order by " +params.getOrderName() +" asc";
+					hql = "from Employee where (name like ? or id like ? or job.jobName like ?) order by " +params.getOrderName() +" asc";
 					query = getSession().createQuery(hql);
 					query.setParameter(0, "%"+params.getKeyword()+"%");
 					query.setParameter(1, "%"+params.getKeyword()+"%");
+					query.setParameter(2, "%"+params.getKeyword()+"%");
 				}else {
-					hql = "from Employee where (name like ? or id like ?) order by " +params.getOrderName() +" desc";
+					hql = "from Employee where (name like ? or id like ? or job.jobName like ?) order by " +params.getOrderName() +" desc";
 					query = getSession().createQuery(hql);
 					query.setParameter(0, "%"+params.getKeyword()+"%");
 					query.setParameter(1, "%"+params.getKeyword()+"%");
+					query.setParameter(2, "%"+params.getKeyword()+"%");
 				}
 				
 			}
@@ -184,10 +187,11 @@ public class EmployeeDaoImpl extends BaseDaoImpl<Employee> implements EmployeeDa
 			String hql = "from Employee";
 			query=getSession().createQuery(hql);
 		}else {
-			String hql = "from Employee where name like ? or id like ?";
+			String hql = "from Employee where name like ? or id like ?  or job.jobName like ?";
 			query=getSession().createQuery(hql);
 			query.setParameter(0, "%"+params.getKeyword()+"%");
 			query.setParameter(1, "%"+params.getKeyword()+"%");
+			query.setParameter(2, "%"+params.getKeyword()+"%");
 		}
 		return query.list().size();
 	}

@@ -36,7 +36,7 @@
 			<h3 class="bolder mg-b20">${project.projectName}评审问题批量录入</h3>
 			<div class="hr mg-b15"></div>
 			<div class="mg-b15">要导入的评审：
-			<%
+			<%-- <%
    				String value1=request.getParameter("phaseName");
    				value1= java.net.URLDecoder.decode(value1);
    				out.print(value1);
@@ -45,7 +45,8 @@
 	   			String value=request.getParameter("reviewName");
 	   			value= java.net.URLDecoder.decode(value);
 	   			out.print("【"+value+"】");
-			%>
+			%> --%>
+			${param.phaseName}/ 设计评审 【${param.reviewName}】
 			</div>
 			<div class="hr mg-b15"></div>	
 			<div class="wu-example mg-b15" id="uploader">

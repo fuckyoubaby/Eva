@@ -46,7 +46,7 @@ public class Modecomprehensive implements java.io.Serializable {
 		this.modeComprehensiveId = modeComprehensiveId;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "mode")
 	public Mode getMode() {
 		return this.mode;
@@ -56,7 +56,7 @@ public class Modecomprehensive implements java.io.Serializable {
 		this.mode = mode;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "comprehensive")
 	public Comprehensive getComprehensive() {
 		return this.comprehensive;

@@ -116,6 +116,9 @@ public class ProjectReviewInfoModel {
 
 	public boolean isUseful(){
 		if(StringUtils.isNotBlank(project)&&StringUtils.isNotBlank(prexplain)){
+			if (prexplain.trim().equals("无此阶段")) {
+				return false;
+			}
 			return true;
 		}
 		return false;

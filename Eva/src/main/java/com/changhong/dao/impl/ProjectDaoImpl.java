@@ -56,13 +56,14 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project> implements ProjectDao{
 		if (keyword==null||keyword.equals("")) {
 			hql = "from Project";
 		}else {
-			hql = "from Project where projectName like ? or projectState like ? or projectId like ?";
+			hql = "from Project where projectName like ? or projectState like ? or projectId like ? or employee.name like ?";
 		}
 		Query query = getSession().createQuery(hql);
 		if (keyword!=null&&!(keyword.equals(""))) {
 			query.setParameter(0, "%"+keyword+"%");
 			query.setParameter(1, "%"+keyword+"%");
 			query.setParameter(2, "%"+keyword+"%");
+			query.setParameter(3, "%"+keyword+"%");
 		}
 		return query.list().size();
 	}
@@ -166,13 +167,14 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project> implements ProjectDao{
 		if (params.getKeyword()==null||params.getKeyword().equals("")) {
 			hql = "from Project";
 		}else {
-			hql = "from Project where projectName like ? or projectState like ? or projectId like ?";
+			hql = "from Project where projectName like ? or projectState like ? or projectId like ? or employee.name like ?";
 		}
 		Query query = getSession().createQuery(hql);
 		if (params.getKeyword()!=null&&!(params.getKeyword().equals(""))) {
 			query.setParameter(0, "%"+params.getKeyword()+"%");
 			query.setParameter(1, "%"+params.getKeyword()+"%");
 			query.setParameter(2, "%"+params.getKeyword()+"%");
+			query.setParameter(3, "%"+params.getKeyword()+"%");
 		}
 		return query.list().size();
 	}

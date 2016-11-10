@@ -50,6 +50,7 @@
 			.icon-padr10{padding-right:12px}
 			/*end main process area*/
 		</style>
+		
 	</head>
 	<body>
 	
@@ -61,10 +62,10 @@
 			</div>
 			<!--start the search area-->
 			<div class="r_process clearfix">
-				<form class="form-inline clearfix" >
+				<form id="search" class="form-inline clearfix" >
 					<div class="pull-right">
 						 <div class="form-group">
-							<input type="text" name="keyword" id="keyword" class="form-control" />
+							<input type="text" name="keyword" id="keyword" class="form-control"  />
 							<button type="button" class="btn btn-info" onclick="searchKeyword()">搜索</button>
 						</div>
 					</div>
@@ -154,8 +155,16 @@
 		});
 		function searchKeyword()
 		{
+		
 			chUser.search();
 		};
+	 	document.onkeydown=function(){
+				if(event.keyCode==13)
+				{
+					chUser.search();
+					return false;
+				}
+		}; 
 		$(function(){
 			$(".table th").find("i.icon-hidden").parent().on("click",function(){
 				var orderName = $(this).data("colname"),

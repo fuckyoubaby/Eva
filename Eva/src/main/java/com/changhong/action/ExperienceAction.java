@@ -100,6 +100,7 @@ public class ExperienceAction {
 	private String dataDirtPId;
 	private String dataDirtNId;
 	private int type;
+	private String mainChip;
 	
 	private DataDirt dataDirt;
 	
@@ -116,6 +117,12 @@ public class ExperienceAction {
 	
 	
 	
+	public String getMainChip() {
+		return mainChip;
+	}
+	public void setMainChip(String mainChip) {
+		this.mainChip = mainChip;
+	}
 	public File getFile() {
 		return file;
 	}
@@ -349,7 +356,13 @@ public class ExperienceAction {
 	{
 		ActionContext context = ActionContext.getContext();
 		experience = experienceService.getExperience(experienceId);
-		int pid = experience.getDataDirt().getpId();
+		int pid=0;
+		if (experience!=null) {
+			if (experience.getDataDirt()!=null) {
+				pid = experience.getDataDirt().getpId();
+			}
+		}
+		
 		dataDirt = dataDirtService.getNode(pid);
 		dataDirts = dataDirtService.getDataDirtsByPID(1);
 		context.getSession().put("experience", experience);
@@ -523,6 +536,13 @@ public class ExperienceAction {
 		experience.setExTime(date);
 		experience.setExUrl(fileurl);
 		experience.setKeyword(main_word);
+		DataDirt dataDirt;
+        if (Integer.parseInt(dataDirtNId)<=0) {
+        	dataDirt = dataDirtService.getNode(Integer.parseInt(dataDirtPId));
+		}else {
+			dataDirt = dataDirtService.getNode(Integer.parseInt(dataDirtNId));
+		}
+        experience.setDataDirt(dataDirt);
 		
 		experienceService.update(experience);
 		
@@ -554,7 +574,15 @@ public class ExperienceAction {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        DataDirt dataDirt;
+        if (Integer.parseInt(dataDirtNId)<=0) {
+        	dataDirt = dataDirtService.getNode(Integer.parseInt(dataDirtPId));
+		}else {
+			dataDirt = dataDirtService.getNode(Integer.parseInt(dataDirtNId));
+		}
+        experience.setDataDirt(dataDirt);
         experience.setAbstract_(expAbstruct);
+        experience.setCounty(country);
 		experience.setArea(area);
 		experience.setEmployee(employee);
 		experience.setExperienceName(experienceName);
@@ -564,6 +592,7 @@ public class ExperienceAction {
 		
 		experience.setKeyword(main_word);
         experience.setExUrl(""+target);
+        experience.setMainChip(mainChip);
 		experienceService.save(experience);
 		return "save";
 	}

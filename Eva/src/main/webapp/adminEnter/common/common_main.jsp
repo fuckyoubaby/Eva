@@ -202,7 +202,13 @@
 				chUser.orderby(opts);
 			});
 		});
-		
+		document.onkeydown=function(){
+				if(event.keyCode==13)
+				{
+					chUser.search();
+					return false;
+				}
+		}; 
 		function doDelete(obj){
 			var $obj = $(obj);
 			var url = $obj.data('target');

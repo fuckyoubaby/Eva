@@ -113,7 +113,7 @@
 					name="assistName" id="assistName" class="form-control" />
 			</div>
 			<div id="otherNameDiv" style="display: none" class="form-group">
-				<label class="control-label">名称</label> <select name="assistName"
+				<label class="control-label">名称</label> <select name="assistName" id="assistName"
 					class="form-control">
 					<option value="">---请选择类别---</option>
 					<option value="标准化">标准化</option>

@@ -81,6 +81,7 @@
 									<th>排名</th>
 									<th>员工姓名</th>
 									<th>员工编号</th>
+									<th>评审次数</th>
 									<th>设计规定</th>
 									<th>流程规定</th>
 									<th>合规总分</th>
@@ -89,7 +90,7 @@
 							</thead>
 							<tbody id="tbody_hegui">
 								<tr>
-									<td colspan="7" style="padding:100px;">
+									<td colspan="8" style="padding:100px;">
 										<div class="empty" style="text-align: center;font-size: 18px;line-height: 25px;">
 											<img src="<%=basePath%>images/loading.gif" width="25" height="25" style="vertical-align: text-top;margin-right: 5px;" />正在加载数据....
 										</div>
@@ -107,6 +108,7 @@
 									<th>排名</th>
 									<th>员工姓名</th>
 									<th>员工编号</th>
+									<th>评审次数</th>
 									<th>一般设计缺陷</th>
 									<th>低级错误</th>
 									<th>专业技能总分</th>
@@ -115,7 +117,7 @@
 							</thead>
 							<tbody id="tbody_sheji">
 								<tr>
-									<td colspan="7" style="padding:100px;">
+									<td colspan="8" style="padding:100px;">
 										<div class="empty" style="text-align: center;font-size: 18px;line-height: 25px;">
 											<img src="<%=basePath%>images/loading.gif" width="25" height="25" style="vertical-align: text-top;margin-right: 5px;" />正在加载数据....
 										</div>

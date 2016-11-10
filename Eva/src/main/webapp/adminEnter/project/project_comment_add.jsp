@@ -45,6 +45,16 @@
 								<input type="text" name="commentName" class="form-control"/>
 							</div>
 							<div class="form-group">
+								<label class="control-label">责任人</label>
+								<select name="commentEmployee" class="form-control">
+									<option value="">请选择责任人</option>
+									<c:forEach items="${employees }" var="employee">
+										<option value="${employee.id }">${employee.name }</option>
+									</c:forEach>
+								</select>
+								
+							</div>
+							<div class="form-group">
 								<label class="control-label">评审日期</label>
 								<div class="input-group">
 									<input type="date" class="form-control" id="commentDate" name="commentDate" readonly="readonly"
@@ -104,6 +114,12 @@
 									min:2,
 									message:'名称请限定在2-16位'
 								}
+							}
+						},
+						commentEmployee: {
+							trigger : 'blur',
+							validators : {
+								notEmpty:{ message:'评审责任人不能为空！'}
 							}
 						},
 						commentDate : {

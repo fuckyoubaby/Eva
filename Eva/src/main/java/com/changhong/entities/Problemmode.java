@@ -66,7 +66,7 @@ public class Problemmode implements java.io.Serializable {
 		this.problemModeId = problemModeId;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "problemType")
 	public Problemtype getProblemtype() {
 		return this.problemtype;
@@ -139,7 +139,7 @@ public class Problemmode implements java.io.Serializable {
 		this.total = total;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "problemmode")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "problemmode")
 	public Set<Mode> getModes() {
 		return this.modes;
 	}
