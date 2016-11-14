@@ -48,7 +48,7 @@ public class TrainOrgDaoImpl extends BaseDaoImpl<Trainorg> implements TrainOrgDa
 	@Override
 	public List<Trainorg> getTrainorgsByEmployeeId(String employeeId,
 			Date startDate, Date endDate) {
-		log.info("AAAAAAAAAAAAAAAAAAAAAAA"+startDate+"==="+endDate);
+		
 		//String hql = "from Trainorg where employee.id=? and train.trainTime>=? and train.trainTime<=?";
 		String hql = "from Trainorg where employee.id=? and train.trainTime between ? and ?";
 		Query query = getSession().createQuery(hql);

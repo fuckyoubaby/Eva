@@ -213,8 +213,8 @@ public class ProjectReviewServiceImpl implements ProjectReviewService{
 
 	@Override
 	public JSONObject update(int projectReviewId, int phaseId, Project project, String employeeId,
-			int designReg, int flowsheetReg, int workplan, int communication,
-			int workEnt, String prexplain, Date prdate) {
+			int designReg,String designExplain,
+			int flowsheetReg,String flowExplain, int workplan,String workplanExplain, int communication, String communicationExplain,int workEnt,String workEntExplain, String prexplain, Date prdate) {
 		Projectreview pr = projectReviewDao.get(Projectreview.class, projectReviewId);
 		Phase phase = phaseDao.get(Phase.class, phaseId);
 		JSONObject obj = new JSONObject();
@@ -249,6 +249,23 @@ public class ProjectReviewServiceImpl implements ProjectReviewService{
 		if(prdate!=null){
 			pr.setPrdate(prdate);
 		}
+		
+		if (designExplain!=null&&!designExplain.equals("")) {
+			pr.setDesignExplain(designExplain);
+		}
+		if (flowExplain!=null&&!flowExplain.equals("")) {
+			pr.setFlowExplain(flowExplain);
+		}
+		if (workplanExplain!=null&&!workplanExplain.equals("")) {
+			pr.setWorkPlanExplain(workplanExplain);
+		}
+		if (communicationExplain!=null&&!communicationExplain.equals("")) {
+			pr.setCommunicationExplain(communicationExplain);
+		}
+		if (workEntExplain!=null&&!workEntExplain.equals("")) {
+			pr.setWorkEntExplain(workEntExplain);
+		}
+		
 		projectReviewDao.update(pr);
 		obj.put("result", "success");
 		obj.put("msg", "更新成功");
@@ -257,8 +274,8 @@ public class ProjectReviewServiceImpl implements ProjectReviewService{
 
 	@Override
 	public JSONObject save(int phaseId, Project project, String employeeId,
-			int designReg, int flowsheetReg, int workplan, int communication,
-			int workEnt, String prexplain, Date date) {
+			int designReg,String designExplain, int flowsheetReg, String flowExplain,int workplan,String workplanExplain, int communication,String communicationExplain,
+			int workEnt,String workEntExplain, String prexplain, Date date) {
 		Phase phase = phaseDao.get(Phase.class, phaseId);
 		JSONObject obj = new JSONObject();
 		if(phase==null){
@@ -280,7 +297,38 @@ public class ProjectReviewServiceImpl implements ProjectReviewService{
 			obj.put("itemName", "projectId");
 			return obj;
 		}
-		Projectreview pr = new Projectreview(phase, project, emp, designReg, flowsheetReg, workplan, communication, workEnt, prexplain, date);
+		//Projectreview pr = new Projectreview(phase, project, emp, designReg, flowsheetReg, workplan, communication, workEnt, prexplain, date);
+		Projectreview pr = new Projectreview();
+		
+		pr.setPhase(phase);
+		pr.setProject(project);
+		pr.setEmployee(emp);
+		pr.setDesignReg(designReg);
+		pr.setFlowsheetReg(flowsheetReg);
+		pr.setWorkplan(workplan);
+		pr.setCommunication(communication);
+		pr.setWorkEnt(workEnt);
+		pr.setPrexplain(prexplain);
+		if(date!=null){
+			pr.setPrdate(date);
+		}
+		
+		if (designExplain!=null&&!designExplain.equals("")) {
+			pr.setDesignExplain(designExplain);
+		}
+		if (flowExplain!=null&&!flowExplain.equals("")) {
+			pr.setFlowExplain(flowExplain);
+		}
+		if (workplanExplain!=null&&!workplanExplain.equals("")) {
+			pr.setWorkPlanExplain(workplanExplain);
+		}
+		if (communicationExplain!=null&&!communicationExplain.equals("")) {
+			pr.setCommunicationExplain(communicationExplain);
+		}
+		if (workEntExplain!=null&&!workEntExplain.equals("")) {
+			pr.setWorkEntExplain(workEntExplain);
+		}
+		
 		projectReviewDao.save(pr);
 		obj.put("result", "success");
 		obj.put("msg", "添加成功");

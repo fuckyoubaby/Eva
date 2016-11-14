@@ -140,7 +140,7 @@ public class Exam implements java.io.Serializable {
 		this.other = other;
 	}
 
-	@OneToMany( fetch = FetchType.LAZY, cascade = CascadeType.REMOVE,mappedBy = "exam")//cascade = CascadeType.ALL,
+	@OneToMany( fetch = FetchType.EAGER, cascade = CascadeType.REMOVE,mappedBy = "exam")//cascade = CascadeType.ALL,
 	public Set<Employeeexamr> getEmployeeexamrs() {
 		return this.employeeexamrs;
 	}

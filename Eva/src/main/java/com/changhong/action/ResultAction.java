@@ -331,11 +331,11 @@ public class ResultAction {
 		result = resultService.getResultById(resultId);
 		ActionContext context = ActionContext.getContext();
 		int overallId = (Integer) context.getSession().get("modeId");
-		communication_avg = resultService.getAVG("communication", overallId);
-		compliance_avg = resultService.getAVG("compliance", overallId);
-		learningAbility_avg = resultService.getAVG("learningAbility", overallId);
-		designAbility_avg = resultService.getAVG("designAbility", overallId);
-		work_avg = resultService.getAVG("work", overallId);
+		communication_avg = BaoLiuXiaoShu(resultService.getAVG("communication", overallId));
+		compliance_avg = BaoLiuXiaoShu(resultService.getAVG("compliance", overallId));
+		learningAbility_avg = BaoLiuXiaoShu(resultService.getAVG("learningAbility", overallId));
+		designAbility_avg = BaoLiuXiaoShu(resultService.getAVG("designAbility", overallId));
+		work_avg = BaoLiuXiaoShu(resultService.getAVG("work", overallId));
 		
 		com.changhong.entities.Result communication_Result = resultService.getMax("communication", overallId);
 		if (communication_Result!=null) {
@@ -374,27 +374,32 @@ public class ResultAction {
 		}
 		
 		
-		yibanshejiquexian_avg = secondLevelScoreService.getAvg(FinalConstant.PROFESSIONAL_SKILL_enum.一般设计缺陷.toString(), overallId);
-		dijicuowu_avg = secondLevelScoreService.getAvg(FinalConstant.PROFESSIONAL_SKILL_enum.低级错误.toString(), overallId);
-		shejihegui_avg = secondLevelScoreService.getAvg(FinalConstant.COMPLIANCE_enum.设计规定.toString(), overallId);
-		liuchenghegui_avg = secondLevelScoreService.getAvg(FinalConstant.COMPLIANCE_enum.流程规定.toString(), overallId);
-		gongzuojijixing_avg = secondLevelScoreService.getAvg(FinalConstant.COMMUNICATION_MANAGEMENT_enum.工作积极性.toString(), overallId);
-		gongtongnengli_avg = secondLevelScoreService.getAvg(FinalConstant.COMMUNICATION_MANAGEMENT_enum.沟通能力.toString(), overallId);
-		gongzuojihuaxing_avg = secondLevelScoreService.getAvg(FinalConstant.COMMUNICATION_MANAGEMENT_enum.工作计划性.toString(), overallId);
-		xuexijijixing_avg = secondLevelScoreService.getAvg(FinalConstant.SELF_GROWTH_enum.学习积极性.toString(), overallId);
-		kaoshi_avg = secondLevelScoreService.getAvg(FinalConstant.SELF_GROWTH_enum.考试.toString(), overallId);
-		zhuanli_avg = secondLevelScoreService.getAvg(FinalConstant.CONTRIBUTION_TO_COMPANY_enum.专利.toString(), overallId);
-		jingyanku_avg = secondLevelScoreService.getAvg(FinalConstant.CONTRIBUTION_TO_COMPANY_enum.经验库.toString(), overallId);
-		biaozhunhua_avg = secondLevelScoreService.getAvg(FinalConstant.CONTRIBUTION_TO_COMPANY_enum.标准化.toString(), overallId);
-		zhongyaoxinxishouji_avg = secondLevelScoreService.getAvg(FinalConstant.CONTRIBUTION_TO_COMPANY_enum.重要信息收集.toString(), overallId);
-		qita_avg = secondLevelScoreService.getAvg(FinalConstant.CONTRIBUTION_TO_COMPANY_enum.其他.toString(), overallId);
-		xiangmuwendang_avg = secondLevelScoreService.getAvg(FinalConstant.CONTRIBUTION_TO_COMPANY_enum.项目文档.toString(), overallId);
-		peixun_avg = secondLevelScoreService.getAvg(FinalConstant.CONTRIBUTION_TO_COMPANY_enum.培训.toString(), overallId);
+		yibanshejiquexian_avg = BaoLiuXiaoShu(secondLevelScoreService.getAvg(FinalConstant.PROFESSIONAL_SKILL_enum.一般设计缺陷.toString(), overallId));
+		dijicuowu_avg = BaoLiuXiaoShu(secondLevelScoreService.getAvg(FinalConstant.PROFESSIONAL_SKILL_enum.低级错误.toString(), overallId));
+		shejihegui_avg = BaoLiuXiaoShu(secondLevelScoreService.getAvg(FinalConstant.COMPLIANCE_enum.设计规定.toString(), overallId));
+		liuchenghegui_avg = BaoLiuXiaoShu(secondLevelScoreService.getAvg(FinalConstant.COMPLIANCE_enum.流程规定.toString(), overallId));
+		gongzuojijixing_avg = BaoLiuXiaoShu(secondLevelScoreService.getAvg(FinalConstant.COMMUNICATION_MANAGEMENT_enum.工作积极性.toString(), overallId));
+		gongtongnengli_avg = BaoLiuXiaoShu(secondLevelScoreService.getAvg(FinalConstant.COMMUNICATION_MANAGEMENT_enum.沟通能力.toString(), overallId));
+		gongzuojihuaxing_avg = BaoLiuXiaoShu(secondLevelScoreService.getAvg(FinalConstant.COMMUNICATION_MANAGEMENT_enum.工作计划性.toString(), overallId));
+		xuexijijixing_avg = BaoLiuXiaoShu(secondLevelScoreService.getAvg(FinalConstant.SELF_GROWTH_enum.学习积极性.toString(), overallId));
+		kaoshi_avg = BaoLiuXiaoShu(secondLevelScoreService.getAvg(FinalConstant.SELF_GROWTH_enum.考试.toString(), overallId));
+		zhuanli_avg = BaoLiuXiaoShu(secondLevelScoreService.getAvg(FinalConstant.CONTRIBUTION_TO_COMPANY_enum.专利.toString(), overallId));
+		jingyanku_avg = BaoLiuXiaoShu(secondLevelScoreService.getAvg(FinalConstant.CONTRIBUTION_TO_COMPANY_enum.经验库.toString(), overallId));
+		biaozhunhua_avg = BaoLiuXiaoShu(secondLevelScoreService.getAvg(FinalConstant.CONTRIBUTION_TO_COMPANY_enum.标准化.toString(), overallId));
+		zhongyaoxinxishouji_avg = BaoLiuXiaoShu(secondLevelScoreService.getAvg(FinalConstant.CONTRIBUTION_TO_COMPANY_enum.重要信息收集.toString(), overallId));
+		qita_avg = BaoLiuXiaoShu(secondLevelScoreService.getAvg(FinalConstant.CONTRIBUTION_TO_COMPANY_enum.其他.toString(), overallId));
+		xiangmuwendang_avg = BaoLiuXiaoShu(secondLevelScoreService.getAvg(FinalConstant.CONTRIBUTION_TO_COMPANY_enum.项目文档.toString(), overallId));
+		peixun_avg = BaoLiuXiaoShu(secondLevelScoreService.getAvg(FinalConstant.CONTRIBUTION_TO_COMPANY_enum.培训.toString(), overallId));
 		
 		secondlevelscores = secondLevelScoreService.getSecondlevelscoresByOverallIdAndEmployeeId(result.getEmployee().getId(), overallId);
 		
 		
 		return "result";
 	}
-	
+	private double BaoLiuXiaoShu(double k)
+	{
+		int t = (int) (k*100);
+		double r = (double)t/100;
+		return r;
+	}
 }

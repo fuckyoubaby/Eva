@@ -125,10 +125,15 @@ public class ProjectReviewAction {
 	private String prdate;
 	// private int phaseId; 重复命名
 	private int designReg;
+	private String designExplain;
 	private int flowsheetReg;
+	private String flowExplain;
 	private int workplan;
+	private String workplanExplain;
 	private int communication;
+	private String communicationExplain;
 	private int workEnt;
+	private String workEntExplain;
 	private String prexplain;
 
 	// end the add/update page form parameters
@@ -209,7 +214,7 @@ public class ProjectReviewAction {
 			date = new Date();
 		try {
 			obj = projectReviewServiceImpl.save(phaseId, project, employeeId,
-					designReg, flowsheetReg, workplan, communication, workEnt,
+					designReg,designExplain, flowsheetReg,flowExplain, workplan,workplanExplain, communication,communicationExplain, workEnt,workEntExplain,
 					prexplain, date);
 			setJsonResult(obj);
 			return "saveNewItem";
@@ -288,8 +293,8 @@ public class ProjectReviewAction {
 			date = new Date();
 		try {
 			obj = projectReviewServiceImpl.update(projectReviewId, phaseId,
-					project, employeeId, designReg, flowsheetReg, workplan,
-					communication, workEnt, prexplain, date);
+					project, employeeId, designReg,designExplain, flowsheetReg, flowExplain,workplan,workplanExplain,
+					communication,communicationExplain, workEnt,workEntExplain, prexplain, date);
 			setJsonResult(obj);
 			return "saveNewItem";
 		} catch (Exception e) {
@@ -485,4 +490,45 @@ public class ProjectReviewAction {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+
+	public String getDesignExplain() {
+		return designExplain;
+	}
+
+	public void setDesignExplain(String designExplain) {
+		this.designExplain = designExplain;
+	}
+
+	public String getFlowExplain() {
+		return flowExplain;
+	}
+
+	public void setFlowExplain(String flowExplain) {
+		this.flowExplain = flowExplain;
+	}
+
+	public String getWorkplanExplain() {
+		return workplanExplain;
+	}
+
+	public void setWorkplanExplain(String workplanExplain) {
+		this.workplanExplain = workplanExplain;
+	}
+
+	public String getCommunicationExplain() {
+		return communicationExplain;
+	}
+
+	public void setCommunicationExplain(String communicationExplain) {
+		this.communicationExplain = communicationExplain;
+	}
+
+	public String getWorkEntExplain() {
+		return workEntExplain;
+	}
+
+	public void setWorkEntExplain(String workEntExplain) {
+		this.workEntExplain = workEntExplain;
+	}
+	
 }

@@ -86,8 +86,8 @@ public interface ProjectReviewService {
 	 * @param prdate
 	 * @return
 	 */
-	JSONObject update(int projectReviewId, int phaseId, Project project, String employeeId, int designReg,
-			int flowsheetReg, int workplan, int communication, int workEnt,
+	JSONObject update(int projectReviewId, int phaseId, Project project, String employeeId, int designReg,String designExplain,
+			int flowsheetReg,String flowExplain, int workplan,String workplanExplain, int communication, String communicationExplain,int workEnt,String workEntExplain,
 			String prexplain, Date prdate);
 	/**
 	 * 添加操作
@@ -103,9 +103,9 @@ public interface ProjectReviewService {
 	 * @param date
 	 * @return
 	 */
-	JSONObject save(int phaseId, Project project, String employeeId, int designReg,
-			int flowsheetReg, int workplan, int communication, int workEnt,
-			String prexplain, Date date);
+	JSONObject save(int phaseId, Project project, String employeeId,
+			int designReg,String designExplain, int flowsheetReg, String flowExplain,int workplan,String workplanExplain, int communication,String communicationExplain,
+			int workEnt,String workEntExplain, String prexplain, Date date);
 	
 	List<Projectreview> getProjectreviewsByProjectIdForPageForUser(int pageNo,int pageSize, String projectId, int phaseId,String employeeId);
 	int getAmountByProjectIdForPageForUser(String projectId, int phaseId,String employeeId);

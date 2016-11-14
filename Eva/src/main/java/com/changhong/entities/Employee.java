@@ -232,7 +232,7 @@ public class Employee implements java.io.Serializable {
 		this.employeeprojectrs = employeeprojectrs;
 	}
 
-	@OneToMany( fetch = FetchType.LAZY, mappedBy = "employee")//cascade = CascadeType.ALL,
+	@OneToMany( fetch = FetchType.EAGER, mappedBy = "employee")//cascade = CascadeType.ALL,
 	public Set<Employeetrainr> getEmployeetrainrs() {
 		return this.employeetrainrs;
 	}
@@ -241,7 +241,7 @@ public class Employee implements java.io.Serializable {
 		this.employeetrainrs = employeetrainrs;
 	}
 
-	@OneToMany( fetch = FetchType.LAZY, mappedBy = "employee")//cascade = CascadeType.ALL,
+	@OneToMany( fetch = FetchType.EAGER, mappedBy = "employee")//cascade = CascadeType.ALL,
 	public Set<Employeeexamr> getEmployeeexamrs() {
 		return this.employeeexamrs;
 	}
@@ -277,7 +277,7 @@ public class Employee implements java.io.Serializable {
 		this.employeemoders = employeemoders;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "employee")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "employee")
 	public Set<Problem> getProblems() {
 		return this.problems;
 	}
@@ -286,7 +286,7 @@ public class Employee implements java.io.Serializable {
 		this.problems = problems;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "employee")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "employee")
 	public Set<Experience> getExperiences() {
 		return this.experiences;
 	}

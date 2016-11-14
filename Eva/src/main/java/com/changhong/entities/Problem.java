@@ -117,7 +117,7 @@ public class Problem implements java.io.Serializable {
 		this.problemstate = problemstate;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "phase")
 	public Phase getPhase() {
 		return this.phase;
@@ -127,7 +127,7 @@ public class Problem implements java.io.Serializable {
 		this.phase = phase;
 	}
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "commentId")
 	public Comment getComment() {
 		return comment;
@@ -137,7 +137,7 @@ public class Problem implements java.io.Serializable {
 		this.comment = comment;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "problemType")
 	public Problemtype getProblemtype() {
 		return this.problemtype;

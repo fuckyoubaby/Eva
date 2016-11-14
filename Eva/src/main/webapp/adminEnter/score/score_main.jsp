@@ -19,7 +19,8 @@
 <script src="<%=basePath%>/js/bootstrap.js" type="text/javascript"
 	charset="utf-8"></script>
 <%-- <script type="text/javascript" src="<%=basePath%>/js/Chart.min.js"></script> --%>
-<script type="text/javascript" src="<%=basePath%>/js/echarts.min.js"></script>
+<%-- <script type="text/javascript" src="<%=basePath%>/js/echarts.min.js"></script> --%>
+<script type="text/javascript" src="<%=basePath%>/js/echarts-all.js"></script>
 <style type="text/css">
 .main-charts {
 	margin-top: 20px;
@@ -90,6 +91,72 @@
 </style>
 <script>
 
+var option1 = {
+    title : {
+        text: '平均值 vs 员工值(扣分)',
+        subtext: '员工个人数据'
+    },
+    color:['#DA70D6','#32CD32'],
+    tooltip: {   //提示框，鼠标悬浮交互时的信息提示
+               trigger: 'axis'
+            },
+   /*  tooltip : {
+        trigger: 'axis'
+    }, */
+    legend: {
+       // x : 'center',
+        orient : 'vertical',
+        x : 'right',
+        y : 'bottom',
+        data:['平均值','员工值']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    polar : [
+        {
+            indicator: [{text: '专业技能',max: ${designAbility_max}}, 
+                            {text: '合规',max: ${compliance_max}},
+                            {text: '沟通管理',max: ${communication_max}},
+                            {text: '自我成长',max: ${learningAbility_max}},
+                            {text: '贡献',max: ${work_max}}
+                           ],
+            radius : 130
+        }
+    ],
+    series : [
+        {
+            name: '平均 vs 员工',
+            type: 'radar',
+            itemStyle: {
+                normal: {
+                    areaStyle: {
+                        type: 'default'
+                    }
+                }
+            },
+            data : [
+               
+                {
+                    value : [${designAbility_avg}, ${compliance_avg}, ${communication_avg}, ${learningAbility_max-learningAbility_avg}, ${work_max-work_avg}],
+               		name : '平均'
+                },
+                 {
+                    value : [${result.designAbility}, ${result.compliance}, ${result.communication}, ${learningAbility_max-result.learningAbility}, ${work_max-result.work}],
+                	name : '用户'
+                }
+            ]
+        }
+    ]
+};
+
 	 var option = { //可以去官网上根据每个案例不同的option去写各种图形
             title: {   //标题
                 text: '用户雷达图'
@@ -105,7 +172,7 @@
                             {text: '合规',max: ${compliance_max}},
                             {text: '沟通管理',max: ${communication_max}},
                             {text: '自我成长',max: ${learningAbility_max}},
-                            {text: '对公司贡献',max: ${work_max}}
+                            {text: '贡献',max: ${work_max}}
                            ]
             },
            
@@ -130,7 +197,7 @@
            /*  option.series[0].data[0].value=[12,32,34,53,53,65];  // 加载数据到data中
             option.series[0].data[0].name ='ESOP系统'; */
             var myChart = echarts.init(document.getElementById('main'));  
-            myChart.setOption(option, true);   //为echarts对象加载数据
+            myChart.setOption(option1, true);   //为echarts对象加载数据
         });
 </script>
 
@@ -144,6 +211,7 @@ option2 = {
         text: '员工的各项分数和总平均值',
         subtext: ''
     },
+    color:['#DA70D6','#32CD32'],
     tooltip : {
         trigger: 'axis'
     },
@@ -219,11 +287,13 @@ zhuanyejishu = {
         text: '员工专业技术分数和总平均值',
         subtext: ''
     },
+     color:['#DA70D6','#32CD32'],
     tooltip : {
         trigger: 'axis'
     },
      legend: {
-        data:['总体平均值','个人值']
+        data:['总体平均值','个人值'],
+        show:false
     }, 
     toolbox: {
         show : true,
@@ -271,11 +341,13 @@ hegui = {
         text: '员工合规分数和总平均值',
         subtext: ''
     },
+     color:['#DA70D6','#32CD32'],
     tooltip : {
         trigger: 'axis'
     },
      legend: {
-        data:['总体平均值','个人值']
+        data:['总体平均值','个人值'],
+        show:false
     }, 
     toolbox: {
         show : true,
@@ -323,11 +395,13 @@ goutongguanli = {
         text: '员工沟通管理分数和总平均值',
         subtext: ''
     },
+     color:['#DA70D6','#32CD32'],
     tooltip : {
         trigger: 'axis'
     },
      legend: {
-        data:['总体平均值','个人值']
+        data:['总体平均值','个人值'],
+        show:false
     }, 
     toolbox: {
         show : true,
@@ -376,11 +450,13 @@ ziwochengzhang = {
         text: '员工自我成长分数和总平均值',
         subtext: ''
     },
+     color:['#DA70D6','#32CD32'],
     tooltip : {
         trigger: 'axis'
     },
      legend: {
-        data:['总体平均值','个人值']
+        data:['总体平均值','个人值'],
+        show:false
     }, 
     toolbox: {
         show : true,
@@ -430,11 +506,13 @@ $(function() {
         text: '员工对公司贡献分数和总平均值',
         subtext: ''
     },
+     color:['#DA70D6','#32CD32'],
     tooltip : {
         trigger: 'axis'
     },
      legend: {
-        data:['总体平均值','个人值']
+        data:['总体平均值','个人值'],
+        show:false
     }, 
     toolbox: {
         show : true,
@@ -546,7 +624,8 @@ $(function() {
 		<div class="row">
 			<div class="col-md-6">
 				<div class="main-charts">
-				 	<div id="main" style="width:300px; height:300px;margin: 50px auto;"></div>
+				
+				 	<div id="main" style="width:400px; height:400px;margin: 10px auto;background-color: rgba(0,0,0,0); " ></div>
 					<!-- <canvas id="myChart"></canvas> -->
 				</div>
 			</div>

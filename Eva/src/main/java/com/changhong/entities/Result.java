@@ -72,7 +72,7 @@ public class Result implements java.io.Serializable {
 		this.resultId = resultId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "overall")
 	public Overallscore getOverallscore() {
 		return this.overallscore;
@@ -82,7 +82,7 @@ public class Result implements java.io.Serializable {
 		this.overallscore = overallscore;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "mode")
 	public Mode getMode() {
 		return this.mode;

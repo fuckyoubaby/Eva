@@ -18,7 +18,7 @@
 	charset="utf-8"></script>
 <script src="<%=basePath%>/js/bootstrap.js" type="text/javascript"
 	charset="utf-8"></script>
-<script type="text/javascript" src="<%=basePath%>/js/echarts.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>/js/echarts-all.js"></script>
 <style type="text/css">
 .main-charts {
 	margin-top: 20px;
@@ -88,155 +88,473 @@
 }
 </style>
 <script>
-	var option = { //可以去官网上根据每个案例不同的option去写各种图形
-		title : { //标题
-			text : '用户雷达图'
-		},
-		tooltip : { //提示框，鼠标悬浮交互时的信息提示
 
-		},
-		legend : { //图例，每个图表最多仅有一个图例
-			data : [ 'a', 'b' ]
-		},
-		radar : { //极坐标 
-			indicator : [ {
-				text : '专业技能',
-				max : ${designAbility_max}
-			}, {
-				text : '合规',
-				max : ${compliance_max}
-			}, {
-				text : '沟通管理',
-				max : ${communication_max}
-			}, {
-				text : '自我成长',
-				max : ${learningAbility_max}
-			}, {
-				text : '对公司贡献',
-				max : ${work_max}
-			} ]
-		},
+var option1 = {
+    title : {
+        text: '平均值 vs 员工值(扣分)',
+        subtext: '员工个人数据'
+    },
+    color:['#DA70D6','#32CD32'],
+    tooltip: {   //提示框，鼠标悬浮交互时的信息提示
+               trigger: 'axis'
+            },
+   /*  tooltip : {
+        trigger: 'axis'
+    }, */
+    legend: {
+       // x : 'center',
+        orient : 'vertical',
+        x : 'right',
+        y : 'bottom',
+        data:['平均值','员工值']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    polar : [
+        {
+            indicator: [{text: '专业技能',max: ${designAbility_max}}, 
+                            {text: '合规',max: ${compliance_max}},
+                            {text: '沟通管理',max: ${communication_max}},
+                            {text: '自我成长',max: ${learningAbility_max}},
+                            {text: '贡献',max: ${work_max}}
+                           ],
+            radius : 130
+        }
+    ],
+    series : [
+        {
+            name: '平均 vs 员工',
+            type: 'radar',
+            itemStyle: {
+                normal: {
+                    areaStyle: {
+                        type: 'default'
+                    }
+                }
+            },
+            data : [
+               
+                {
+                    value : [${designAbility_avg}, ${compliance_avg}, ${communication_avg}, ${learningAbility_max-learningAbility_avg}, ${work_max-work_avg}],
+               		name : '平均'
+                },
+                 {
+                    value : [${result.designAbility}, ${result.compliance}, ${result.communication}, ${learningAbility_max-result.learningAbility}, ${work_max-result.work}],
+                	name : '用户'
+                }
+            ]
+        }
+    ]
+};
 
-		series : [ {
-			name : '平均 vs 用户',
-			type : 'radar',
-			// areaStyle: {normal: {}},
-			data : [
-					{
-						value : [ ${designAbility_avg}, ${compliance_avg},
-								${communication_avg}, ${learningAbility_avg},
-								${work_avg} ],
-						name : '平均'
-					},
-					{
-						value : [ ${result.designAbility},
-								${result.compliance}, ${result.communication},
-								${result.learningAbility}, ${result.work} ],
-						name : '用户'
-					} ]
-		} ]
-	};
-
+	 var option = { //可以去官网上根据每个案例不同的option去写各种图形
+            title: {   //标题
+                text: '用户雷达图'
+            },
+            tooltip: {   //提示框，鼠标悬浮交互时的信息提示
+               
+            },
+            legend: {    //图例，每个图表最多仅有一个图例
+                data: ['a', 'b']
+            },
+            radar: {    //极坐标 
+                indicator: [{text: '专业技能',max: ${designAbility_max}}, 
+                            {text: '合规',max: ${compliance_max}},
+                            {text: '沟通管理',max: ${communication_max}},
+                            {text: '自我成长',max: ${learningAbility_max}},
+                            {text: '贡献',max: ${work_max}}
+                           ]
+            },
+           
+         series: [{
+        name: '平均 vs 用户',
+        type: 'radar',
+        // areaStyle: {normal: {}},
+        data : [
+            {
+                value : [${designAbility_avg}, ${compliance_avg}, ${communication_avg}, ${learningAbility_avg}, ${work_avg}],
+                name : '平均'
+            },
+             {
+                value : [${result.designAbility}, ${result.compliance}, ${result.communication}, ${result.learningAbility}, ${result.work}],
+                name : '用户'
+            }
+        ]
+    }]
+    };
+	
 	$(function() {
-		/*  option.series[0].data[0].value=[12,32,34,53,53,65];  // 加载数据到data中
-		 option.series[0].data[0].name ='ESOP系统'; */
-		var myChart = echarts.init(document.getElementById('main'));
-		myChart.setOption(option, true); //为echarts对象加载数据
-	});
+           /*  option.series[0].data[0].value=[12,32,34,53,53,65];  // 加载数据到data中
+            option.series[0].data[0].name ='ESOP系统'; */
+            var myChart = echarts.init(document.getElementById('main'));  
+            myChart.setOption(option1, true);   //为echarts对象加载数据
+        });
 </script>
-<script type="text/javascript">
-	var d = [];
-	<c:forEach items="${
-					secondlevelscores}" var="item">
-	d.push(${item.score});
-	</c:forEach>
-	option2 = {
-		title : {
-			text : '员工的各项分数和总平均值',
-			subtext : ''
-		},
-		tooltip : {
-			trigger : 'axis'
-		},
-		legend : {
-			data : [ '总体平均值', '个人值' ]
-		},
-		toolbox : {
-			show : true,
-			feature : {
-				dataView : {
-					show : true,
-					readOnly : false
-				},
-				magicType : {
-					show : true,
-					type : [ 'line', 'bar' ]
-				},
-				restore : {
-					show : true
-				},
-				saveAsImage : {
-					show : true
-				}
-			}
-		},
-		calculable : true,
-		xAxis : [ {
-			type : 'category',
-			data : [ '一般设计缺陷', '低级错误', '设计规定', '流程规定', '工作积极性', '沟通能力',
-					'工作计划性', '学习积极性', '考试', '专利', '经验库', '标准化', '重要信息收集',
-					'项目文档', '其他', '培训' ]
-		} ],
-		yAxis : [ {
-			type : 'value'
-		} ],
-		series : [
-				{
-					name : '平均值',
-					type : 'bar',
-					data : [ ${yibanshejiquexian_avg}, ${dijicuowu_avg},
-							${shejihegui_avg}, ${liuchenghegui_avg},
-							${gongzuojijixing_avg}, ${gongtongnengli_avg},
-							${gongzuojihuaxing_avg}, ${xuexijijixing_avg},
-							${kaoshi_avg}, ${zhuanli_avg}, ${jingyanku_avg},
-							${biaozhunhua_avg}, ${zhongyaoxinxishouji_avg},
-							${xiangmuwendang_avg}, ${qita_avg}, ${peixun_avg} ],
-				/* markPoint : {
-				    data : [
-				        {type : 'max', name: '最大值'},
-				        {type : 'min', name: '最小值'}
-				    ]
-				}, */
-				/* markLine : {
-				    data : [
-				        {type : 'average', name: '平均值'}
-				    ]
-				} */
-				}, {
-					name : '员工值',
-					type : 'bar',
-					/* data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,3,2],  */
-					data : d,
 
-				/* markPoint : {
-				    data : [
-				        {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183},
-				        {name : '年最低', value : 2.3, xAxis: 11, yAxis: 3}
-				    ]
-				},
-				markLine : {
-				    data : [
-				        {type : 'average', name : '平均值'}
-				    ]
-				} */
-				} ]
-	};
-	$(function() {
-		/*  option.series[0].data[0].value=[12,32,34,53,53,65];  // 加载数据到data中
-		 option.series[0].data[0].name ='ESOP系统'; */
-		var myChart = echarts.init(document.getElementById('zhuzhungtu'));
-		myChart.setOption(option2, true); //为echarts对象加载数据
-	});
+<script type="text/javascript">
+var d = [];
+<c:forEach items="${secondlevelscores}" var="item">
+	d.push(${item.score});
+</c:forEach>
+option2 = {
+    title : {
+        text: '员工的各项分数和总平均值',
+        subtext: ''
+    },
+    color:['#DA70D6','#32CD32'],
+    tooltip : {
+        trigger: 'axis'
+    },
+     legend: {
+        data:['总体平均值','个人值']
+    }, 
+    toolbox: {
+        show : true,
+        feature : {
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : ['一般设计缺陷','低级错误','设计规定','流程规定','工作积极性','沟通能力','工作计划性','学习积极性','考试','专利','经验库','标准化','重要信息收集','项目文档','其他','培训']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'平均值',
+            type:'bar',
+            data:[${yibanshejiquexian_avg}, ${dijicuowu_avg}, ${shejihegui_avg}, ${liuchenghegui_avg}, ${gongzuojijixing_avg}, ${gongtongnengli_avg}, ${gongzuojihuaxing_avg}, ${xuexijijixing_avg}, ${kaoshi_avg}, ${zhuanli_avg}, ${jingyanku_avg}, ${biaozhunhua_avg},${zhongyaoxinxishouji_avg},${xiangmuwendang_avg},${qita_avg},${peixun_avg}],
+            /* markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            }, */
+            /* markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            } */
+        },
+        {
+            name:'员工值',
+            type:'bar',
+             /* data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,3,2],  */
+             data:d, 
+            
+            /* markPoint : {
+                data : [
+                    {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183},
+                    {name : '年最低', value : 2.3, xAxis: 11, yAxis: 3}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name : '平均值'}
+                ]
+            } */
+        }
+    ]
+};
+$(function() {
+           /*  option.series[0].data[0].value=[12,32,34,53,53,65];  // 加载数据到data中
+            option.series[0].data[0].name ='ESOP系统'; */
+            var myChart = echarts.init(document.getElementById('zhuzhungtu'));  
+            myChart.setOption(option2, true);   //为echarts对象加载数据
+        });
+zhuanyejishu = {
+    title : {
+        text: '员工专业技术分数和总平均值',
+        subtext: ''
+    },
+     color:['#DA70D6','#32CD32'],
+    tooltip : {
+        trigger: 'axis'
+    },
+     legend: {
+        data:['总体平均值','个人值'],
+        show:false
+    }, 
+    toolbox: {
+        show : true,
+        feature : {
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : ['一般设计缺陷','低级错误']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'平均值',
+            type:'bar',
+            data:[${yibanshejiquexian_avg}, ${dijicuowu_avg}],
+        },
+        {
+            name:'员工值',
+            type:'bar',
+             /* data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,3,2],  */
+             data:d.slice(0, 2),            
+        }
+    ]
+};
+$(function() {
+            var zhuanyeChart = echarts.init(document.getElementById('zhuanyejishu'));  
+            zhuanyeChart.setOption(zhuanyejishu, true);   //为echarts对象加载数据
+        });
+        
+        
+hegui = {
+    title : {
+        text: '员工合规分数和总平均值',
+        subtext: ''
+    },
+     color:['#DA70D6','#32CD32'],
+    tooltip : {
+        trigger: 'axis'
+    },
+     legend: {
+        data:['总体平均值','个人值'],
+        show:false
+    }, 
+    toolbox: {
+        show : true,
+        feature : {
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : ['设计规定','流程规定']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'平均值',
+            type:'bar',
+            data:[ ${shejihegui_avg}, ${liuchenghegui_avg}],
+        },
+        {
+            name:'员工值',
+            type:'bar',
+             data:d.slice(2, 4),            
+        }
+    ]
+};
+$(function() {
+           /*  option.series[0].data[0].value=[12,32,34,53,53,65];  // 加载数据到data中
+            option.series[0].data[0].name ='ESOP系统'; */
+            var zhuanyeChart = echarts.init(document.getElementById('hegui'));  
+            zhuanyeChart.setOption(hegui, true);   //为echarts对象加载数据
+        });
+
+goutongguanli = {
+    title : {
+        text: '员工沟通管理分数和总平均值',
+        subtext: ''
+    },
+     color:['#DA70D6','#32CD32'],
+    tooltip : {
+        trigger: 'axis'
+    },
+     legend: {
+        data:['总体平均值','个人值'],
+        show:false
+    }, 
+    toolbox: {
+        show : true,
+        feature : {
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : ['工作积极性','沟通能力','工作计划性']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'平均值',
+            type:'bar',
+            data:[ ${gongzuojijixing_avg}, ${gongtongnengli_avg}, ${gongzuojihuaxing_avg}],
+        },
+        {
+            name:'员工值',
+            type:'bar',
+             data:d.slice(4, 7),            
+        }
+    ]
+};
+$(function() {
+           /*  option.series[0].data[0].value=[12,32,34,53,53,65];  // 加载数据到data中
+            option.series[0].data[0].name ='ESOP系统'; */
+            var zhuanyeChart = echarts.init(document.getElementById('goutongguanli'));  
+            zhuanyeChart.setOption(goutongguanli, true);   //为echarts对象加载数据
+        });
+
+
+ziwochengzhang = {
+    title : {
+        text: '员工自我成长分数和总平均值',
+        subtext: ''
+    },
+     color:['#DA70D6','#32CD32'],
+    tooltip : {
+        trigger: 'axis'
+    },
+     legend: {
+        data:['总体平均值','个人值'],
+        show:false
+    }, 
+    toolbox: {
+        show : true,
+        feature : {
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : ['学习积极性','考试']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'平均值',
+            type:'bar',
+            data:[  ${xuexijijixing_avg}, ${kaoshi_avg}],
+        },
+        {
+            name:'员工值',
+            type:'bar',
+             /* data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,3,2],  */
+             data:d.slice(7, 9),            
+        }
+    ]
+};
+$(function() {
+           /*  option.series[0].data[0].value=[12,32,34,53,53,65];  // 加载数据到data中
+            option.series[0].data[0].name ='ESOP系统'; */
+            var ziwochengzhangChart = echarts.init(document.getElementById('ziwochengzhang'));  
+            ziwochengzhangChart.setOption(ziwochengzhang, true);   //为echarts对象加载数据
+        });
+        
+        
+ duigongsigongxian = {
+    title : {
+        text: '员工对公司贡献分数和总平均值',
+        subtext: ''
+    },
+     color:['#DA70D6','#32CD32'],
+    tooltip : {
+        trigger: 'axis'
+    },
+     legend: {
+        data:['总体平均值','个人值'],
+        show:false
+    }, 
+    toolbox: {
+        show : true,
+        feature : {
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : ['专利','经验库','标准化','重要信息收集','项目文档','其他','培训']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'平均值',
+            type:'bar',
+            data:[ ${zhuanli_avg}, ${jingyanku_avg}, ${biaozhunhua_avg},${zhongyaoxinxishouji_avg},${xiangmuwendang_avg},${qita_avg},${peixun_avg}],
+        },
+        {
+            name:'员工值',
+            type:'bar',
+             /* data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,3,2],  */
+             data:d.slice(9, 16),            
+        }
+    ]
+};
+$(function() {
+           /*  option.series[0].data[0].value=[12,32,34,53,53,65];  // 加载数据到data中
+            option.series[0].data[0].name ='ESOP系统'; */
+            var zhuanyeChart = echarts.init(document.getElementById('duigongsigongxian'));  
+            zhuanyeChart.setOption(duigongsigongxian, true);   //为echarts对象加载数据
+        });
+ 
+
 </script>
 </head>
 <body>
@@ -326,7 +644,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="main-charts">
-					<div id="main" style="width:300px; height:300px;margin: 50px auto;"></div>
+					<div id="main" style="width:400px; height:400px;margin: 10px auto;background-color: rgba(0,0,0,0); " ></div>
 				</div>
 			</div>
 			<div class="col-md-6">
@@ -383,8 +701,16 @@
 			</div>
 			<!--end table row-->
 		</div>
-		<div id="zhuzhungtu"
-			style="width:1000px; height:400px;margin: 50px auto;"></div>
+		<div id="zhuzhungtu" style="width:1000px; height:400px;margin: 50px auto;"></div>
+<div style="width:1000px; height:400px;margin: 50px auto;">
+	<div id="zhuanyejishu" style="width: 400px; height: 400px; float: left; margin: 50px auto;"></div>
+	<div id="hegui" style="width: 400px; height: 400px; float: right; margin: 50px auto;"></div>
+</div>
+<div style="width:1000px; height:600px;margin: 50px auto;">
+	<div id="goutongguanli" style="width: 400px; height: 400px; float: left; margin: 50px auto;"></div>
+	<div id="ziwochengzhang" style="width: 400px; height: 400px; float: right; margin: 50px auto;"></div>
+</div>
+<div id="duigongsigongxian" style="width:1000px; height:400px;margin: 50px auto;"></div>
 	</div>
 </body>
 </html>

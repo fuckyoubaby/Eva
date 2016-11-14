@@ -66,7 +66,7 @@ public class Overallscore implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "mode")
 	public Mode getMode() {
 		return this.mode;
@@ -135,7 +135,7 @@ public class Overallscore implements java.io.Serializable {
 		this.employeeNum = employeeNum;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "overallscore")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "overallscore")
 	public Set<Result> getResults() {
 		return this.results;
 	}

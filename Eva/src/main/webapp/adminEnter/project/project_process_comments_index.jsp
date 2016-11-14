@@ -126,7 +126,8 @@
 			<div class="main-more-process">
 				<span class="help-text mg-b15"><a href="javasc:void(0);">更多操作>></a></span>
 				<div class="row mg-b30" style="padding-left:85px;">
-					<a href="${basePath}/commentAction!addNewComment.action" class="btn btn-info" ><i class="glyphicon glyphicon-plus icon-padr"></i>添加新评审</a>
+					<a href="${basePath}/commentAction!addNewComment.action" class="btn btn-info" ><i class="glyphicon glyphicon-plus icon-padr"></i>添加电路评审</a>
+					<a href="${basePath}/commentAction!addNewComment.action" class="btn btn-info" ><i class="glyphicon glyphicon-plus icon-padr"></i>添加结构评审</a>
 				</div>
 			<!--end more process-->
 			</div>

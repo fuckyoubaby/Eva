@@ -26,10 +26,15 @@ public class Projectreview implements java.io.Serializable {
 	private Project project;
 	private Employee employee;
 	private Integer designReg;
+	private String designExplain;
 	private Integer flowsheetReg;
+	private String flowExplain;
 	private Integer workplan;
+	private String workPlanExplain;
 	private Integer communication;
+	private String communicationExplain;
 	private Integer workEnt;
+	private String workEntExplain;
 	private String prexplain;
 	private Date prdate;
 
@@ -41,17 +46,24 @@ public class Projectreview implements java.io.Serializable {
 
 	/** full constructor */
 	public Projectreview(Phase phase, Project project, Employee employee,
-			Integer designReg, Integer flowsheetReg, Integer workplan,
-			Integer communication, Integer workEnt, String prexplain,
+			Integer designReg, String designExplain, Integer flowsheetReg,
+			String flowExplain, Integer workplan, String workPlanExplain,
+			Integer communication, String communicationExplain,
+			Integer workEnt, String workEntExplain, String prexplain,
 			Date prdate) {
 		this.phase = phase;
 		this.project = project;
 		this.employee = employee;
 		this.designReg = designReg;
+		this.designExplain = designExplain;
 		this.flowsheetReg = flowsheetReg;
+		this.flowExplain = flowExplain;
 		this.workplan = workplan;
+		this.workPlanExplain = workPlanExplain;
 		this.communication = communication;
+		this.communicationExplain = communicationExplain;
 		this.workEnt = workEnt;
+		this.workEntExplain = workEntExplain;
 		this.prexplain = prexplain;
 		this.prdate = prdate;
 	}
@@ -107,6 +119,15 @@ public class Projectreview implements java.io.Serializable {
 		this.designReg = designReg;
 	}
 
+	@Column(name = "designExplain")
+	public String getDesignExplain() {
+		return this.designExplain;
+	}
+
+	public void setDesignExplain(String designExplain) {
+		this.designExplain = designExplain;
+	}
+
 	@Column(name = "flowsheetReg")
 	public Integer getFlowsheetReg() {
 		return this.flowsheetReg;
@@ -114,6 +135,15 @@ public class Projectreview implements java.io.Serializable {
 
 	public void setFlowsheetReg(Integer flowsheetReg) {
 		this.flowsheetReg = flowsheetReg;
+	}
+
+	@Column(name = "flowExplain")
+	public String getFlowExplain() {
+		return this.flowExplain;
+	}
+
+	public void setFlowExplain(String flowExplain) {
+		this.flowExplain = flowExplain;
 	}
 
 	@Column(name = "workplan")
@@ -125,6 +155,15 @@ public class Projectreview implements java.io.Serializable {
 		this.workplan = workplan;
 	}
 
+	@Column(name = "workPlanExplain")
+	public String getWorkPlanExplain() {
+		return this.workPlanExplain;
+	}
+
+	public void setWorkPlanExplain(String workPlanExplain) {
+		this.workPlanExplain = workPlanExplain;
+	}
+
 	@Column(name = "communication")
 	public Integer getCommunication() {
 		return this.communication;
@@ -134,6 +173,15 @@ public class Projectreview implements java.io.Serializable {
 		this.communication = communication;
 	}
 
+	@Column(name = "communicationExplain")
+	public String getCommunicationExplain() {
+		return this.communicationExplain;
+	}
+
+	public void setCommunicationExplain(String communicationExplain) {
+		this.communicationExplain = communicationExplain;
+	}
+
 	@Column(name = "workEnt")
 	public Integer getWorkEnt() {
 		return this.workEnt;
@@ -141,6 +189,15 @@ public class Projectreview implements java.io.Serializable {
 
 	public void setWorkEnt(Integer workEnt) {
 		this.workEnt = workEnt;
+	}
+
+	@Column(name = "workEntExplain")
+	public String getWorkEntExplain() {
+		return this.workEntExplain;
+	}
+
+	public void setWorkEntExplain(String workEntExplain) {
+		this.workEntExplain = workEntExplain;
 	}
 
 	@Column(name = "PRExplain")

@@ -55,7 +55,7 @@ public class Secondlevelscore implements java.io.Serializable {
 		this.secondLevelScoreId = secondLevelScoreId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "mode")
 	public Mode getMode() {
 		return this.mode;
@@ -65,7 +65,7 @@ public class Secondlevelscore implements java.io.Serializable {
 		this.mode = mode;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "overallscore")
 	public Overallscore getOverallscore() {
 		return this.overallscore;
