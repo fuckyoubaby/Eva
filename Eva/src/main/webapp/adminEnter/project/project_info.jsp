@@ -76,31 +76,25 @@
 			</div>
 			<div class="row hr mg-b15"></div>
 			<p class="h4 bolder">项目进度</p>
-			<span class="help-text mg-b30">点击查看项目过程</span>
+			<span class="help-text mg-b30">括弧含义是：(电路评审数 - 结构评审数 - 项目评审数)</span>
 			<div id="crumbs" class="row mg-b15 clearfix">
 				<ul>
 					<c:forEach items="${phases }" var="phase">
-						<%-- <li class="doing"><a href="problemAction!getReviewByPhaseId.action?phaseId=${phase.phaseId }">${phase.phaseName }</a></li> --%>
-						
+						<c:set value="${qcMaps[phase.phaseId]}" var="questionCount" />
 						<c:choose>
    							<c:when test="${phase.priority<project.review.phase.priority}">  
-               					<li class="completed"><a href="problemAction!getReviewByPhaseId.action?phaseId=${phase.phaseId }">${phase.phaseName }</a></li>
+               					<li class="completed"><a href="problemAction!getReviewByPhaseId.action?phaseId=${phase.phaseId }">${phase.phaseName } <small>(${questionCount.commentCount}-${questionCount.structureQuestionCount}-${questionCount.projectReviewCount})</small></a></li>
 						   </c:when>
 						   <c:when test="${phase.priority==project.review.phase.priority}">  
-               					<li class="doing"><a href="problemAction!getReviewByPhaseId.action?phaseId=${phase.phaseId }">${phase.phaseName }</a></li>
+               					<li class="doing"><a href="problemAction!getReviewByPhaseId.action?phaseId=${phase.phaseId }">${phase.phaseName } <small>(${questionCount.commentCount}-${questionCount.structureQuestionCount}-${questionCount.projectReviewCount})</small></a></li>
 						   </c:when>
 						   <c:otherwise> 
-						  	 <li class="todo"><a href="javascript:void(0);">${phase.phaseName }</a></li>
+						  	 <li class="todo"><a href="javascript:void(0);">${phase.phaseName } <small>(${questionCount.commentCount}-${questionCount.structureQuestionCount}-${questionCount.projectReviewCount})</small></a></li>
    						   </c:otherwise>
 						</c:choose>
 					</c:forEach>
-					<%-- <li class="completed"><a onclick="turnPage('problemAction!getProblemsByProjectIdAndPhase.action?projectId=${project.projectId }&phase=启动阶段')">启动阶段</a></li>
-					<li class="doing"><a onclick="turnPage('problemAction!getProblemsByProjectIdAndPhase.action?projectId=${project.projectId }&phase=设计阶段')">设计阶段</a></li>
-					<li class="todo"><a onclick="turnPage('problemAction!getProblemsByProjectIdAndPhase.action?projectId=${project.projectId }&phase=样品阶段')">样品阶段</a></li>
-					<li class="todo"><a onclick="turnPage('problemAction!getProblemsByProjectIdAndPhase.action?projectId=${project.projectId }&phase=交付阶段')">交付阶段</a></li> --%>
 				</ul>
 				<div class="clear"></div>
-				<!-- <div class="r_cofig_process"><a href="project_process_config.html">配置项目过程</a></div> -->
 			</div>
 			<div class="row hr mg-b15"></div>
 			<span class="help-text mg-b15"><a href="javasc:void(0);">更多操作>></a></span>

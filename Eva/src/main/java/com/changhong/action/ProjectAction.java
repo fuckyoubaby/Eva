@@ -43,6 +43,7 @@ import com.changhong.service.ProjectService;
 import com.changhong.service.ReviewService;
 import com.changhong.support.FinalConstant;
 import com.changhong.util.Params;
+import com.changhong.util.QuestionCount;
 import com.opensymphony.xwork2.ActionContext;
 
 @Action("projectAction")
@@ -136,8 +137,15 @@ public class ProjectAction {
 	private Map<String, List<Employee>> employeeMap;
 	
 	
+	private Map<Integer, QuestionCount> qcMaps;
 	
 	
+	public Map<Integer, QuestionCount> getQcMaps() {
+		return qcMaps;
+	}
+	public void setQcMaps(Map<Integer, QuestionCount> qcMaps) {
+		this.qcMaps = qcMaps;
+	}
 	public Map<String, List<Employee>> getEmployeeMap() {
 		return employeeMap;
 	}
@@ -385,6 +393,8 @@ public class ProjectAction {
 		employeeprojectrs = employeeProjectRService.getEmployeeprojectrsByProjectId(projectId);
 		context.getSession().put("project", project);
 		phases = phaseService.getAll();
+		qcMaps = projectService.getProjectProblemsCount(projectId);
+		
 		return "project";
 	}
 	public String save()

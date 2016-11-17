@@ -1,9 +1,11 @@
 package com.changhong.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.changhong.entities.Project;
 import com.changhong.util.Params;
+import com.changhong.util.QuestionCount;
 
 public interface ProjectService {
 	List<Project> getProjectByPage(int pno,int length,String keyword);
@@ -24,4 +26,6 @@ public interface ProjectService {
 	
 	int getCountForProjectName(String projectName);
 	public String getReviewIdByProjectId(String projectId);
+	
+	Map<Integer, QuestionCount> getProjectProblemsCount(String projectId);
 }

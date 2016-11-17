@@ -3,6 +3,7 @@ package com.changhong.dao.impl;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import com.changhong.dao.ProjectDao;
 import com.changhong.entities.Project;
 import com.changhong.entities.Review;
 import com.changhong.util.Params;
+import com.changhong.util.QuestionCount;
 
 @Repository("projectDao")
 public class ProjectDaoImpl extends BaseDaoImpl<Project> implements ProjectDao{
@@ -282,5 +284,14 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project> implements ProjectDao{
 		Project project = (Project)query.uniqueResult();
 		Review review = project.getReview();
 		return review.getReviewId().toString();
+	}
+
+	@Override
+	public List getAllReviewCount(String projectId, int phaseId) {
+		String sql = "select comment_count(:projectId , :phaseId ) as commentCount,  structureproblem_count(:projectId , :phaseId ) as structureQuestionCount, projectreview_count(:projectId , :phaseId ) as projectReviewCount ";
+		SQLQuery query = getSession().createSQLQuery(sql);
+		query.setParameter("projectId", projectId);
+		query.setParameter("phaseId", phaseId);
+		return query.list();
 	}
 }

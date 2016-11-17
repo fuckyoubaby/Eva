@@ -71,7 +71,7 @@
 				
 				<div class="col-md-6">
 					<div class="form-border">
-						<div class="form-title">输入问题信息</div>
+						<div class="form-title">问题信息更新</div>
 						<form id="mistake_update" action="<%=basePath %>/problemAction!update.action" class="form-content" method="post">
 							<div class="form-group">
 								<label class="control-label">名称</label>

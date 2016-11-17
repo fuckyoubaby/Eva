@@ -99,12 +99,12 @@
 			<div class="main-table">
 				<div class="r_title">
 					<i class="glyphicon glyphicon-calendar icon-btton"></i>
-					<span class="table-title">设计评审展示</span>
+					<span class="table-title">电路评审展示</span>
 				</div>
 				<!--start the table info area-->
 				<div class="r_table">
 					<table class="table">
-						<thead><tr>
+						<thead><tr data-rtype="1">
 							<th class="p-hover" data-colname='name'>评审名称<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
 							<th class="p-hover" data-colname='date'>评审日期<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
 							<th>评审对象</th>
@@ -112,7 +112,7 @@
 						</tr></thead>
 						<tbody id="tbody">
 							<tr><td colspan="4" style="padding:100px;">
-					  			<div class="empty" style="text-align: center;font-size: 18px;line-height: 25px;"><img src="<%=basePath%>/images/loading.gif" width="25" height="25" style="vertical-align: text-top;margin-right: 5px;" />正在加载数据....</div>
+					  			<div class="empty" style="text-align: center;font-size: 18px;line-height: 25px;"><img src="${basePath}/images/loading.gif" width="25" height="25" style="vertical-align: text-top;margin-right: 5px;" />正在加载数据....</div>
 					  		</td></tr>
 						</tbody>
 					</table>
@@ -122,16 +122,46 @@
 				</div>
 			<!--end the main table area-->
 			</div>
+			<div class="row mg-b30"></div>			
+			<div class="main-table">
+				<div class="r_title">
+					<i class="glyphicon glyphicon-calendar icon-btton"></i>
+					<span class="table-title">结构评审数据展示</span>
+				</div>
+				<!--start the table info area-->
+				<div class="r_table">
+					<table class="table">
+						<thead><tr data-rtype="2">
+							<th class="p-hover" data-colname='name'>问题名称<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
+							<th class="p-hover" data-colname='employee.name'>责任人</th>
+							<th>问题类型</th>
+							<th>扣分</th>
+							<th>说明</th>
+							<th class="p-hover" data-colname='createDate'>日期<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
+							<th>操作</th>
+						</tr></thead>
+						<tbody id="sp_tbody">
+							<tr><td colspan="7" style="padding:100px;">
+					  			<div class="empty" style="text-align: center;font-size: 18px;line-height: 25px;"><img src="${basePath}/images/loading.gif" width="25" height="25" style="vertical-align: text-top;margin-right: 5px;" />正在加载数据....</div>
+					  		</td></tr>
+						</tbody>
+					</table>
+					<div class="page"></div>
+					<div class="clear"></div>
+				<!--end the table area-->
+				</div>
+			<!--end the main table area-->
+			</div>
+		
 			<!--start more process-->
 			<div class="main-more-process">
 				<span class="help-text mg-b15"><a href="javasc:void(0);">更多操作>></a></span>
 				<div class="row mg-b30" style="padding-left:85px;">
 					<a href="${basePath}/commentAction!addNewComment.action" class="btn btn-info" ><i class="glyphicon glyphicon-plus icon-padr"></i>添加电路评审</a>
-					<a href="${basePath}/commentAction!addNewComment.action" class="btn btn-info" ><i class="glyphicon glyphicon-plus icon-padr"></i>添加结构评审</a>
+					<a href="${basePath}/structureProblemAction!addNewOne.action" class="btn btn-info" style="margin-left:20px"><i class="glyphicon glyphicon-plus icon-padr"></i>添加结构问题</a>
 				</div>
 			<!--end more process-->
 			</div>
-		
 		</div>
 	<script type="text/javascript">
 		var index = $("#crumbs").data("indexno")*1;
@@ -168,7 +198,7 @@
 				});
 			},
 			initPage:function(itemcount){
-				$(".page").tzPage(itemcount, {
+				$("div.page:first").tzPage(itemcount, {
 					num_edge_entries : 1, //边缘页数
 					num_display_entries :4, //主体页数
 					num_edge_entries:4,
@@ -182,6 +212,51 @@
 				});
 			}
 		};
+		
+		var struProblem = {
+				orderby:function(orders){
+					struProblem.orders = orders;
+					struProblem.load(0,5,function(itemcount){
+						struProblem.initPage(itemcount);
+			    	});
+			    },
+				search:function(){
+					struProblem.load(0,5,function(itemcount){
+						struProblem.initPage(itemcount);
+					 });
+					},
+				load:function(pno,psize,callback){
+					var params = {pageNo:pno,pageSize:psize};
+					if(struProblem.orders){$.extend(params,struProblem.orders);}
+					$.ajax({
+						type:"post",
+						data:params,
+						url:'${basePath}/structureProblemAction!getByPage.action',
+						success:function(data){
+							$("#sp_tbody").html(data);
+							if(callback){
+								var itemcount = $("#sp_tbody").find("tr:eq(0)").data("itemcount");
+								callback(itemcount);
+							}
+						}
+					});
+				},
+				initPage:function(itemcount){
+					$("div.page:last").tzPage(itemcount, {
+						num_edge_entries : 1, //边缘页数
+						num_display_entries :4, //主体页数
+						num_edge_entries:4,
+						current_page:0,
+						items_per_page : 5, //每页显示X项
+						prev_text : "前一页",
+						next_text : "后一页",
+						callback : function(pageNo,psize){
+							struProblem.load(pageNo *psize,psize);
+						}
+					});
+				}	
+		};
+		
 		function initLoading(){
 			var $crumb = $("#crumbs");
 			var $li_first = $crumb.find("ul li:first");
@@ -195,6 +270,9 @@
 		initLoading();
 		chUser.load(0,5,function(itemcount){
 			chUser.initPage(itemcount);
+		});
+		struProblem.load(0,5,function(itemcount){
+			struProblem.initPage(itemcount);
 		});
 		
 		function reviewToggle(obj){
@@ -228,19 +306,20 @@
 		
 		$(function(){
 			$(".table th").find("i.icon-hidden").parent().on("click",function(){
+				var $trdom = $(this).parent();
 				var orderName = $(this).data("colname"),
 				ordertype = $(this).data("ordertype"),
-				opts={};
-				//alert(orderName);
+				opts={},
+				rtype = $trdom.data("rtype");
 				if(ordertype){ordertype=(ordertype=='asc')?'desc':'asc';}
 				else{ordertype='desc';}
 				$(this).data("ordertype",ordertype);
-				console.log(ordertype);
 				if(!orderName) return;
 				if(orderName){opts.orderName=orderName;}
 				if(ordertype){opts.orderType=ordertype;}
-				console.log(orderName);
-				chUser.orderby(opts);
+				if(rtype=="1"){
+					chUser.orderby(opts);
+				}else struProblem.orderby(opts);
 			});
 		});
 	</script>
