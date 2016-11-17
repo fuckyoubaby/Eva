@@ -43,37 +43,71 @@
 			<div class="h4 mg-b15 bolder">评审内容</div>
 			<p class="bolder"><span class="glyphicon glyphicon-star-empty icon-padr" ></span>不合规项</p>
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-2">
 					<div class="form-group">
 						<div class="control-label">设计规定</div>
 						<div class="form-control-static">${projectReview.designReg}</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				
+				<div class="col-md-2">
+					<div class="form-group">
+						<div class="control-label">设计规定扣分说明</div>
+						<div class="form-control-static">${projectReview.designExplain}</div>
+					</div>
+				</div>
+				<div class="col-md-2">
 					<div class="form-group">
 						<div class="control-label">流程规定</div>
 						<div class="form-control-static">${projectReview.flowsheetReg }</div>
 					</div>
 				</div>
+				
+				<div class="col-md-2">
+					<div class="form-group">
+						<div class="control-label">流程规定扣分说明</div>
+						<div class="form-control-static">${projectReview.flowExplain}</div>
+					</div>
+				</div>
 			</div>
 			<p class="bolder"><span class="glyphicon glyphicon-star-empty icon-padr" ></span>组织管理能力</p>
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-2">
 					<div class="form-group">
 						<div class="control-label">工作计划性差</div>
 						<div class="form-control-static">${projectReview.workplan }</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				
+				<div class="col-md-2">
+					<div class="form-group">
+						<div class="control-label">工作计划性差扣分说明</div>
+						<div class="form-control-static">${projectReview.workPlanExplain}</div>
+					</div>
+				</div>
+				<div class="col-md-2">
 					<div class="form-group">
 						<div class="control-label">沟通低效</div>
 						<div class="form-control-static">${projectReview.communication }</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				
+				<div class="col-md-2">
+					<div class="form-group">
+						<div class="control-label">沟通低效扣分说明</div>
+						<div class="form-control-static">${projectReview.communicationExplain }</div>
+					</div>
+				</div>
+				<div class="col-md-2">
 					<div class="form-group">
 						<div class="control-label">工作积极性</div>
 						<div class="form-control-static">${projectReview.workEnt }</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="form-group">
+						<div class="control-label">工作积极性扣分说明</div>
+						<div class="form-control-static">${projectReview.workEntExplain}</div>
 					</div>
 				</div>
 			</div>

@@ -127,15 +127,7 @@
 							<th>操作</th>
 						</tr></thead>
 						<tbody id="tbody">
-							<!-- <tr>
-								<td class="word-press">USB插座附近的5V供电只有22uF电容,样机测试时请确认硬盘插入后的电压波动符合要求</td>
-								<td>海外</td>
-								<td>2015年10月</td>
-								<td>TVB</td>
-								<td>研发中</td>
-								<td>xxx</td>
-								<td><a href="project_mistake_info.html">查看</a></td>
-							</tr> -->
+							
 						</tbody>
 					</table>
 					<div class="page"></div>
@@ -144,15 +136,6 @@
 				</div>
 			<!--end the main table area-->
 			</div>
-			<!--start more process-->
-			<%-- <div class="main-more-process">
-				<span class="help-text mg-b15"><a href="javasc:void(0);">更多操作>></a></span>
-				<div class="row mg-b30" style="padding-left:85px;">
-					<a href="${basePath}/projectAction!getEmployeeForAddProblem.action" class="btn btn-info" ><i class="glyphicon glyphicon-plus icon-padr"></i>添加新问题</a>
-					<a href="javascript:void(0);" onclick="importProblem();" class="btn btn-info" style="margin-left:30px;"><i class="glyphicon glyphicon-export icon-padr"></i>批量导入问题</a>
-				</div>
-			<!--end more process-->
-			</div> --%>
 		
 		</div>
 	<script type="text/javascript">

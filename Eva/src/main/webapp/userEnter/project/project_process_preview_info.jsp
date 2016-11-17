@@ -83,10 +83,10 @@
 		</style>
 		<script type="text/javascript" src="${basePath}/js/loading_upgrade.js"></script>
 		<script type="text/javascript">
-			/* this.myLoading=function(data){
+			this.myLoading=function(data){
 				var load = new loading(data);
 				load.init();
-			}; */
+			};
 		</script>
 	</head>
 	<body>
@@ -110,17 +110,6 @@
 						<li data-review="${review.reviewId}" ${(review.reviewId==indexNo)?'class="actived"':''}>
 							<a onclick="reviewToggle(this)" >${review.reviewName }</a>
 						</li>
-						<%-- <c:choose>
-   							<c:when test="${review.priority<project.review.priority}">  
-               					<li class="todo"><a onclick="getByPhase(${review.reviewId});">${review.reviewName }</a></li>
-						   </c:when>
-						   <c:when test="${review.priority==project.review.priority}">  
-               					<li class="doing"><a onclick="getByPhase(${review.reviewId});">${review.reviewName }</a></li>
-						   </c:when>
-						   <c:otherwise> 
-						  	 <li class="todo"><a href="javascript:volid(0);">${phase.phaseName }</a></li>
-   						   </c:otherwise>
-						</c:choose> --%>
 					</c:forEach>
 				</ul>
 				<div class="clear"></div>
@@ -146,7 +135,7 @@
 						</tr></thead>
 						<tbody id="tbody">
 								<tr>
-									<td colspan="9" style="padding:100px;">
+									<td colspan="8" style="padding:100px;">
 										<div class="empty" style="text-align: center;font-size: 18px;line-height: 25px;">
 											<img src="<%=basePath%>/images/loading.gif" width="25" height="25" style="vertical-align: text-top;margin-right: 5px;" />正在加载数据....
 										</div>
@@ -160,15 +149,7 @@
 				</div>
 			<!--end the main table area-->
 			</div>
-			<!--start more process-->
-			<%-- <div class="main-more-process">
-				<span class="help-text mg-b15"><a href="javasc:void(0);">更多操作>></a></span>
-				<div class="row mg-b30" style="padding-left:85px;">
-					<a href="projectReviewAction!addProblem.action?phaseId=${phase.phaseId}" class="btn btn-info" ><i class="glyphicon glyphicon-plus icon-padr"></i>添加新问题</a>
-					<a href="javascript:void(0);" onclick="importProblem();" class="btn btn-info" style="margin-left:30px;"><i class="glyphicon glyphicon-export icon-padr"></i>批量导入问题</a>
-				</div>
-			<!--end more process-->
-			</div> --%>
+			
 		
 		</div>
 	<script type="text/javascript">
@@ -254,11 +235,6 @@
 			}
 		};
 		
-		
-		$(document).ready(function(){
-			//var phaseId = '${phaseId}';
-			//alert(phaseId);
-		});
 	</script>
 	
 	</body>

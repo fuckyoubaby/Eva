@@ -150,7 +150,7 @@
 				<div class="col-md-6">
 					<div class="form-border">
 						<div class="form-title">基本信息</div>
-						
+						<div class="form-content">
 						<div class="form-group">
 							<label class="control-label">分项名称</label>
 							<input type="text" name="experienceName" class="form-control" />
@@ -160,7 +160,7 @@
 							<div class="form-control-static">点击添加涉及项目<a href="javascript:void(0);">(添加)</a></div>
 						</div> -->
 						<div class="form-group">
-							<label  class="control-abel">地区</label>
+							<label  class="control-label">地区</label>
 							<div class="row">
 								<div class="col-md-6">
 									<select name="country" class="form-control">
@@ -186,10 +186,10 @@
 							
 						</div>
 						<div class="form-group">
-							<label  class="control-abel">分类</label>
+							<label  class="control-label">分类</label>
 							<!--三级分类-->
 							<div class="row">
-								<div class="col-md-4">
+								<div class="col-md-6">
 								<select name="dataDirtPId" id="dataDirtPId" onchange="getDataByNId();" class="form-control">
 										<option value="">请选择一级分类</option>
 										<c:forEach items="${dataDirts }" var="data">
@@ -240,16 +240,17 @@
 							<div class="form-control-static">Amlogic S805</div>
 						</div>-->
 						<div class="form-group">
-							<label  class="control-abel">主芯片</label>
+							<label  class="control-label">主芯片</label>
 							<div class="form-control-static"><input name="mainChip"  class="form-control"/></div>
 						</div>
 						<div class="form-group">
-							<label  class="control-abel">关键词</label>
+							<label  class="control-label">关键词</label>
 							<div class="form-control-static"><input name="main_word"  class="form-control"/></div>
 						</div>
 						<div class="form-group">
-							<label  class="control-abel">摘要</label>
+							<label  class="control-label">摘要</label>
 							<textarea name="expAbstruct" rows="3" class="form-control"></textarea>
+						</div>
 						</div>
 					</div>
 				
@@ -257,6 +258,7 @@
 				<div class="col-md-6">
 					<div class="form-border">
 						<div class="form-title">上传文件</div>
+						<div class="form-content">
 							<div class="form-group">
 								<div class="form-control-static">
 									<input type="file" name="file"/>
@@ -266,6 +268,7 @@
 							<div class="form-group">
 								<button type="submit" class="btn btn-info"><i class="glyphicon glyphicon-saved icon-padr"></i>保存此条分享数据</button>
 							</div>
+					</div>
 					</div>
 				</div>
 			</form>

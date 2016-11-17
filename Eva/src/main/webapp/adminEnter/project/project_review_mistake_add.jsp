@@ -45,8 +45,21 @@
 			<h3 class="bolder"><a id="jumpHref" href="${basePath}/problemAction!getReviewByPhaseId.action?phaseId=${projectReview.phase.phaseId}&indexNo=${projectReview.phase.phaseId * 2}">${projectReview.project.projectName}项目评审问题新增</a></h3>
 			<div class="hr mg-b15"></div>
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-10">
 					<div class="form-border">
+					<div class="form-title">基本信息</div>
+						<div class="form-content">
+							<div class="form-group">
+								<label class="control-label">项目编号</label>
+								<div class="form-control-static"><%=project.getProjectId() %></div>
+							</div>
+							<c:if test="${not empty project.projectState}">
+								<div class="form-group">
+									<label class="control-label">状态</label>
+									<div class="form-control-static">${project.projectState}</div>
+								</div>
+							</c:if>
+						</div>
 						<div class="form-title">评审内容</div>
 						<form action="projectReviewAction!saveNewProblem.action" class="form-content" name="prAddNew" id="prAddNew" method="post">
 							<div class="form-group">
@@ -80,22 +93,32 @@
 							<div class="form-group">
 								<label class="control-label">设计规定</label>
 								<input type="text"  name="designReg" id="designReg" class="form-control" placeholder="设计规定" jrequired="required" jvalidator="int0"  />
+								<label class="control-label">设计规定扣分说明</label>
+								<input type="text"  name="designExplain" id="designExplain" class="form-control" placeholder="设计规定扣分说明"/>
 							</div>
 							<div class="form-group">
 								<label class="control-label">流程规定</label>
 								<input type="text"  name="flowsheetReg" id="flowsheetReg" class="form-control" placeholder="流程规定" jrequired="required" jvalidator="int0" />
+								<label class="control-label">流程规定扣分说明</label>
+								<input type="text"  name="flowExplain" id="flowExplain" class="form-control" placeholder="流程规定扣分说明" />
 							</div>
 							<div class="form-group">
 								<label class="control-label">工作计划性差</label>
 								<input type="text"  name="workplan" id="workplan" class="form-control" placeholder="工作计划性差" jrequired="required" jvalidator="int0" />
+								<label class="control-label">工作计划扣分说明</label>
+								<input type="text"  name="workplanExplain" id="workplanExplain" class="form-control" placeholder="工作计划扣分说明"/>
 							</div>
 							<div class="form-group">
 								<label class="control-label">沟通低效</label>
 								<input type="text"  name="communication" id="communication" class="form-control" placeholder="沟通低效" jrequired="required" jvalidator="int0" />
+								<label class="control-label">沟通低效扣分说明</label>
+								<input type="text"  name="communicationExplain" id="communicationExplain" class="form-control" placeholder="沟通低效扣分说明"/>
 							</div>
 							<div class="form-group">
 								<label class="control-label">工作积极性</label>
 								<input type="text"  name="workEnt" id="workEnt" class="form-control" placeholder="工作积极性" jrequired="required" jvalidator="int0" />
+								<label class="control-label">工作积极性扣分说明</label>
+								<input type="text"  name="workEntExplain" id="workEntExplain" class="form-control" placeholder="工作积极性扣分说明"/>
 							</div>
 							<div class="form-group">
 								<label class="control-label">扣分说明</label>
@@ -108,7 +131,7 @@
 					</div>
 				</div>
 				
-				<div class="col-md-6">
+				<%-- <div class="col-md-6">
 					<div class="form-border">
 						<div class="form-title">基本信息</div>
 						<div class="form-content">
@@ -124,7 +147,7 @@
 							</c:if>
 						</div>
 					</div>	
-				</div>
+				</div> --%>
 			</div>
 		</div>
 

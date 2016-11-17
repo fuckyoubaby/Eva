@@ -118,7 +118,10 @@
 						</tr></thead>
 						<tbody id="tbody">
 							<tr><td colspan="3" style="padding:100px;">
-					  			<div class="empty" style="text-align: center;font-size: 18px;line-height: 25px;"><img src="<%=basePath%>/images/loading.gif" width="25" height="25" style="vertical-align: text-top;margin-right: 5px;" />正在加载数据....</div>
+					  			<div class="empty" style="text-align: center;font-size: 18px;line-height: 25px;">
+					  			<img src="<%=basePath%>/images/loading.gif" width="25" height="25" style="vertical-align:text-top;margin-right:5px;" />
+					  			正在加载数据....
+					  			</div>
 					  		</td></tr>
 						</tbody>
 					</table>
