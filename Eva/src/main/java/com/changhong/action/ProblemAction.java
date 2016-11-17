@@ -458,7 +458,7 @@ public class ProblemAction {
 		context.getSession().put("problem",problem);
 		setId(problem.getComment().getId());
 		
-		return "update";
+		return "redirectProblem";
 	}
 	public String delete()
 	{

@@ -27,7 +27,7 @@
 	</c:forEach>
 </c:if>
 <c:if test="${commentExts==null || fn:length(commentExts) ==0}">
-   <tr><td colspan="3" style="padding:100px;">
+   <tr><td colspan="4" style="padding:100px;">
   	<h3 class="empty" style="text-align:center">友情提示：暂无您所需要的数据....</h3>
   </td></tr>
 </c:if>

@@ -36,4 +36,6 @@ public interface ProjectDao extends BaseDao<Project>{
 	
 	//通过projectId找到reviewId
 	public String getReviewIdByProjectId(String projectId);
+	
+	List getAllReviewCount(String projectId, int phaseId);
 }

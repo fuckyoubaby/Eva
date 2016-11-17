@@ -1,4 +1,3 @@
-
 <%@page import="com.changhong.support.FinalConstant"%>
 <%@page language="java" import="java.util.*" pageEncoding="utf-8" trimDirectiveWhitespaces="true"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
