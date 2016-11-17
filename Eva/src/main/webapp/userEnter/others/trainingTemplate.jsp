@@ -9,10 +9,10 @@
 	<tr data-itemcount='${itemcount}'>
 		<td>${etr.train.trainId}</td>
 		<td>${etr.train.trainName}</td>
-		<td>${etr.train.teacher}</td>
+		<%-- <td>${etr.train.teacher}</td> --%>
 		<td>${etr.train.trainTime}</td>
-		<td>${etr.train.trainLocation}</td>
-		<td>${etr.train.trainLevel}</td>
+		<%-- <td>${etr.train.trainLocation}</td>
+		<td>${etr.train.trainLevel}</td> --%>
 		<td><a href="trainAction!getTrainByIdForEmployee.action?trainId=${etr.train.trainId}">查看</a></td>
 		
 		<%-- <td><a href="projectAction!getProjectById.action?projectId=${project.projectId }">查看</a></td> --%>

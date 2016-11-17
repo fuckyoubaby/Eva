@@ -33,7 +33,7 @@
 	<body>
 		<div class="container">
 			<h3>${train.trainName }</h3>
-			<div class="sub-title mg-b10">——${train.teacher }${train.employee.name }</div>
+			<%-- <div class="sub-title mg-b10">——${train.teacher }${train.employee.name }</div> --%>
 			<div class="row">
 				<div class="hr col-sm-10 mg-b15"></div>
 			</div>
@@ -41,18 +41,18 @@
 				<div class="col-md-2">培训时间</div>
 				<div class="col-md-3">${train.trainTime }</div>
 			</div>
-			<div class="row mg-b15">
+			<%-- <div class="row mg-b15">
 				<div class="col-md-2">培训地点</div>
 				<div class="col-md-3">${train.trainLocation }</div>
-			</div>
+			</div> --%>
 			<div class="row mg-b15">
 				<div class="col-md-2">培训人数</div>
 				<div class="col-md-3">${train.joinNum }</div>
 			</div>
-			<div class="row mg-b15">
+			<%-- <div class="row mg-b15">
 				<div class="col-md-2">培训级别</div>
 				<div class="col-md-3">${train.trainLevel }</div>
-			</div>
+			</div> --%>
 			<div class="row">
 				<div class="hr col-sm-10 mg-b15"></div>
 			</div>

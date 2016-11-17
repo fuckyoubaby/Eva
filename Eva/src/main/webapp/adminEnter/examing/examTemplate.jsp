@@ -11,7 +11,7 @@
 		<td>${exam.examName}</td>
 		<td>${exam.organizer}</td>
 		<td>${exam.examTime}</td>
-		<td>${exam.examLevel}</td>
+		<%-- <td>${exam.examLevel}</td> --%>
 		<td><a href="examAction!getExamById.action?examId=${exam.examId }">查看</a></td>
 		
 		<%-- <td><a href="projectAction!getProjectById.action?projectId=${project.projectId }">查看</a></td> --%>

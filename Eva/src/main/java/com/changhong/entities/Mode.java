@@ -116,7 +116,7 @@ public class Mode implements java.io.Serializable {
 		this.createTime = createTime;
 	}
 
-	@OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "mode")
+	@OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "mode")
 	public Set<Result> getResults() {
 		return this.results;
 	}

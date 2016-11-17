@@ -34,6 +34,7 @@ import com.changhong.service.ClassifyService;
 import com.changhong.service.DataDirtService;
 import com.changhong.service.ExperienceService;
 import com.changhong.util.ExpParams;
+import com.changhong.util.PDF2SWF;
 import com.changhong.util.Params;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.util.ResolverUtil.NameEndsWith;
@@ -54,7 +55,8 @@ import com.opensymphony.xwork2.util.ResolverUtil.NameEndsWith;
 	@Result(name="experienceForUser",location="/userEnter/experienceBase/experience_info.jsp"),
 	@Result(name="experienceForUserForUpdate",location="/userEnter/experienceBase/exp_update.jsp"),
 	@Result(name="forAddExp",location="/userEnter/experienceBase/exp_add.jsp"),
-	@Result(name="save",location="/userEnter/experienceBase/expBase_index.jsp")
+	@Result(name="save",location="/userEnter/experienceBase/expBase_index.jsp"),
+	@Result(name="fileNameForUser",location="/userEnter/experienceBase/exp_show.jsp")
 })
 public class ExperienceAction {
 
@@ -403,6 +405,18 @@ public class ExperienceAction {
 		Experience experience = new Experience();
 		experience = experienceService.getExperience(experienceId);
 		experienceService.delete(experience);
+		
+		//删除相应的文件
+		 String url = experience.getExUrl();
+	        File oldTarget = new File(url);
+	        File oldSwfTarget = new File(url.substring(0,url.length()-3)+"swf");
+	        if(oldTarget.exists()){
+	        	oldTarget.delete();
+	        }
+	        if (oldSwfTarget.exists()) {
+				oldSwfTarget.delete();
+			}
+		System.gc();
 		return "delete";
 	}
 	public String muldelete()
@@ -413,7 +427,19 @@ public class ExperienceAction {
 			for (int i = 0; i < strA.length; i++) {
 				experience = experienceService.getExperience(Integer.parseInt(strA[i].trim()));
 				experienceService.delete(experience);
+				//删除相应的文件
+				 String url = experience.getExUrl();
+			        File oldTarget = new File(url);
+			        File oldSwfTarget = new File(url.substring(0,url.length()-3)+"swf");
+			        if(oldTarget.exists()){
+			        	oldTarget.delete();
+			        }
+			        if (oldSwfTarget.exists()) {
+						oldSwfTarget.delete();
+					}
+				
 			}
+			System.gc();
 			list = experienceService.getAllNum();
 			if (list.size()>=3) {
 				all = list.get(0);
@@ -455,16 +481,23 @@ public class ExperienceAction {
 	{
 		ActionContext context = ActionContext.getContext();
 		Experience experience = (Experience) context.getSession().get("experience");
-		Employee employee = (Employee) context.getSession().get("employee");
+		//Employee employee = (Employee) context.getSession().get("employee");
 		Classify classify = classifyService.getClassify(experienceClassify);
 		if (fileFileName!=null) {
 			String directory = "/upload/experience";        //一个安全的目录
 	        String targetDirectory = ServletActionContext.getServletContext().getRealPath(directory);
 	        File target = new File(targetDirectory,fileFileName);
-	        File oldTarget = new File(experience.getExUrl());
+	        
+	        String url = experience.getExUrl();
+	        File oldTarget = new File(url);
+	        File oldSwfTarget = new File(url.substring(0,url.length()-3)+"swf");
 	        if(oldTarget.exists()){
 	        	oldTarget.delete();
-	        }try {
+	        }
+	        if (oldSwfTarget.exists()) {
+				oldSwfTarget.delete();
+			}
+	        try {
 				FileUtil.copyFile(file, target);
 				//System.out.println("文件上传成功"+targetDirectory);
 			} catch (IOException e) {
@@ -478,7 +511,7 @@ public class ExperienceAction {
 		experience.setArea(area);
 		experience.setCounty(country);
 		experience.setClassify(classify);
-		experience.setEmployee(employee);
+		//experience.setEmployee(employee);
 		experience.setExperienceName(experienceName);
 		Date date = new Date();
 		experience.setExTime(date);
@@ -507,9 +540,33 @@ public class ExperienceAction {
 		
 		experience = experienceService.getExperience(experienceId);
 		context.getSession().put("experience_employeeId", experience.getEmployee().getId());
-		String []fileString = experience.getExUrl().split("\\\\");
+		
+		String sourceFilePath = experience.getExUrl();
+		sourceFilePath = sourceFilePath.replaceAll("\\\\","/");
+		String destFilePath = sourceFilePath.substring(0,sourceFilePath.length()-3)+"swf";
+		try {
+			PDF2SWF.pdf2swf(sourceFilePath, destFilePath);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String []fileString = destFilePath.split("/");
 		setFileFileName(fileString[fileString.length-1]);
+		context.getSession().put("fileName", fileString[fileString.length-1]);
 		return "experienceForUser";
+	}
+	public String getFileNameForUser()
+	{
+		ActionContext context = ActionContext.getContext();
+		
+		setFileFileName((String)context.getSession().get("fileName"));
+		log.info("FFFFFFFFFFFFF="+fileFileName);
+		
+		return "fileNameForUser";
 	}
 
 	public String getExperienceByIdForUserForUpdate()
@@ -565,6 +622,8 @@ public class ExperienceAction {
 		
 		log.info("fileFileName="+fileFileName);
        // File target = new File(targetDirectory,fileFileName);
+		
+	
         if(target.exists()){
         	target.delete();
         }try {

@@ -65,15 +65,15 @@
 					<thead><tr>
 						<th class="p-hover" data-colname='train.trainId'>序号<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
 						<th class="p-hover" data-colname='train.trainName'>培训名称<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
-						<th class="p-hover" data-colname='train.teacher'>讲师<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
+						<!-- <th class="p-hover" data-colname='train.teacher'>讲师<i class="glyphicon glyphicon-sort icon-hidden"></i></th> -->
 						<th class="p-hover" data-colname='train.trainTime'>时间<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
-						<th>地点</th>
-						<th>级别</th>
+						<!-- <th>地点</th>
+						<th>级别</th> -->
 						<th>操作</th>
 					</tr></thead>
 					<tbody id="tbody">
 						<tr>
-									<td colspan="7" style="padding:100px;">
+									<td colspan="4" style="padding:100px;">
 										<div class="empty" style="text-align: center;font-size: 18px;line-height: 25px;">
 											<img src="<%=basePath%>images/loading.gif" width="25" height="25" style="vertical-align: text-top;margin-right: 5px;" />正在加载数据....
 										</div>

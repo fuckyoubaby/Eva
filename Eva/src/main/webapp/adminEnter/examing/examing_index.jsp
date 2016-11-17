@@ -127,13 +127,13 @@
 								<th class="p-hover" data-colname='examName'>竞赛名称<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
 								<th class="p-hover" data-colname='organizer'>组织人员<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
 								<th class="p-hover" data-colname='examTime'>时间<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
-								<th>级别</th>
+								<!-- <th>级别</th> -->
 								<th>操作</th>
 							</tr>
 						</thead>
 						<tbody id="tbody">
 								<tr>
-									<td colspan="6" style="padding:100px;">
+									<td colspan="5" style="padding:100px;">
 										<div class="empty" style="text-align: center;font-size: 18px;line-height: 25px;">
 											<img src="<%=basePath%>images/loading.gif" width="25" height="25" style="vertical-align: text-top;margin-right: 5px;" />正在加载数据....
 										</div>

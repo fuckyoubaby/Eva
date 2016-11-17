@@ -65,30 +65,30 @@
 				<div class="hr col-sm-10 mg-b15"></div>
 			</div>
 			<div class="row mg-b15">
-				<div class="col-sm-2">考试时间</div>
+				<div class="col-sm-2">竞赛时间</div>
 				<div class="col-sm-3">${exam.examTime }</div>
 			</div>
 			<div class="row mg-b15">
-				<div class="col-sm-2">考试策划</div>
+				<div class="col-sm-2">竞赛策划</div>
 				<div class="col-sm-3">${exam.organizer }</div>
 			</div>
 			<div class="row mg-b15">
-				<div class="col-sm-2">考试人数</div>
+				<div class="col-sm-2">参与人数</div>
 				<div class="col-sm-3">${examCount }</div>
 			</div>
-			<div class="row mg-b15">
+			<%-- <div class="row mg-b15">
 				<div class="col-sm-2">考试级别</div>
 				<div class="col-sm-3">${exam.examLevel }</div>
-			</div>
+			</div> --%>
 			<div class="row mg-b15">
-				<div class="col-sm-2">考试内容</div>
+				<div class="col-sm-2">竞赛内容</div>
 				<div class="col-sm-7">${exam.examContent }</div>
 			</div>
 			<div class="row">
 				<div class="hr col-sm-10 mg-b30"></div>
 			</div>
 			<div class="row mg-b30">
-				<div class="col-sm-2">考试成绩</div>
+				<div class="col-sm-2">竞赛成绩</div>
 				<div class="col-sm-7">
 					<table class="t_table">
 						<thead>

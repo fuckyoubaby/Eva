@@ -44,11 +44,11 @@
 							<label class="control-label">组织者</label>
 							<input type="text" name="organizer" id="organizer" class="form-control"  value="${exam.organizer }"/>
 						</div>
-						<div class="form-group">
+						<%-- <div class="form-group">
 							<label class="control-label">竞赛地点</label>
 							<input type="text" name="examLocation" id="examLocation" class="form-control"  value="${exam.examLocation }"/>
-						</div>
-						<div class="form-group">
+						</div> --%>
+						<%-- <div class="form-group">
 							<label class="control-label">竞赛级别</label>
 							<select name="examLevel" id="level" class="form-control">
 								<option value="${exam.examLevel }" selected="selected">${exam.examLevel }</option>
@@ -56,7 +56,7 @@
 								<option value="B">B</option>
 								<option value="C">C</option>
 							</select>
-						</div>
+						</div> --%>
 						<div class="form-group">
 							<label class="control-label">竞赛内容</label>
 							<textarea name="examContent" rows="3" class="form-control">${exam.examContent }</textarea>
@@ -130,16 +130,6 @@
 			                        notEmpty: {
 			                            message: '日期不能为空'
 			                        }
-			                    }
-			                },
-			                examLevel: {
-			                    validators: {
-			                        notEmpty: {
-			                            message: '竞赛等级不能为空'
-			                        }/* ,
-			                        emailAddress: {
-			                            message: 'The input is not a valid email address'
-			                        } */
 			                    }
 			                }
 			            }

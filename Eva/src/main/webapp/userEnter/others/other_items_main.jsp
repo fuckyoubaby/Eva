@@ -123,7 +123,7 @@
 			<div id="crumbs" >
 				<ul class="clearfix">
 					<li id="train" class="actived"><a href="<%=basePath %>/userEnter/others/training_list.jsp" onclick="train();" target="rightmain">培训预览</a></li>
-					<li id="exam" ><a href="<%=basePath %>/userEnter/others/exam_list.jsp" onclick="exam();" target="rightmain">考试预览</a></li>
+					<li id="exam" ><a href="<%=basePath %>/userEnter/others/exam_list.jsp" onclick="exam();" target="rightmain">竞赛预览</a></li>
 				</ul>	
 			</div>
 			

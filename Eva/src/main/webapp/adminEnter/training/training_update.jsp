@@ -173,7 +173,7 @@ $(function(){
 									<span class="input-group-addon" onclick="WdatePicker({el:'trainData',dateFmt:'yyyy-MM-dd',onpicked:pickedFunc,oncleared:pickedFunc})"><i class="glyphicon glyphicon-time"></i></span>
 								</div>
 							</div>
-							<div class="form-group">
+							<%-- <div class="form-group">
 								<label class="control-label">培训地点</label>
 								<input type="text" name="trainArea" class="form-control" value="${train.trainLocation }" />
 							</div>
@@ -185,7 +185,7 @@ $(function(){
 									<option value="B" >B</option>
 									<option value="C">C</option>
 								</select>
-							</div>
+							</div> --%>
 							<div class="form-group">
 								<label  class="control-abel">参训人员</label>
 								<div class="form-control-static">${train.joinNum }人<!-- (<a href="javascript:void(0);">修改</a>) --></div>
@@ -245,7 +245,7 @@ $(function(){
 			                        }
 			                    }
 			                },
-			                employeeId: {
+			                /* employeeId: {
 			                    message:'讲师姓名无效',
 			                    validators: {
 			                        notEmpty: {
@@ -267,7 +267,7 @@ $(function(){
 			                            message: '培训等级不能为空'
 			                        }
 			                    }
-			                },
+			                }, */
 			                trainData: {
 			                    validators: {
 			                        notEmpty: {

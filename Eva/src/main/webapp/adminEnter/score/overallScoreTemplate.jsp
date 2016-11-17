@@ -11,9 +11,9 @@
 		<td class="word-press">${overallscore.name}</td>
 		<td>${overallscore.startTime}</td>
 		<td>${overallscore.endTime}</td>
-		<td>${overallscore.createTime}</td>
 		<td>${overallscore.mode.modeName}</td>
-		<td><a href="scoreAction!saveModeId.action?modeId=${overallscore.id }">详情</a></td>
+		<td>${overallscore.createTime}</td>
+		<td><a href="scoreAction!saveModeId.action?modeId=${overallscore.id }">详情</a>&nbsp|&nbsp<a href="scoreAction!deleteOverAll.action?modeId=${overallscore.id }">删除</a></td>
 		<%-- <td><a href="projectAction!getProjectById.action?projectId=${project.projectId }">查看</a></td> --%>
 	</tr>
 	</c:forEach>

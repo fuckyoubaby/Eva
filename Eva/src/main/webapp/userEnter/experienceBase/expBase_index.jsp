@@ -125,7 +125,7 @@
 			<!--start 结果列表-->
 			<div class="row mg-b30">
 				<ul id="tbody">
-					<li>
+					<!-- <li>
 						<h4 class="exp-title"><a href="">湖北电信IHO-2000不开机故障问题分析</a></h4>
 						<span class="exp-outhor"><em class="short-cut">[录入]</em>樊卫华  2015年4月3日</span>
 						<div><em class="short-cut">[评分]</em>4星</div>
@@ -148,7 +148,7 @@
 						<div><em class="short-cut">[摘要]</em>
 							<div class="exp-desc">由于FLASH软件驱动兼容性带来的概率性不开机，另设计时需要关注不同FLASH之间pin脚定义的不同，如东芝FLASH的pin38，pin39需要供电，美光不需要。</div>
 						</div>
-					</li>
+					</li> -->
 				</ul>	
 				<!--end 结果列表-->
 			</div>

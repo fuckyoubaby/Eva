@@ -208,7 +208,7 @@
 			$li.addClass("actived").siblings().removeClass("actived");
 			reviewId = $li.data("review");
 			var targetIndex = reviewId*1;
-			var url = '${basePath}/problemAction!getReviewByPhaseId.action?phaseId=${phaseId}&indexNo=';
+			var url = '${basePath}/problemAction!getReviewByPhaseIdForUser.action?phaseId=${phaseId}&indexNo=';
 			if(index==0){
 				if(targetIndex==1) return;
 				window.location.href=url+targetIndex;

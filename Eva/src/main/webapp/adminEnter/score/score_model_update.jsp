@@ -187,11 +187,11 @@
 								<div class="row ">
 									<div class="col-md-4 ">
 										<div class="input-group">
-											<span class="input-group-addon">A</span>
+											<span class="input-group-addon">分数</span>
 											<input type="text" name="studyA" value="${sw.a }" id="studyA" class="form-control"/>
 										</div>
 									</div>
-									<div class="col-md-4">
+									<%-- <div class="col-md-4">
 										<div class="input-group">
 											<span class="input-group-addon">B</span>
 											<input type="text" name="studyB" value="${sw.b }" id="studyB"  class="form-control"/>
@@ -202,7 +202,7 @@
 											<span class="input-group-addon">C</span>
 											<input type="text" name="studyC" value="${sw.c }" id="studyC"  class="form-control"/>
 										</div>
-									</div>
+									</div> --%>
 								</div>
 								<div class="row " style="margin-top: 10px;">
 									<div class="col-md-4">
@@ -269,11 +269,11 @@
 								<div class="row">
 									<div class="col-md-4">
 										<div class="input-group">
-											<span class="input-group-addon">A</span>
+											<span class="input-group-addon">分数</span>
 											<input type="text" name="teacherA"  value="${sw.a }" class="form-control"/>
 										</div>
 									</div>
-									<div class="col-md-4">
+									<%-- <div class="col-md-4">
 										<div class="input-group">
 											<span class="input-group-addon">B</span>
 											<input type="text" name="teacherB"  value="${sw.b }" class="form-control" />
@@ -284,7 +284,7 @@
 											<span class="input-group-addon">C</span>
 											<input type="text" name="teacherC"  value="${sw.c }" class="form-control" />
 										</div>
-									</div>
+									</div> --%>
 								</div>
 								<div class="row " style="margin-top: 10px;">
 									<div class="col-md-4">
@@ -578,7 +578,7 @@
 			                        }
 			                    }
 			                },
-			                studyB: {
+			                /* studyB: {
 			                	message:'',
 			                    validators: {
 			                        notEmpty: {
@@ -593,7 +593,7 @@
 			                            message: 'C不为空'
 			                        }
 			                    }
-			                },
+			                }, */
 			                studyWeight: {
 			                	message:'',
 			                    validators: {
@@ -642,7 +642,7 @@
 			                        }
 			                    }
 			                },
-			                teacherB: {
+			               /*  teacherB: {
 			                	message:'',
 			                    validators: {
 			                        notEmpty: {
@@ -657,7 +657,7 @@
 			                            message: 'C不为空'
 			                        }
 			                    }
-			                },
+			                }, */
 			                teacherWeight: {
 			                	message:'',
 			                    validators: {

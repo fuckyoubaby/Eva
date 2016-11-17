@@ -115,46 +115,12 @@
 							</thead>
 							<tbody id="tbody">
 							<tr>
-								<td><input type="checkbox" name="chooseItem" /></td>
-								<td>郭xx</td>
-								<td>20020981</td>
-								<td>88</td>
-								<td class="t_td">
-									<div class="t_action">
-										<a href="#" class="a_edit glyphicon glyphicon-edit" title="编辑" ></a>
-										<a href="#" class="a_delete glyphicon glyphicon-trash" title="删除" ></a>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td></td>
-								<td>&nbsp;</td>
-								<td></td>
-								<td></td>
-								<td></td>
-		
-							</tr>
-							<tr>
-								<td></td>
-								<td>&nbsp;</td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td>&nbsp;</td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td>&nbsp;</td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
+									<td colspan="5" style="padding:100px;">
+										<div class="empty" style="text-align: center;font-size: 18px;line-height: 25px;">
+											<img src="<%=basePath%>images/loading.gif" width="25" height="25" style="vertical-align: text-top;margin-right: 5px;" />正在加载数据....
+										</div>
+									</td>
+								</tr>
 						</tbody>
 						</table>
 					<!--end table area-->

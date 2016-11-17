@@ -174,11 +174,11 @@
 								<div class="row ">
 									<div class="col-md-4 ">
 										<div class="input-group">
-											<span class="input-group-addon">A</span>
+											<span class="input-group-addon">分数</span>
 											<input type="text" name="studyA" id="studyA" class="form-control"/>
 										</div>
 									</div>
-									<div class="col-md-4">
+									<!-- <div class="col-md-4">
 										<div class="input-group">
 											<span class="input-group-addon">B</span>
 											<input type="text" name="studyB" id="studyB"  class="form-control"/>
@@ -189,7 +189,7 @@
 											<span class="input-group-addon">C</span>
 											<input type="text" name="studyC" id="studyC"  class="form-control"/>
 										</div>
-									</div>
+									</div> -->
 								</div>
 							</div>
 							<div class="form-group">
@@ -247,11 +247,11 @@
 								<div class="row">
 									<div class="col-md-4">
 										<div class="input-group">
-											<span class="input-group-addon">A</span>
+											<span class="input-group-addon">分数</span>
 											<input type="text" name="teacherA" class="form-control"/>
 										</div>
 									</div>
-									<div class="col-md-4">
+									<!-- <div class="col-md-4">
 										<div class="input-group">
 											<span class="input-group-addon">B</span>
 											<input type="text" name="teacherB" class="form-control" />
@@ -262,7 +262,7 @@
 											<span class="input-group-addon">C</span>
 											<input type="text" name="teacherC" class="form-control" />
 										</div>
-									</div>
+									</div> -->
 								</div>
 							</div>
 							<div class="form-group">
@@ -505,7 +505,7 @@
 			                        }
 			                    }
 			                },
-			                studyB: {
+			                /* studyB: {
 			                	message:'',
 			                    validators: {
 			                        notEmpty: {
@@ -520,7 +520,7 @@
 			                            message: 'C不为空'
 			                        }
 			                    }
-			                },
+			                }, */
 			                studyWeight: {
 			                	message:'',
 			                    validators: {
@@ -569,7 +569,7 @@
 			                        }
 			                    }
 			                },
-			                teacherB: {
+			                /* teacherB: {
 			                	message:'',
 			                    validators: {
 			                        notEmpty: {
@@ -584,7 +584,7 @@
 			                            message: 'C不为空'
 			                        }
 			                    }
-			                },
+			                }, */
 			                teacherWeight: {
 			                	message:'',
 			                    validators: {

@@ -15,7 +15,7 @@
 	charset="utf-8"></script>
 <script src="../../js/bootstrap.js" type="text/javascript"
 	charset="utf-8"></script>
-<script type="text/javascript" src="<%=basePath %>/js/jquery-1.8.3.min.js"></script>  
+<script type="text/javascript" src="<%=basePath %>/js/jquery-1.9.1.min.js"></script>  
 <script type="text/javascript" src="<%=basePath %>/js/jquery.media.js"></script>
 <style type="text/css">
 .mg-b10 {
@@ -185,13 +185,49 @@ label {
 	left: 0;
 	z-index: 1;
 }
+#newDiv{
+            width:2000px;
+            height: 70px;
+        background-color: red;
+        }
 </style>
 <script type="text/javascript">
+
+  
 	function preview() {
 	      console.log(1111); 
           $('a.media').media(
-          {width:800, height:600, autoplay:false,silverlight:{ isWindowless: 'false'}});  
+          {width:800, height:600, autoplay:false,silverlight:{ isWindowless: 'false'}}); 
 	}
+	function cantedit()
+	{
+		//document.getElementById("plugin").contentWindow.document.body.contentEditable= "false";
+		alert("11111");
+		 var plugin = document.getElementById("plugin");
+         //var div = document.createElement("div");
+        // div.setAttribute("id", "newDiv");
+         alert("22222"+plugin);
+        // plugin.appendChild(div);
+		//alert("div="+div);
+	}
+	
+
+
+        // 禁用右键功能
+        function stop(){
+            return false;
+        }
+        document.oncontextmenu=stop;
+
+        //禁止F8按钮
+        function keypressed() {
+            if(event.keyCode == 119) {
+                event.keyCode = 0;
+                return false;
+            }
+        }
+        
+        
 </script>
 
 </head>
@@ -204,7 +240,7 @@ label {
 			${experience.experienceName }<br />
 		</h4>
 		<div class="small text-left mg-b10">${experience.employee.name }<span
-				class="exp-score">${experience.score }</span>
+				class="exp-score">得分：${experience.score }</span>
 		</div>
 		<div class="row hr mg-b30"></div>
 		<div class="row mg-b15">
@@ -242,7 +278,8 @@ label {
 				<div class="col-md-7">
 					<!-- <button class="btn btn-primary"> -->
 						<%-- <a class="media" href="<%=path %>/upload/test.pdf"><i class="glyphicon mg-r5"></i>预览</a> --%>
-						<a class="media btn btn-info" href="<%=path %>/upload/experience/${fileFileName}" onclick="preview();"><i class="glyphicon icon-padr"></i>预览</a>
+						<%-- <a class="media btn btn-info" href="<%=path %>/upload/experience/${fileFileName}" onclick="preview();"><i class="glyphicon icon-padr"></i>预览</a> --%>
+						<a class="media btn btn-info" href="experienceAction!getFileNameForUser.action" target="_blank" ><i class="glyphicon icon-padr"></i>预览</a>
 					<!-- </button> -->
 				</div>
 		</div>

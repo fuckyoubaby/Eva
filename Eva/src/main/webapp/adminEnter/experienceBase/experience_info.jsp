@@ -200,7 +200,7 @@ label {
 			${experience.experienceName }<br />
 		</h4>
 		<div class="small text-left mg-b10">${experience.employee.name }<span
-				class="exp-score">${experience.score }</span>
+				class="exp-score">${experience.score } 分</span>
 		</div>
 		<div class="row hr mg-b30"></div>
 		<div class="row mg-b15">

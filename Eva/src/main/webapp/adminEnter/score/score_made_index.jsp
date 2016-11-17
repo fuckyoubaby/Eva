@@ -82,8 +82,8 @@
 						<th>评分名称</th>
 						<th>开始时间</th>
 						<th>结束时间</th>
-						<th>创建时间</th>
 						<th>采用模型</th>
+						<th>创建时间</th>
 						<th>操作</th>
 					</tr></thead>
 					<tbody id="tbody">

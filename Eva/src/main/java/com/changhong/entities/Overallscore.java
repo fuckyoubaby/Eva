@@ -34,6 +34,7 @@ public class Overallscore implements java.io.Serializable {
 	private Date createTime;
 	private Integer employeeNum;
 	private Set<Result> results = new HashSet<Result>(0);
+	private Set<Secondlevelscore> secondlevelscores = new HashSet<Secondlevelscore>(0);
 
 	// Constructors
 
@@ -44,7 +45,7 @@ public class Overallscore implements java.io.Serializable {
 	/** full constructor */
 	public Overallscore(Mode mode,  Date startTime,
 			Date endTime, String name, Date createTime, Integer employeeNum,
-			Set<Result> results) {
+			Set<Result> results,Set<Secondlevelscore> secondlevelscores) {
 		this.mode = mode;
 		this.startTime = startTime;
 		this.endTime = endTime;
@@ -52,6 +53,7 @@ public class Overallscore implements java.io.Serializable {
 		this.createTime = createTime;
 		this.employeeNum = employeeNum;
 		this.results = results;
+		this.secondlevelscores = secondlevelscores;
 	}
 
 	// Property accessors
@@ -135,13 +137,22 @@ public class Overallscore implements java.io.Serializable {
 		this.employeeNum = employeeNum;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "overallscore")
+	@OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "overallscore")
 	public Set<Result> getResults() {
 		return this.results;
 	}
 
 	public void setResults(Set<Result> results) {
 		this.results = results;
+	}
+	
+	@OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "overallscore")
+	public Set<Secondlevelscore> getSecondlevelscores() {
+		return this.secondlevelscores;
+	}
+
+	public void setSecondlevelscores(Set<Secondlevelscore> secondlevelscores) {
+		this.secondlevelscores = secondlevelscores;
 	}
 
 }

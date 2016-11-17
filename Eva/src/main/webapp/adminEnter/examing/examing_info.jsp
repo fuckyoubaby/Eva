@@ -56,10 +56,10 @@
 				<div class="col-md-2">竞赛时间</div>
 				<div class="col-md-3">${exam.examTime }</div>
 			</div>
-			<div class="row mg-b15">
+			<%-- <div class="row mg-b15">
 				<div class="col-md-2">竞赛级别</div>
 				<div class="col-md-3">${exam.examLevel }</div>
-			</div>
+			</div> --%>
 			<div class="row mg-b15">
 				<div class="col-md-2">竞赛策划</div>
 				<div class="col-md-3">${exam.organizer }</div>

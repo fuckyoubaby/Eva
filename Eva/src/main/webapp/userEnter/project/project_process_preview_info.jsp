@@ -145,13 +145,13 @@
 							<th>责任人</th>
 						</tr></thead>
 						<tbody id="tbody">
-								<%-- <tr>
+								<tr>
 									<td colspan="9" style="padding:100px;">
 										<div class="empty" style="text-align: center;font-size: 18px;line-height: 25px;">
-											<img src="<%=basePath%>images/loading.gif" width="25" height="25" style="vertical-align: text-top;margin-right: 5px;" />正在加载数据....
+											<img src="<%=basePath%>/images/loading.gif" width="25" height="25" style="vertical-align: text-top;margin-right: 5px;" />正在加载数据....
 										</div>
 									</td>
-								</tr> --%>
+								</tr>
 						</tbody>
 					</table>
 					<div class="page"></div>

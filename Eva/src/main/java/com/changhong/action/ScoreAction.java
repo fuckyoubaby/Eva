@@ -336,6 +336,12 @@ public class ScoreAction {
 		context.getSession().put("modeId", modeId);
 		return "saveModeId";
 	}
+	public String deleteOverAll(){
+		Overallscore os = new Overallscore();
+		os = overallService.getOverallscoreById(modeId);
+		overallService.delete(os);
+		return "success";
+	}
 	public String getResultByModeId()
 	{
 		pingshenToatleTimes = 0;
@@ -776,14 +782,14 @@ public class ScoreAction {
 				
 				if (secondweight_xuexijijixing==null) {
 				}else {
-					
-					if (employeetrainrs.get(j).getTrain().getTrainLevel().equals("A")) {
+					xuexijijixing+=secondweight_xuexijijixing.getA();
+					/*if (employeetrainrs.get(j).getTrain().getTrainLevel().equals("A")) {
 						xuexijijixing+=secondweight_xuexijijixing.getA();
 					}else if (employeetrainrs.get(j).getTrain().getTrainLevel().equals("B")) {
 						xuexijijixing+=secondweight_xuexijijixing.getB();
 					}else if (employeetrainrs.get(j).getTrain().getTrainLevel().equals("C")) {
 						xuexijijixing+=secondweight_xuexijijixing.getC();
-					}
+					}*/
 					
 				}	
 			}
@@ -929,22 +935,24 @@ public class ScoreAction {
 			List<Trainorg> trainorgs = trainOrgService.getTrainorgsByEmployeeId(employees.get(i).getId(), start_time, end_time);
 			
 			for (int k = 0; k < trains.size(); k++) {
-				if (trains.get(k).getTrainLevel().equals("A")) {
+				peixunzuzhizhe += secondweight_zuzhizhe.getA();
+				/*if (trains.get(k).getTrainLevel().equals("A")) {
 					peixunzuzhizhe += secondweight_zuzhizhe.getA();
 				}else if (trains.get(k).getTrainLevel().equals("B")) {
 					peixunzuzhizhe += secondweight_zuzhizhe.getB();
 				}else if (trains.get(k).getTrainLevel().equals("C")) {
 					peixunzuzhizhe += secondweight_zuzhizhe.getC();
-				}
+				}*/
 			}
 			for (int j = 0; j < trainorgs.size(); j++) {
-				if (trainorgs.get(j).getTrain().getTrainLevel().equals("A")) {
+				peixunzuzhizhe += secondweight_zuzhizhe.getA();
+				/*if (trainorgs.get(j).getTrain().getTrainLevel().equals("A")) {
 					peixunzuzhizhe += secondweight_zuzhizhe.getA();
 				}else if (trainorgs.get(j).getTrain().getTrainLevel().equals("B")) {
 					peixunzuzhizhe += secondweight_zuzhizhe.getB();
 				}else if (trainorgs.get(j).getTrain().getTrainLevel().equals("C")) {
 					peixunzuzhizhe += secondweight_zuzhizhe.getC();
-				}
+				}*/
 			}
 			
 			Secondlevelscore second_peixunzuzhizhe = new Secondlevelscore();
@@ -1057,8 +1065,7 @@ public class ScoreAction {
 			result.setEndTime(end_time);
 			resultService.save(result);
 			
-		}//employees 循环
-		//saveAvg();
+		}
 	}
 	
 	

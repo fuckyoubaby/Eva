@@ -170,11 +170,11 @@
 									<span class="input-group-addon" onclick="WdatePicker({el:'trainData',dateFmt:'yyyy-MM-dd',onpicked:pickedFunc,oncleared:pickedFunc})"><i class="glyphicon glyphicon-time"></i></span>
 								</div>
 							</div>
-							<div class="form-group">
+							<!-- <div class="form-group">
 								<label class="control-label">培训地点</label>
 								<input type="text" name="trainArea" class="form-control" />
-							</div>
-							<div class="form-group">
+							</div> -->
+							<!-- <div class="form-group">
 								<label class="control-label">培训级别</label>
 								<select name="trainLeval" class="form-control">
 									<option selected="selected" value="">请选择培训级别</option>
@@ -182,7 +182,7 @@
 									<option value="B">B</option>
 									<option value="C">C</option>
 								</select>
-							</div>
+							</div> -->
 							<div class="form-group">
 								<label  class="control-label">参训人员</label>
 								<!-- <div class="form-control-static">点击添加(<a href="javascript:void(0);">添加</a>)</div> -->
@@ -245,8 +245,8 @@
 			                            message: '培训名不能为空'
 			                        }
 			                    }
-			                },
-			                employeeId: {
+			                } ,
+			               /* employeeId: {
 			                    message:'讲师姓名无效',
 			                    validators: {
 			                        notEmpty: {
@@ -268,7 +268,7 @@
 			                            message: '培训等级不能为空'
 			                        }
 			                    }
-			                },
+			                }, */
 			                trainData: {
 			                    validators: {
 			                        notEmpty: {
