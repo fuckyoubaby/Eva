@@ -1,5 +1,6 @@
 package com.changhong.dao.impl;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Set;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -194,6 +196,19 @@ public class ProjectReviewDaoImpl extends BaseDaoImpl<Projectreview> implements 
 		query.setParameter(1, startDate);
 		query.setParameter(2, endDate);
 		return query.list().size();
+	}
+
+	@Override
+	public int getProjectCountByDateAndEmployee(String employeeId,
+			Date startDate, Date endDate) {
+		String sql ="select count(distinct project) from projectreview where project!='' and PRDate>=? and PRDate<=? and employee=?";
+		SQLQuery query = getSession().createSQLQuery(sql);
+		query.setDate(0, startDate);
+		query.setDate(1, endDate);
+		query.setString(2, employeeId);
+		Object result = query.uniqueResult();
+		int value = result==null?0:((BigInteger)result).intValue();
+		return value;
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.changhong.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.changhong.entities.Structureproblem;
@@ -20,5 +21,10 @@ public interface StructureProblemService {
 	List getByPage(Params params, String projectId, int phaseId);
 	
 	int getAmountByParams(Params params, String projectId, int phaseId);
+	
+	
+	double getAvg(String employeeId,Date startDate,Date endDate,int problemType);
+	
+	double getSum(String employeeId,Date startDate,Date endDate,int problemType);
 
 }

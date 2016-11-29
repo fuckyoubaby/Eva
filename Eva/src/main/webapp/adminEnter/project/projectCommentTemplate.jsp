@@ -16,7 +16,7 @@
 %>
 <c:if test="${commentExts!=null && fn:length(commentExts)>0}">
 	<c:forEach items="${commentExts}" var="commentExt">
-	<tr data-itemcount='${itemcount}'>
+	<tr data-itemcount='${itemCount}'>
 		<td class="word-press">${commentExt.comment.name}</td>
 		<td>
 		<fmt:formatDate value="${commentExt.comment.date}" pattern="yyyy-MM-dd"/>

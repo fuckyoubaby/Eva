@@ -15,7 +15,7 @@ public interface EmployeeExamService {
 	void save(Employeeexamr employeeexamr);
 	void delete(Employeeexamr employeeexamr);
 	void update(Employeeexamr employeeexamr);
-	List<Employeeexamr> getEmployeeexamrsByPages(int offset,int length,String keyword,int examId);
+	List<Employeeexamr> getEmployeeexamrsByPages(int offset,int length,String keyword,int examId,Params params);
 	int getCount(String keyword,int examId);
 	Employeeexamr getEmployeeexamrById(int employeeExamId);
 	
@@ -45,4 +45,6 @@ public interface EmployeeExamService {
 	public BatchResultTemplate saveTemplate(List<ExamScoreModel> templateLists, int examId);
 	
 	double getAvgByEmployeeId(String employeeId,Date startDate, Date endDate);
+	
+	List<Employeeexamr> getExamByEmployeeId(String employeeId,Date startDate,Date endDate);
 }

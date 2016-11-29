@@ -61,7 +61,7 @@
 					
 					<div class="form-border mg-b10">
 						<div class="form-title bolder">专业技术 </div>
-							<p class="bolder mg-b15">设计缺陷（一般设计缺陷和低级错误的权重之和应为100）</p>
+							<p class="bolder mg-b15">设计缺陷</p>
 							
 							<div class="form-group">
 								<label class="control-label">一般设计缺陷（扣分）</label>
@@ -221,7 +221,7 @@
 				</div>
 				<div class="col-md-6">
 					<div class="form-border mg-b20">
-						<div class="form-title bolder">对公司贡献（以下7项权重之和应为100）</div>
+						<div class="form-title bolder">对公司贡献</div>
 							
 							<div class="form-group">
 								<label class="control-label">专利加分</label>

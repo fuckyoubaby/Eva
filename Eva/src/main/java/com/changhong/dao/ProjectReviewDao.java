@@ -53,4 +53,13 @@ public interface ProjectReviewDao extends BaseDao<Projectreview>{
 	 * @return
 	 */
 	public int getCountByDateAndEmployee(String employeeId,Date startDate,Date endDate);
+	
+	/**
+	 * 获取某个员工某段时间内评审的项目个数
+	 * @param employeeId
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	public int getProjectCountByDateAndEmployee(String employeeId,Date startDate,Date endDate);
 }

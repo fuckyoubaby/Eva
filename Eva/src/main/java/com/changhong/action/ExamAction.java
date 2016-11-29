@@ -356,7 +356,8 @@ public class ExamAction {
 		ActionContext context = ActionContext.getContext();
 		int examId = (Integer) context.getSession().get("examId");
 		log.info("examid = "+examId);
-		employeeexamrs=employeeExamService.getEmployeeexamrsByPages(pageNo, pageSize, keyword,examId);
+		Params params = new Params(pageSize, pageNo, pageSize, keyword, orderName, orderType);
+		employeeexamrs=employeeExamService.getEmployeeexamrsByPages(pageNo, pageSize, keyword,examId,params);
 		itemcount = employeeExamService.getCount(keyword,examId);
 		log.info("itemCount = "+itemcount);
 		return "employeeList";
@@ -423,7 +424,8 @@ public class ExamAction {
 		ActionContext context = ActionContext.getContext();
 		int examId = (Integer) context.getSession().get("examId");
 		log.info("examid = "+examId);
-		employeeexamrs=employeeExamService.getEmployeeexamrsByPages(pageNo, pageSize, keyword,examId);
+		Params params = new Params(0, 0, 5, keyword, orderName, orderType);
+		employeeexamrs=employeeExamService.getEmployeeexamrsByPages(pageNo, pageSize, keyword,examId,params);
 		itemcount = employeeExamService.getCount(keyword,examId);
 		log.info("itemCount = "+itemcount);
 		return "muldeletescorelist";

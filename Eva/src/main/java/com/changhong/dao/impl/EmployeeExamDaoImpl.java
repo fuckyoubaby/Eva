@@ -60,20 +60,47 @@ public class EmployeeExamDaoImpl extends BaseDaoImpl<Employeeexamr> implements E
 	}
 	@Override
 	public List<Employeeexamr> getEmployeeexamrsByPage(int offset, int length,
-			String keyword,int examId) {
+			String keyword,int examId,Params params) {
 		Query query = null;
 		if (keyword==null||keyword.equals("")) {
-			String hql = "from Employeeexamr where exam.examId=?";
-			query = getSession().createQuery(hql);
-			query.setParameter(0, examId);
+			if (params.getOrderType()!=null&&params.getOrderName()!=null&&!params.getOrderName().equals("")&&!params.getOrderType().equals("")) {
+				String type = "";
+				if (params.getOrderType().equals("asc"))
+				{
+					type = " asc";
+				}else {
+					type = " desc";
+				}
+				
+				String hql = "from Employeeexamr where exam.examId=?  order by " +params.getOrderName() +type;
+				query = getSession().createQuery(hql);
+				query.setParameter(0, examId);
+			}else{
+				String hql = "from Employeeexamr where exam.examId=?";
+				query = getSession().createQuery(hql);
+				query.setParameter(0, examId);
+			}
+			
 		}else {
-			//"from Person p where p.project.id = :id")
-		  //  .setParameter("id", projectId)
-		  //  .list();
-			String hql = "from Employeeexamr where employee.name=? and exam.examId=?";
-			query = getSession().createQuery(hql);
-			query.setParameter(0, keyword);
-			query.setParameter(1, examId);
+			if (params.getOrderType()!=null&&params.getOrderName()!=null&&!params.getOrderName().equals("")&&!params.getOrderType().equals("")) {
+				String type = "";
+				if (params.getOrderType().equals("asc"))
+				{
+					type = " asc";
+				}else {
+					type = " desc";
+				}
+				
+				String hql = "from Employeeexamr where employee.name like ? and exam.examId=? order by" +params.getOrderName() +type;
+				query = getSession().createQuery(hql);
+				query.setParameter(0, keyword);
+				query.setParameter(1, examId);
+			}else{
+				String hql = "from Employeeexamr where employee.name like ? and exam.examId=?";
+				query = getSession().createQuery(hql);
+				query.setParameter(0, keyword);
+				query.setParameter(1, examId);
+			}
 		}
 		query.setFirstResult(offset);
 		query.setMaxResults(length);
@@ -251,5 +278,15 @@ public class EmployeeExamDaoImpl extends BaseDaoImpl<Employeeexamr> implements E
 		}else {
 			return 0;
 		}
+	}
+	@Override
+	public List<Employeeexamr> getListByEmployeeId(String employeeId, Date startDate,
+			Date endDate) {
+		String hql = " from Employeeexamr where employee.id=? and exam.examTime>=? and exam.examTime<=?";
+		Query query = getSession().createQuery(hql);
+		query.setParameter(0, employeeId);
+		query.setParameter(1, startDate);
+		query.setParameter(2, endDate);
+		return query.list();
 	}
 }

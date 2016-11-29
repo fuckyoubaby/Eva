@@ -95,7 +95,7 @@
 					<div class="form-group">
 						<label for="socreName" class="control-label">参评人员</label>
 						<select id="employeeType" name="employeeType" class="form-control">
-							<option value="0">所有员工</option>
+							<option value="">请选择评审员工</option>
 							<c:forEach items="${jobs }" var="job">
 								<option value="${job.jobId}">${job.jobName}</option>
 							</c:forEach>
@@ -254,6 +254,13 @@
 								validators : {
 									notEmpty : {
 										message : '结束时间不能为空'
+									}
+								}
+							},employeeType: {
+								message : '评审对象不能为空',
+								validators : {
+									notEmpty : {
+										message : '评审对象不能为空'
 									}
 								}
 							},

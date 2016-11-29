@@ -68,9 +68,9 @@ public class EmployeeExamServiceImpl implements EmployeeExamService{
 
 	@Override
 	public List<Employeeexamr> getEmployeeexamrsByPages(int offset, int length,
-			String keyword,int examId) {
+			String keyword,int examId,Params params) {
 		
-		return employeeExamDao.getEmployeeexamrsByPage(offset, length, keyword, examId);
+		return employeeExamDao.getEmployeeexamrsByPage(offset, length, keyword, examId, params);
 	}
 
 	@Override
@@ -259,5 +259,12 @@ public class EmployeeExamServiceImpl implements EmployeeExamService{
 			Date endDate) {
 		// TODO Auto-generated method stub
 		return employeeExamDao.getAvgByEmployeeId(employeeId, startDate, endDate);
+	}
+
+	@Override
+	public List<Employeeexamr> getExamByEmployeeId(String employeeId,
+			Date startDate, Date endDate) {
+		// TODO Auto-generated method stub
+		return employeeExamDao.getListByEmployeeId(employeeId, startDate, endDate);
 	}
 }

@@ -359,4 +359,11 @@ public class ProjectReviewServiceImpl implements ProjectReviewService{
 		// TODO Auto-generated method stub
 		return projectReviewDao.getCountByDateAndEmployee(employee, startDate, endDate);
 	}
+
+	@Override
+	public int getProjectCountByDateAndEmployee(String employeeId,
+			Date startDate, Date endDate) {
+		// TODO Auto-generated method stub
+		return projectReviewDao.getProjectCountByDateAndEmployee(employeeId, startDate, endDate);
+	}
 }

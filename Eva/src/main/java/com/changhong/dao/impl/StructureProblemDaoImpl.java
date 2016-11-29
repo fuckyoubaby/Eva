@@ -114,4 +114,50 @@ public class StructureProblemDaoImpl extends BaseDaoImpl<Structureproblem>  impl
 		return ((Long)query.uniqueResult()).intValue();
 	}
 
+
+	@Override
+	public double getAvg(String employeeId, Date startDate, Date endDate,
+			int problemType) {
+		String hql = "select avg(score) from Structureproblem  where employee.id=:employeeId and createDate>=:startDate and createDate<=:endDate and problemtype.typeId=:problemType";
+		Query query = getSession().createQuery(hql);
+		query.setParameter("employeeId", employeeId);
+		query.setParameter("startDate", startDate);
+		query.setParameter("endDate", endDate);
+		query.setParameter("problemType", problemType);
+		if (query.list().size()>0) {
+			if (query.list().get(0)==null) {
+				return 0;
+			}else {
+				double t =  (Double) query.list().get(0);
+				return t;
+			}
+			
+		}else {
+			return 0;
+		}
+	}
+
+
+	@Override
+	public double getSum(String employeeId, Date startDate, Date endDate,
+			int problemType) {
+		String hql = "select SUM(score) from Structureproblem  where employee.id=:employeeId and createDate>=:startDate and createDate<=:endDate and problemtype.typeId=:problemType";
+		Query query = getSession().createQuery(hql);
+		query.setParameter("employeeId", employeeId);
+		query.setParameter("startDate", startDate);
+		query.setParameter("endDate", endDate);
+		query.setParameter("problemType", problemType);
+		if (query.list().size()>0) {
+			if (query.list().get(0)==null) {
+				return 0;
+			}else {
+				double t =  (Double) query.list().get(0);
+				return t;
+			}
+			
+		}else {
+			return 0;
+		}
+	}
+
 }

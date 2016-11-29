@@ -1,5 +1,6 @@
 package com.changhong.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,20 @@ public class StructureProblemServiceImpl implements StructureProblemService{
 	@Override
 	public void deleteProblem(int struProblemId) {
 		structureProblemDao.delete(Structureproblem.class, struProblemId);
+	}
+
+	@Override
+	public double getAvg(String employeeId, Date startDate, Date endDate,
+			int problemType) {
+		// TODO Auto-generated method stub
+		return structureProblemDao.getAvg(employeeId, startDate, endDate, problemType);
+	}
+
+	@Override
+	public double getSum(String employeeId, Date startDate, Date endDate,
+			int problemType) {
+		// TODO Auto-generated method stub
+		return structureProblemDao.getSum(employeeId, startDate, endDate, problemType);
 	}
 	
 	

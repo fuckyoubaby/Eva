@@ -38,6 +38,11 @@
 			.main-table .r_table table{width:98%;margin-left:1%;border:1px solid #ccc;font-size:12px;font-family:"微软雅黑";text-align:center;}
 			.main-table .r_table table thead tr{background-color:#EEE;}
 			.main-table .r_table table thead tr th{text-align:center;}
+			
+			.r_table table th.p-hover:hover{cursor:pointer;}
+			.r_table table th i.icon-hidden{visibility:hidden;padding-left:5px;}
+			.r_table table th:hover i.icon-hidden{visibility: visible;}
+			
 			.r_table tbody tr td.t_td{width:90px;}
 			.r_table tbody tr td.t_td .t_action{width:74px;margin:0 auto;display:none;}
 			.r_table tbody tr td.t_td:hover .t_action{display:block;}
@@ -62,6 +67,8 @@
 			.icon-padr{padding-right: 5px;}
 			.icon-padr10{padding-right:12px}
 			/*end main process area*/
+			
+			
 		</style>
 		<script type="text/javascript">
 			function scoreListDelete(){
@@ -106,11 +113,11 @@
 						<table class="table">
 							<thead>
 								<tr>
-									<td>选择</td>
-									<td>姓名</td>
-									<td>工号</td>
-									<td>成绩</td>
-									<td>操作</td>
+									<th>选择</th>
+									<th>姓名</th>
+									<th>工号</th>
+									<th  class="p-hover" data-colname='score'>成绩<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
+									<th>操作</th>
 								</tr>
 							</thead>
 							<tbody id="tbody">
@@ -150,7 +157,14 @@
 			</div>	
 		</div>
 	<script type="text/javascript">
+	
 		var chUser = {
+			orderby:function(orders){
+				chUser.orders = orders;
+				chUser.load(0,5,function(itemcount){
+					chUser.initPage(itemcount);
+		    	});
+		    },
 			search:function(){
 				  chUser.load(0,5,function(itemcount){
 					 chUser.initPage(itemcount);
@@ -161,6 +175,8 @@
 				//var pid = $("#province").val();
 				var keyword = $("#keyword").val();
 				var params = {pageNo:pno,pageSize:psize,keyword:keyword};
+				
+				if(chUser.orders){$.extend(params,chUser.orders);}
 				//第二种方式,load原理代码
 				$.ajax({
 					type:"post",
@@ -200,6 +216,27 @@
 		{
 			chUser.search();
 		}
+		document.onkeydown=function(){
+				if(event.keyCode==13)
+				{
+					chUser.search();
+					return false;
+				}
+		}; 
+		$(function(){
+			$(".table th").find("i.icon-hidden").parent().on("click",function(){
+				var orderName = $(this).data("colname"),
+				ordertype = $(this).data("ordertype"),
+				opts={};
+				if(ordertype){ordertype=(ordertype=='asc')?'desc':'asc';}
+				else{ordertype='desc';}
+				$(this).data("ordertype",ordertype);
+				if(!orderName) return;
+				if(orderName){opts.orderName=orderName;}
+				if(ordertype){opts.orderType=ordertype;}
+				chUser.orderby(opts);
+			});
+		});
 		</script>
 	</body>
 </html>

@@ -27,7 +27,7 @@ public class Structureproblem implements java.io.Serializable {
 	private Phase phase;
 	private Employee employee;
 	private String name;
-	private Integer score;
+	private Double score;
 	private String strExplain;
 	private Date createDate;
 
@@ -39,7 +39,7 @@ public class Structureproblem implements java.io.Serializable {
 
 	/** full constructor */
 	public Structureproblem(Project project, Problemtype problemtype,
-			Phase phase, Employee employee, String name, Integer score,
+			Phase phase, Employee employee, String name, Double score,
 			String strExplain, Date createDate) {
 		this.project = project;
 		this.problemtype = problemtype;
@@ -113,11 +113,11 @@ public class Structureproblem implements java.io.Serializable {
 	}
 
 	@Column(name = "score")
-	public Integer getScore() {
+	public Double getScore() {
 		return this.score;
 	}
 
-	public void setScore(Integer score) {
+	public void setScore(Double score) {
 		this.score = score;
 	}
 

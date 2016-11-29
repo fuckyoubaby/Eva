@@ -46,4 +46,24 @@ public interface StructureProblemDao extends BaseDao<Structureproblem>{
 	 * @return
 	 */
 	public int getCountByDateAndEmployee(String employeeId, Date startDate, Date endDate, int problemType);
+	
+	/**
+	 * 获取某类错误的平均值
+	 * @param employeeId
+	 * @param startDate
+	 * @param endDate
+	 * @param problemType
+	 * @return
+	 */
+	public double getAvg(String employeeId,Date startDate,Date endDate,int problemType);
+	
+	/**
+	 * 获取某类错误的总分
+	 * @param employeeId
+	 * @param startDate
+	 * @param endDate
+	 * @param problemType
+	 * @return
+	 */
+	public double getSum(String employeeId,Date startDate,Date endDate,int problemType);
 }

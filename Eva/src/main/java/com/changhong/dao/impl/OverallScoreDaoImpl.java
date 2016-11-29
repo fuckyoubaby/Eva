@@ -39,11 +39,12 @@ public class OverallScoreDaoImpl extends BaseDaoImpl<Overallscore> implements Ov
 	}
 	@Override
 	public List<Overallscore> getOverallscoresByPage(int offset, int length) {
-		String hql = "from Overallscore";
+		String hql = "from Overallscore order by id desc";
 		Query query = getSession().createQuery(hql);
 		query.setFirstResult(offset);
 		query.setMaxResults(length);
 		return query.list();
 	}
+	
 
 }

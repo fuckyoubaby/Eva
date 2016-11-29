@@ -13,7 +13,7 @@ public interface EmployeeExamDao extends BaseDao<Employeeexamr>{
 	List<Employeeexamr> getMax(int examId);
 	double getAvg(int examId);
 	
-	List<Employeeexamr> getEmployeeexamrsByPage(int offset,int length,String keyword,int examId);
+	List<Employeeexamr> getEmployeeexamrsByPage(int offset,int length,String keyword,int examId,Params params);
 	int getCount(String keyword,int examId);
 	
 	List<Employeeexamr> getEmployeeexamrsByPageAndEmployeeId(int offset, int length,String keyword,String employeeId);
@@ -29,4 +29,6 @@ public interface EmployeeExamDao extends BaseDao<Employeeexamr>{
 	long getExisitCount(int examId,String employeeId);
 	
 	double getAvgByEmployeeId(String employeeId,Date startDate, Date endDate);
+	
+	List<Employeeexamr> getListByEmployeeId(String employeeId,Date startDate,Date endDate);
 }

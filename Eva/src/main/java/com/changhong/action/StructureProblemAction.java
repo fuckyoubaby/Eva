@@ -69,7 +69,7 @@ public class StructureProblemAction {
 	private String questionName;
 	private String questionBelong;
 	private int questionType;
-	private int questionScore;
+	private double questionScore;
 	private String questionDesc;
 	private Date createDate;
 	
@@ -184,7 +184,7 @@ public class StructureProblemAction {
 		Problemtype pt = problemTypeService.getProblemtype(questionType);
 		
 		questionScore = questionScore<0? Math.abs(questionScore):questionScore;
-		
+		LOG.info("questionScore="+questionScore);
 		sp.setEmployee(e);
 		sp.setName(questionName);
 		sp.setProblemtype(pt);
@@ -297,12 +297,12 @@ public class StructureProblemAction {
 	}
 
 
-	public int getQuestionScore() {
+	public double getQuestionScore() {
 		return questionScore;
 	}
 
 
-	public void setQuestionScore(int questionScore) {
+	public void setQuestionScore(double questionScore) {
 		this.questionScore = questionScore;
 	}
 

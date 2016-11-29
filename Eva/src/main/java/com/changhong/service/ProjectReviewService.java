@@ -112,4 +112,8 @@ public interface ProjectReviewService {
 	
 	
 	int getCountByEmployeeIdAndDate(String employee,Date startDate,Date endDate);
+	
+	
+	 int getProjectCountByDateAndEmployee(String employeeId,
+				Date startDate, Date endDate);
 }

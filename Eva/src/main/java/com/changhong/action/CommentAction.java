@@ -138,10 +138,10 @@ public class CommentAction {
 		int phaseIdInt = Integer.parseInt(phaseId);
 		Params params = new Params(0, pageNo, pageSize, null, orderName, orderType);
 		List<Comment> comments = commentService.getCommentsByPhaseForProject(params, phaseIdInt, project.getProjectId());
-		
+		commentExts = new ArrayList<CommentExt>();
 		for (int i = 0; i <comments.size(); i++) {
 			CommentExt commentExt = new CommentExt();
-			commentExts = new ArrayList<CommentExt>();
+			
 			Employee employee = employeeService.getEmployee(comments.get(i).getEmployeeId());
 			
 			commentExt.setComment(comments.get(i));
@@ -149,7 +149,7 @@ public class CommentAction {
 			
 			commentExts.add(commentExt);
 		}
-		setCommentLists(commentService.getCommentsByPhaseForProject(params, phaseIdInt, project.getProjectId()));
+		//setCommentLists(commentService.getCommentsByPhaseForProject(params, phaseIdInt, project.getProjectId()));
 		setItemCount(commentService.getCommentsCountByPhaseForProject(params, phaseIdInt, project.getProjectId()));
 		return "commentTemplate";
 	}

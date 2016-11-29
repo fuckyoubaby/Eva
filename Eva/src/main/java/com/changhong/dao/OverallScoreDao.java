@@ -11,4 +11,6 @@ public interface OverallScoreDao extends BaseDao<Overallscore>{
 	
 	List<Overallscore> getOverallscoresByPage(int offset,int length);
 	
+	
+	
 }

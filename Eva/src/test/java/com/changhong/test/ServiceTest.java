@@ -13,7 +13,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.changhong.dao.ProblemDao;
+import com.changhong.dao.ProjectReviewDao;
 import com.changhong.dao.ResultDao;
+import com.changhong.dao.StructureProblemDao;
 import com.changhong.entities.Comment;
 import com.changhong.entities.Problem;
 import com.changhong.entities.Result;
@@ -48,14 +50,22 @@ public class ServiceTest {
 		resultDao.getResult();*/
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date startdate = format.parse("2015-01-01");
-	     Date enddate = format.parse("2015-12-31");
+		Date startdate = format.parse("2014-01-01");
+	     Date enddate = format.parse("2014-12-31");
 	     
-	     ProblemService problemService = (ProblemService) applicationContext.getBean("problemService");
+	    /* ProjectReviewDao projectReviewDao = (ProjectReviewDao) applicationContext.getBean("projectReviewDao");
+	     int count = projectReviewDao.getProjectCountByDateAndEmployee("12138029", startdate, enddate);
+	     System.out.println("count="+count);*/
+	     StructureProblemDao structureProblemDao = (StructureProblemDao) applicationContext.getBean("structureProblemDao");
+	     
+	     double result = structureProblemDao.getSum("11020843", startdate, enddate, 1);
+	     System.out.println("result = "+result);
+	     
+	    /* ProblemService problemService = (ProblemService) applicationContext.getBean("problemService");
 	     int pingshenTimes = problemService.getCountByCommentIdAndEmployeeIdAndDate("11020809", startdate, enddate);
 	     List<Problem> problems = problemService.getProblems();
 	     
-	     System.out.println("pingshencishu = "+pingshenTimes+" problems .size = "+problems.size());
+	     System.out.println("pingshencishu = "+pingshenTimes+" problems .size = "+problems.size());*/
 	     
 	    /* SecondWeightService secondWeightService = (SecondWeightService) applicationContext.getBean("secondWeightService");
 	     Secondweight secondweight_shejiguiding = secondWeightService.getSecondweightByModeIdAndType(1, FinalConstant.COMPLIANCE_enum.设计规定.toString());

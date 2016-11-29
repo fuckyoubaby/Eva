@@ -42,7 +42,7 @@
 	<body>
 	<% Project project = (Project)session.getAttribute("project"); %>
 		<div class="container">
-			<h3 class="bolder"><a id="jumpHref" href="${basePath}/problemAction!getReviewByPhaseId.action?phaseId=${projectReview.phase.phaseId}&indexNo=${projectReview.phase.phaseId * 2}">${projectReview.project.projectName}项目评审问题新增</a></h3>
+			<h3 class="bolder"><%-- <a id="jumpHref" href="${basePath}/problemAction!getReviewByPhaseId.action?phaseId=${projectReview.phase.phaseId}&indexNo=${projectReview.phase.phaseId * 2}"> --%>${projectReview.project.projectName}项目评审问题新增</h3>
 			<div class="hr mg-b15"></div>
 			<div class="row">
 				<div class="col-md-10">
