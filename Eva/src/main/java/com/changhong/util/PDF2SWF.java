@@ -20,7 +20,8 @@ public class PDF2SWF {
 			return -1;
 		}
 		
-		String sWFTools_Home = "D:/Program Files (x86)/SWFTools";
+		//String sWFTools_Home = "D:/Program Files (x86)/SWFTools";
+		String sWFTools_Home = GetPdf2SwfPath.getPath();
 		
 		String command = sWFTools_Home+"\\pdf2swf.exe "+sourceFile+" -o "+destFile+" -T 9";
 		Process process = Runtime.getRuntime().exec(command);
