@@ -38,4 +38,6 @@ public interface ProjectDao extends BaseDao<Project>{
 	public String getReviewIdByProjectId(String projectId);
 	
 	List getAllReviewCount(String projectId, int phaseId);
+	
+	List getAllEmployeeReviewCount(String projectId, int phaseId, String employeeId);
 }

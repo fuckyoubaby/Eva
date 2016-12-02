@@ -122,4 +122,19 @@ public class ProjectServiceImpl implements ProjectService{
 		return qcMaps;
 	}
 
+	@Override
+	public Map<Integer, QuestionCount> getEmpProjectProblemsCount(
+			String projectId, String employeeId) {
+		Map<Integer, QuestionCount> qcMaps = new HashMap<Integer, QuestionCount>();
+		List phases = phaseDao.findAll(Phase.class);
+		for(int i=0; i<phases.size();i++){
+			Phase phaseTemp = (Phase) phases.get(i);
+			List lists = projectDao.getAllEmployeeReviewCount(projectId, phaseTemp.getPhaseId(),employeeId);
+			Object[] objects = (Object[]) lists.get(0);
+			QuestionCount qc = new QuestionCount((Integer)objects[0], (Integer)objects[1], (Integer)objects[2]);
+			qcMaps.put(phaseTemp.getPhaseId(), qc);
+		}
+		return qcMaps;
+	}
+
 }

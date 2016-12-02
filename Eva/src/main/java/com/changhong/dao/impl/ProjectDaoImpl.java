@@ -294,4 +294,15 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project> implements ProjectDao{
 		query.setParameter("phaseId", phaseId);
 		return query.list();
 	}
+
+	@Override
+	public List getAllEmployeeReviewCount(String projectId, int phaseId,
+			String employeeId) {
+		String sql = "select emp_comment_count(:projectId , :phaseId, :employeeId ) as commentCount,  emp_structureproblem_count(:projectId , :phaseId, :employeeId ) as structureQuestionCount, emp_projectreview_count(:projectId , :phaseId, :employeeId ) as projectReviewCount ";
+		SQLQuery query = getSession().createSQLQuery(sql);
+		query.setParameter("projectId", projectId);
+		query.setParameter("phaseId", phaseId);
+		query.setParameter("employeeId", employeeId);
+		return query.list();
+	}
 }
