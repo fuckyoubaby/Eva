@@ -28,4 +28,6 @@ public interface ProjectService {
 	public String getReviewIdByProjectId(String projectId);
 	
 	Map<Integer, QuestionCount> getProjectProblemsCount(String projectId);
+	
+	Map<Integer, QuestionCount> getEmpProjectProblemsCount(String projectId, String employeeId);
 }
