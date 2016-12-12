@@ -29,6 +29,9 @@
 			tr td:first-child{width:60px;}
 			div.del{cursor:pointer;color:#337ab7}
 			div.del:hover{font-weight:700;text-decoration:underline}
+			
+			#talbeDiv{height: 300px;overflow: auto}
+			#thelist{overflow: auto;max-height: 200px;}
 		</style>
 	</head>
 	<body>
@@ -48,6 +51,7 @@
 			<div class="table-show">
 				<p class="help-text">已保存的上传文件展示</p>
 				<div>
+				<div id="talbeDiv">
 					<table class="table">
 						<thead>
 							<tr>
@@ -73,7 +77,7 @@
 							</tr>
 						</tbody>
 					</table>
-						
+					</div>	
 					<div class="menu-lists">
 						<button type="button" id="import-btn" class="btn btn-info" onclick="importFile()">批量添加</button>
 					</div>

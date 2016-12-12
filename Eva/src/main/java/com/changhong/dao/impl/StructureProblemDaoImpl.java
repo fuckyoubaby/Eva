@@ -160,4 +160,29 @@ public class StructureProblemDaoImpl extends BaseDaoImpl<Structureproblem>  impl
 		}
 	}
 
+
+	@Override
+	public List<Structureproblem> getListForUser(String employeeId,
+			int phaseId, String projectId, Params params) {
+		String hql = "from Structureproblem  where employee.id=:employeeId and project.projectId=:projectId and phase.phaseId=:phaseId";
+		Query query = getSession().createQuery(hql);
+		query.setParameter("employeeId", employeeId);
+		query.setParameter("projectId", projectId);
+		query.setParameter("phaseId", phaseId);
+		query.setFirstResult(params.getPageNo());
+		query.setMaxResults(params.getPageSize());
+		return query.list();
+	}
+
+
+	@Override
+	public int getCountForUser(String employeeId, String projectId, int phaseId) {
+		String hql = "from Structureproblem  where employee.id=:employeeId and project.projectId=:projectId and phase.phaseId=:phaseId";
+		Query query = getSession().createQuery(hql);
+		query.setParameter("employeeId", employeeId);
+		query.setParameter("projectId", projectId);
+		query.setParameter("phaseId", phaseId);
+		return query.list().size();
+	}
+
 }

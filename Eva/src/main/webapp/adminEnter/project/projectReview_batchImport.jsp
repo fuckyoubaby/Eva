@@ -33,6 +33,9 @@
 			tr td:first-child{width:60px;}
 			div.del{cursor:pointer;color:#337ab7}
 			div.del:hover{font-weight:700;text-decoration:underline}
+			
+			#talbeDiv{height: 300px;overflow: auto}
+			#thelist{overflow: auto;max-height: 200px;}
 		</style>
 		<script type="text/javascript" src="${basePath}/js/loading_upgrade.js"></script>
 		<script type="text/javascript">
@@ -61,6 +64,7 @@
 			<div class="table-show">
 				<p class="help-text">已保存的上传文件展示</p>
 				<div>
+				<div id="talbeDiv">
 					<table class="table">
 						<thead>
 							<tr>
@@ -86,6 +90,7 @@
 							</tr>
 						</tbody>
 					</table>
+					</div>
 					<div class="hr mg-b15"></div>
 					<div class="form-inline mg-b15"> 
 						<label for="modifyDate">评审时间</label>

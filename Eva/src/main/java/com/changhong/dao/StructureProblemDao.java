@@ -66,4 +66,14 @@ public interface StructureProblemDao extends BaseDao<Structureproblem>{
 	 * @return
 	 */
 	public double getSum(String employeeId,Date startDate,Date endDate,int problemType);
+	/**
+	 * 根据员工id，阶段id和项目id
+	 * @param employeeId
+	 * @param phaseId
+	 * @param projectId
+	 * @return
+	 */
+	List<Structureproblem> getListForUser(String employeeId,int phaseId,String projectId,Params params);
+	
+	int getCountForUser(String employeeId,String projectId,int phaseId);
 }

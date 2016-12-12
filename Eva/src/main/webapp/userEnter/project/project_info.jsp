@@ -74,20 +74,21 @@
 			</div>
 			<div class="row hr mg-b15"></div>
 			<p class="h4 bolder">项目进度</p>
-			<span class="help-text mg-b30">点击查看项目过程</span>
+			<span class="help-text mg-b30">括弧含义是：(电路评审数 - 项目评审数)</span>
 			<div id="crumbs" class="row mg-b15 clearfix">
 				<ul>
 					<c:forEach items="${phases}" var="phase">
 						<%-- <li class="doing"><a href="problemAction!getReviewByPhaseId.action?phaseId=${phase.phaseId }">${phase.phaseName }</a></li> --%>
+						<c:set value="${qcMaps[phase.phaseId]}" var="questionCount" />
 						<c:choose>
    						   <c:when test="${phase.priority < project.review.phase.priority}">  
-               					<li class="completed"><a href="problemAction!getReviewByPhaseIdForUser.action?phaseId=${phase.phaseId }&&projectId=${project.projectId}">${phase.phaseName }</a></li>
+               					<li class="completed"><a href="problemAction!getReviewByPhaseIdForUser.action?phaseId=${phase.phaseId }&&projectId=${project.projectId}">${phase.phaseName }<small>(${questionCount.commentCount}-${questionCount.projectReviewCount})</small></a></li>
 						   </c:when>
 						   <c:when test="${phase.priority==project.review.phase.priority}">  
-               					<li class="doing"><a href="problemAction!getReviewByPhaseIdForUser.action?phaseId=${phase.phaseId }&&projectId=${project.projectId}">${phase.phaseName }</a></li>
+               					<li class="doing"><a href="problemAction!getReviewByPhaseIdForUser.action?phaseId=${phase.phaseId }&&projectId=${project.projectId}">${phase.phaseName }<small>(${questionCount.commentCount}-${questionCount.projectReviewCount})</small></a></li>
 						   </c:when>
 						   <c:otherwise> 
-						  	 	<li class="todo"><a href="javascript:volid(0);">${phase.phaseName }</a></li>
+						  	 	<li class="todo"><a href="javascript:volid(0);">${phase.phaseName }<small>(${questionCount.commentCount}-${questionCount.projectReviewCount})</small></a></li>
    						   </c:otherwise>
 						</c:choose>
 					</c:forEach>

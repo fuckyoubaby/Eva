@@ -26,5 +26,9 @@ public interface StructureProblemService {
 	double getAvg(String employeeId,Date startDate,Date endDate,int problemType);
 	
 	double getSum(String employeeId,Date startDate,Date endDate,int problemType);
+	
+	List<Structureproblem> getListForUser(String employeeId,int phaseId,String projectId,Params params);
+	
+	int getCountForUser(String employeeId,int phaseId,String projectId);
 
 }

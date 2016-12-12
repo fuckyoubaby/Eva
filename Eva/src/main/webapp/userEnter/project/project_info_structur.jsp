@@ -4,6 +4,7 @@
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
+    session.setAttribute("basePath", basePath);
 %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -43,12 +44,9 @@
 			
 			/*start 面包屑导航 右下处理区域*/
 			.r_cofig_process a{font-size:12px;float:right;}
-			
-			
 		</style>
 	</head>
 	<body>
-		
 		<div class="container">
 			<div class="page-header h3 bolder">基本信息</div>
 			<p class="h4 mg-b15 bolder">${project.projectName }</p>
@@ -63,7 +61,7 @@
 			<div class="row mg-b15">
 				<span class="col-md-2">项目成员</span>
 				<span class="col-md-7">${project.employee.name }（项目经理）&nbsp; <c:forEach items="${employeeprojectrs }" var="ep">
-						${ep.employee.name }.
+						${ep.employee.name }
 					</c:forEach></span>
 			</div>
 			<div class="row mg-b15">
@@ -76,32 +74,32 @@
 			</div>
 			<div class="row hr mg-b15"></div>
 			<p class="h4 bolder">项目进度</p>
-			<span class="help-text mg-b30">括弧含义是：(电路评审数 - 结构评审数 - 项目评审数)</span>
+			<span class="help-text mg-b30">括弧含义是：(结构评审数 - 项目评审数)</span>
 			<div id="crumbs" class="row mg-b15 clearfix">
 				<ul>
-					<c:forEach items="${phases }" var="phase">
+					<c:forEach items="${phases}" var="phase">
+						<%-- <li class="doing"><a href="problemAction!getReviewByPhaseId.action?phaseId=${phase.phaseId }">${phase.phaseName }</a></li> --%>
 						<c:set value="${qcMaps[phase.phaseId]}" var="questionCount" />
 						<c:choose>
-   							<c:when test="${phase.priority<project.review.phase.priority}">  
-               					<li class="completed"><a href="problemAction!getReviewByPhaseId.action?phaseId=${phase.phaseId }">${phase.phaseName } <small>(${questionCount.commentCount}-${questionCount.structureQuestionCount}-${questionCount.projectReviewCount})</small></a></li>
+   						   <c:when test="${phase.priority < project.review.phase.priority}">  
+               					<li class="completed"><a href="problemAction!getReviewByPhaseIdForUser.action?phaseId=${phase.phaseId }&&projectId=${project.projectId}">${phase.phaseName }<small>(${questionCount.structureQuestionCount}-${questionCount.projectReviewCount})</small></a></li>
 						   </c:when>
 						   <c:when test="${phase.priority==project.review.phase.priority}">  
-               					<li class="doing"><a href="problemAction!getReviewByPhaseId.action?phaseId=${phase.phaseId }">${phase.phaseName } <small>(${questionCount.commentCount}-${questionCount.structureQuestionCount}-${questionCount.projectReviewCount})</small></a></li>
+               					<li class="doing"><a href="problemAction!getReviewByPhaseIdForUser.action?phaseId=${phase.phaseId }&&projectId=${project.projectId}">${phase.phaseName }<small>(${questionCount.structureQuestionCount}-${questionCount.projectReviewCount})</small></a></li>
 						   </c:when>
 						   <c:otherwise> 
-						  	 <li class="todo"><a href="javascript:void(0);">${phase.phaseName } <small>(${questionCount.commentCount}-${questionCount.structureQuestionCount}-${questionCount.projectReviewCount})</small></a></li>
+						  	 	<li class="todo"><a href="javascript:volid(0);">${phase.phaseName }<small>(${questionCount.structureQuestionCount}-${questionCount.projectReviewCount})</small></a></li>
    						   </c:otherwise>
 						</c:choose>
 					</c:forEach>
+					<%-- <li class="completed"><a onclick="turnPage('problemAction!getProblemsByProjectIdAndPhase.action?projectId=${project.projectId }&phase=启动阶段')">启动阶段</a></li>
+					<li class="doing"><a onclick="turnPage('problemAction!getProblemsByProjectIdAndPhase.action?projectId=${project.projectId }&phase=设计阶段')">设计阶段</a></li>
+					<li class="todo"><a onclick="turnPage('problemAction!getProblemsByProjectIdAndPhase.action?projectId=${project.projectId }&phase=样品阶段')">样品阶段</a></li>
+					<li class="todo"><a onclick="turnPage('problemAction!getProblemsByProjectIdAndPhase.action?projectId=${project.projectId }&phase=交付阶段')">交付阶段</a></li> --%>
 				</ul>
 				<div class="clear"></div>
 			</div>
 			<div class="row hr mg-b15"></div>
-			<span class="help-text mg-b15"><a href="javasc:void(0);">更多操作>></a></span>
-			<div class="row mg-b30" style="padding-left:85px;">
-				<a href="projectAction!getAllForUpdateProject.action?projectId=${project.projectId }"><button type="button" class="btn btn-info" ><i class="glyphicon glyphicon-edit icon-padr"></i>修改项目信息</button></a>
-				<!-- <button type="button" class="btn btn-info" style="margin-left:30px;"><i class="glyphicon glyphicon-share icon-padr"></i>导出项目信息</button> -->
-			</div>
 		</div>
 		
 	</body>

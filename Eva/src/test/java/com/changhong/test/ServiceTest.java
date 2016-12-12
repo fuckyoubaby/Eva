@@ -20,6 +20,7 @@ import com.changhong.entities.Comment;
 import com.changhong.entities.Problem;
 import com.changhong.entities.Result;
 import com.changhong.entities.Secondweight;
+import com.changhong.entities.Structureproblem;
 import com.changhong.service.CommentService;
 import com.changhong.service.ProblemService;
 import com.changhong.service.SecondWeightService;
@@ -58,8 +59,13 @@ public class ServiceTest {
 	     System.out.println("count="+count);*/
 	     StructureProblemDao structureProblemDao = (StructureProblemDao) applicationContext.getBean("structureProblemDao");
 	     
-	     double result = structureProblemDao.getSum("11020843", startdate, enddate, 1);
-	     System.out.println("result = "+result);
+	     /*double result = structureProblemDao.getSum("11020843", startdate, enddate, 1);
+	     System.out.println("result = "+result);*/
+	     
+	     List<Structureproblem> list = structureProblemDao.getListForUser("11020843", 3, "HD2000HS", null);
+	     if (list.size()>0) {
+			System.out.println(list.get(0).getName());
+		}
 	     
 	    /* ProblemService problemService = (ProblemService) applicationContext.getBean("problemService");
 	     int pingshenTimes = problemService.getCountByCommentIdAndEmployeeIdAndDate("11020809", startdate, enddate);

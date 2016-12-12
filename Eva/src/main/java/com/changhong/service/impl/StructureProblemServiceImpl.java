@@ -65,6 +65,19 @@ public class StructureProblemServiceImpl implements StructureProblemService{
 		// TODO Auto-generated method stub
 		return structureProblemDao.getSum(employeeId, startDate, endDate, problemType);
 	}
+
+	@Override
+	public List<Structureproblem> getListForUser(String employeeId,
+			int phaseId, String projectId, Params params) {
+		// TODO Auto-generated method stub
+		return structureProblemDao.getListForUser(employeeId, phaseId, projectId, params);
+	}
+
+	@Override
+	public int getCountForUser(String employeeId, int phaseId, String projectId) {
+		// TODO Auto-generated method stub
+		return structureProblemDao.getCountForUser(employeeId, projectId, phaseId);
+	}
 	
 	
 

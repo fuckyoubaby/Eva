@@ -60,7 +60,10 @@ import com.opensymphony.xwork2.ActionContext;
 			@Result(name="reviewsForUser1",location="/userEnter/project/project_process_comments_index.jsp"),
 			@Result(name="reviewsForUser2",location="/userEnter/project/project_process_preview_info.jsp"),
 			@Result(name="problemForUser",location="/userEnter/project/project_mistake_info.jsp"),
-			@Result(name="problemsTemplateForUser",location="/userEnter/project/problemTemplate.jsp")
+			@Result(name="problemsTemplateForUser",location="/userEnter/project/problemTemplate.jsp"),
+			@Result(name="structureReviews",location="/userEnter/project/project_strutor_process_comments_index.jsp"),
+			@Result(name="structureReviews1",location="/userEnter/project/project_strutor_process_comments_index.jsp"),
+			@Result(name="structureReviews2",location="/userEnter/project/project_process_preview_info.jsp")
 
 		}
 		)
@@ -544,11 +547,28 @@ public class ProblemAction {
 		context.getSession().put("phaseId", phaseId);
 		phase = phaseService.getPhase(Integer.parseInt(phaseId));
 		String reviewsForUser = "reviewsForUser";
+		String strutReview="structureReviews";
 		if(indexNo!=0){                
 			int endIndex = indexNo%2==0?2:1;
 			reviewsForUser+=endIndex;     //首先进入reviewsForUser,
+			strutReview+=endIndex;
 		}
-		return reviewsForUser;
+		String employeeId = (String) context.getSession().get("employeeId");
+		Employee emp = employeeService.getEmployee(employeeId);
+		if (emp!=null) {
+			if (emp.getJob()!=null) {
+				if (emp.getJob().getJobName().indexOf("结构")!=-1) {
+					return strutReview;
+				}else {
+					return reviewsForUser;
+				}
+			}else {
+				return reviewsForUser;
+			}
+		}else {
+			return reviewsForUser;
+		}
+		
 	}
 	
 

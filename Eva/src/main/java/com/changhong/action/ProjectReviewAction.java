@@ -232,14 +232,17 @@ public class ProjectReviewAction {
 	public String getPRItemsByPhaseIdForUser() {
 		ActionContext context = ActionContext.getContext();
 		String employeeId = (String) context.getSession().get("employeeId");
-		String pProjectId = (String) context.getSession().get("projectId");
+		Project project = (Project) context.getSession().get(FinalConstant.SESSION_CURRENT_PROJECT);
+		String pProjectId = project.getProjectId();//(String) context.getSession().get("projectId");
 		String phaseIduser = context.getSession().get("phaseId").toString();
+		
 		projectReviews = projectReviewServiceImpl
 				.getProjectreviewsByProjectIdForPageForUser(pageNo, pageSize,
 						pProjectId, Integer.parseInt(phaseIduser), employeeId);
 		itemcount = projectReviewServiceImpl
 				.getAmountByProjectIdForPageForUser(pProjectId,
 						Integer.parseInt(phaseIduser), employeeId);
+	
 		return "projectReviewInfosForUser";
 	}
 

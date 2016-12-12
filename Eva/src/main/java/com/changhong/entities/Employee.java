@@ -45,7 +45,6 @@ public class Employee implements java.io.Serializable {
 	private Set<Employeemoder> employeemoders = new HashSet<Employeemoder>(0);
 	private Set<Problem> problems = new HashSet<Problem>(0);
 	private Set<Experience> experiences = new HashSet<Experience>(0);
-
 	// Constructors
 
 	/** default constructor */

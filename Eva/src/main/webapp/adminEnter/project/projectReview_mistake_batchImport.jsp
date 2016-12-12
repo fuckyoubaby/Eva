@@ -33,6 +33,9 @@
 			tr td:first-child{width:60px;}
 			div.del{cursor:pointer;color:#337ab7}
 			div.del:hover{font-weight:700;text-decoration:underline}
+			
+			#talbeDiv{height: 300px;overflow: auto}
+			#thelist{overflow: auto;max-height: 200px;}
 		</style>
 		<script type="text/javascript" src="${basePath}/js/loading_upgrade.js"></script>
 		<script type="text/javascript">
@@ -52,6 +55,7 @@
 			<div class="wu-example mg-b15" id="uploader">
 				<p class="help-text">点击按钮选择文件，进行上传</p>
 				<!--用于存放文件信息-->
+				
 				<div id="thelist" class="uploader-list"></div>
 				<div class="btns">
 					<div id="picker">选择文件</div>
@@ -61,7 +65,8 @@
 			<div class="hr mg-b15"></div>
 			<div class="table-show">
 				<p class="help-text">已保存的上传文件展示</p>
-				<div>
+				<div >
+					<div id="talbeDiv">
 					<table class="table">
 						<thead>
 							<tr>
@@ -87,6 +92,7 @@
 							</tr>
 						</tbody>
 					</table>
+					</div>
 					<div class="hr mg-b15"></div>
 					<div class="form-inline mg-b15"> 
 						<label for="modifyDate">评审时间</label>

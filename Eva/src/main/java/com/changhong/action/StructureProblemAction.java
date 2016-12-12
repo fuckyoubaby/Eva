@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.text.AbstractDocument.Content;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
@@ -34,10 +36,14 @@ import com.opensymphony.xwork2.ActionContext;
 			"phaseId","${phaseId}"}),
 	@Result(name="structureProblemInfo",location="/adminEnter/project/project_structure_problem_info.jsp"),
 	@Result(name="updateStructureProblem",location="/adminEnter/project/project_structure_problem_update.jsp"),
+	
 	@Result(name="probelmRedirect",type="redirectAction", params={
 			"actionName","structureProblemAction!showInfo",
 			"structureProblemId","${structureProblemId}"
-	})
+	}),
+	
+	@Result(name="problemsUser",location="/userEnter/project/structureProblemTemplate.jsp"),
+	@Result(name="structureProblemInfoForUser",location="/userEnter/project/project_structure_problem_update.jsp")
 	
 })
 public class StructureProblemAction {
@@ -198,7 +204,29 @@ public class StructureProblemAction {
 		
 		return "probelmRedirect";
 	}
-	
+	/**
+	 * 根据员工编号，项目编号，阶段查找问题
+	 * @return
+	 */
+	public String getProblemsForUser()
+	{
+		ActionContext context = ActionContext.getContext();
+		Project project = (Project) context.getSession().get(FinalConstant.SESSION_CURRENT_PROJECT);
+		String phaseIdString = (String) context.getSession().get("phaseId");
+		int phaseId = Integer.parseInt(phaseIdString);
+		String employeeId = (String) context.getSession().get("employeeId");
+		
+		Params params = new Params(0,  pageNo, pageSize, null, orderName, orderType);
+		struProblems=structureProblemService.getListForUser(employeeId, phaseId, project.getProjectId(), params);
+		itemcount = structureProblemService.getCountForUser(employeeId, phaseId, project.getProjectId());
+		return "problemsUser";
+	}
+	public String showInfoForUser(){
+		
+		structureProblem = structureProblemService.getProblem(structureProblemId);
+		
+		return "structureProblemInfoForUser";
+	}
 	
 	public int getPageNo() {
 		return pageNo;

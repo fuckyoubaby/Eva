@@ -65,6 +65,7 @@ import com.opensymphony.xwork2.ActionContext;
 			
 			@Result(name="projectPageForUser",location="/userEnter/common/projectTemplate.jsp"),
 			@Result(name="projectForUser",location="/userEnter/project/project_info.jsp"),
+			@Result(name="projectForUserStructor",location="/userEnter/project/project_info_structur.jsp")
 		}
 		)
 	
@@ -673,8 +674,23 @@ public class ProjectAction {
 		context.getSession().put("project", project);
 		employeeprojectrs = employeeProjectRService.getEmployeeprojectrsByProjectId(projectId);
 		phases = phaseService.getAll();
-		log.info("phases = "+phases.size());
-		return "projectForUser";
+		qcMaps = projectService.getEmpProjectProblemsCount(projectId, context.getSession().get("employeeId").toString());
+		String employeeId = (String) context.getSession().get("employeeId");
+		Employee em = employeeService.getEmployee(employeeId);
+		if (em!=null) {
+			if (em.getJob()!=null) {
+				if (em.getJob().getJobName().indexOf("结构")!=-1) {
+					return "projectForUserStructor";
+				}
+				else {
+					return "projectForUser";
+				}
+			}else {
+				return "projectForUser";
+			}
+		}else {
+			return "projectForUser";
+		}
 	}
 	public Comment getComment() {
 		return comment;
