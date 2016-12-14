@@ -1,5 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="../taglib.jsp" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<jsp:useBean id="now" class="java.util.Date" scope="page"></jsp:useBean>
 
 <!DOCTYPE HTML>
 <html>
@@ -32,6 +34,15 @@
   </head>
   
   <body>
+<fmt:formatDate value="${empty project.endTime ? now:project.endTime}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="maxDate"/>
+<c:choose>
+<c:when test="${empty project.startTime}">
+<fmt:formatDate value="${now}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="minDate"/>
+</c:when>
+<c:otherwise>
+<fmt:formatDate value="${project.startTime}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="minDate"/>
+</c:otherwise>
+</c:choose>
    		<div class="container">
 			<h3 class="bolder">新的设计评审录入</h3>
 			<div class="hr mg-b15"></div>
@@ -59,7 +70,7 @@
 								<div class="input-group">
 									<input type="date" class="form-control" id="commentDate" name="commentDate" readonly="readonly"
 									placeholder="评审日期" style="cursor:not-allowed" />
-									<div class="input-group-addon" onclick="WdatePicker({el:'commentDate',dateFmt:'yyyy-MM-dd'})"> 
+									<div class="input-group-addon" onclick="WdatePicker({el:'commentDate',dateFmt:'yyyy-MM-dd',realDateFmt:'yyyy-MM-dd',minDate:'${minDate}',maxDate:'${maxDate}'})"> 
 									<i class="glyphicon glyphicon-calendar"></i> 
 									</div>
 								</div>

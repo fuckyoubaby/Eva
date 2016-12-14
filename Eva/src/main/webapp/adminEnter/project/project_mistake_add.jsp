@@ -7,6 +7,8 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<jsp:useBean id="now" class="java.util.Date" scope="page"></jsp:useBean>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -37,6 +39,15 @@
 	</head>
 	<body>
 	<% Project project = (Project)session.getAttribute("project"); %>
+	<fmt:formatDate value="${empty project.endTime ? now:project.endTime}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="maxDate"/>
+	<c:choose>
+		<c:when test="${empty project.startTime}">
+			<fmt:formatDate value="${now}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="minDate"/>
+		</c:when>
+		<c:otherwise>
+			<fmt:formatDate value="${project.startTime}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="minDate"/>
+		</c:otherwise>
+	</c:choose>
 		<div class="container">
 			<h3 class="bolder">项目设计评审问题录入</h3>
 			<div class="hr mg-b15"></div>
@@ -125,7 +136,7 @@
 									<input type="text" class="form-control" id="prdate" name="prdate" readonly="readonly" 
 										placeholder="评审日期" style="cursor:not-allowed" jrequired="required"
 										  />
-									<span class="input-group-addon" onclick="WdatePicker({el:'prdate',dateFmt:'yyyy-MM-dd',onpicked:pickedFunc,oncleared:pickedFunc})">
+									<span class="input-group-addon" onclick="WdatePicker({el:'prdate',dateFmt:'yyyy-MM-dd',onpicked:pickedFunc,oncleared:pickedFunc,realDateFmt:'yyyy-MM-dd',minDate:'${minDate}',maxDate:'${maxDate}'})">
 										<i class="glyphicon glyphicon-time"></i>
 									</span>
 								</div>

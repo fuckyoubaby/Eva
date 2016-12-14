@@ -2,6 +2,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="../taglib.jsp" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<jsp:useBean id="now" class="java.util.Date" scope="page"></jsp:useBean>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -41,6 +42,15 @@
 	</head>
 	<body>
 	<% Project project = (Project)session.getAttribute("project"); %>
+	<fmt:formatDate value="${empty project.endTime ? now:project.endTime}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="maxDate"/>
+	<c:choose>
+		<c:when test="${empty project.startTime}">
+			<fmt:formatDate value="${now}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="minDate"/>
+		</c:when>
+		<c:otherwise>
+			<fmt:formatDate value="${project.startTime}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="minDate"/>
+		</c:otherwise>
+	</c:choose>
 		<div class="container">
 			<h3 class="bolder"><a id="jumpHref" href="${basePath}/problemAction!getReviewByPhaseId.action?phaseId=${projectReview.phase.phaseId}&indexNo=${projectReview.phase.phaseId * 2}">${projectReview.project.projectName}项目评审问题新增</a></h3>
 			<div class="hr mg-b15"></div>
@@ -61,9 +71,8 @@
 								<label class="control-label">评审日期</label>
 								<div class="input-group">
 									<input type="text" class="form-control" id="prdate" name="prdate" readonly="readonly" 
-										placeholder="评审日期" style="cursor:not-allowed" jrequired="required"
-										  />
-									<span class="input-group-addon" onclick="WdatePicker({el:'prdate',dateFmt:'yyyy-MM-dd'})">
+										placeholder="评审日期" style="cursor:not-allowed" jrequired="required" />
+									<span class="input-group-addon" onclick="WdatePicker({el:'prdate',dateFmt:'yyyy-MM-dd',realDateFmt:'yyyy-MM-dd',minDate:'${minDate}',maxDate:'${maxDate}'})">
 										<i class="glyphicon glyphicon-time"></i>
 									</span>
 								</div>
@@ -79,23 +88,23 @@
 							</div>
 							<div class="form-group">
 								<label class="control-label">设计规定</label>
-								<input type="text"  name="designReg" id="designReg" class="form-control" placeholder="设计规定" jrequired="required" jvalidator="int0"  />
+								<input type="text"  name="designReg" id="designReg" class="form-control" placeholder="请填写所扣分数" jrequired="required" jvalidator="int0"  />
 							</div>
 							<div class="form-group">
 								<label class="control-label">流程规定</label>
-								<input type="text"  name="flowsheetReg" id="flowsheetReg" class="form-control" placeholder="流程规定" jrequired="required" jvalidator="int0" />
+								<input type="text"  name="flowsheetReg" id="flowsheetReg" class="form-control" placeholder="请填写所扣分数" jrequired="required" jvalidator="int0" />
 							</div>
 							<div class="form-group">
 								<label class="control-label">工作计划性差</label>
-								<input type="text"  name="workplan" id="workplan" class="form-control" placeholder="工作计划性差" jrequired="required" jvalidator="int0" />
+								<input type="text"  name="workplan" id="workplan" class="form-control" placeholder="请填写所扣分数" jrequired="required" jvalidator="int0" />
 							</div>
 							<div class="form-group">
 								<label class="control-label">沟通低效</label>
-								<input type="text"  name="communication" id="communication" class="form-control" placeholder="沟通低效" jrequired="required" jvalidator="int0" />
+								<input type="text"  name="communication" id="communication" class="form-control" placeholder="请填写所扣分数" jrequired="required" jvalidator="int0" />
 							</div>
 							<div class="form-group">
 								<label class="control-label">工作积极性</label>
-								<input type="text"  name="workEnt" id="workEnt" class="form-control" placeholder="工作积极性" jrequired="required" jvalidator="int0" />
+								<input type="text"  name="workEnt" id="workEnt" class="form-control" placeholder="请填写所扣分数" jrequired="required" jvalidator="int0" />
 							</div>
 							<div class="form-group">
 								<label class="control-label">扣分说明</label>

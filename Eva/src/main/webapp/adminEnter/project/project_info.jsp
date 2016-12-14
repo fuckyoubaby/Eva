@@ -62,7 +62,8 @@
 			</div>
 			<div class="row mg-b15">
 				<span class="col-md-2">项目成员</span>
-				<span class="col-md-7">${project.employee.name }（项目经理）&nbsp; <c:forEach items="${employeeprojectrs }" var="ep">
+				<span class="col-md-7">${empty project.employee?'未设置':project.employee.name }（项目经理）&nbsp; 
+					<c:forEach items="${employeeprojectrs }" var="ep">
 						${ep.employee.name }.
 					</c:forEach></span>
 			</div>

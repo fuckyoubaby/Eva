@@ -166,7 +166,6 @@
 				<span class="help-text mg-b15"><a href="javasc:void(0);">更多操作>></a></span>
 				<div class="row mg-b30" style="padding-left:85px;">
 					<a href="projectReviewAction!addProblem.action?phaseId=${phase.phaseId}" class="btn btn-info" ><i class="glyphicon glyphicon-plus icon-padr"></i>添加新问题</a>
-					<a href="javascript:void(0);" onclick="importProblem();" class="btn btn-info" style="margin-left:30px;"><i class="glyphicon glyphicon-export icon-padr"></i>批量导入问题</a>
 				</div>
 			<!--end more process-->
 			</div>
@@ -256,14 +255,6 @@
 			}
 		};
 		
-		function importProblem(){
-			var reviewName = $("li.actived").find("a").text();
-			var phaseId="${phase.phaseId}";
-			var phaseName="${phase.phaseName}";
-			var paramValue="phaseId="+phaseId+"&phaseName="+phaseName+"&reviewId="+reviewId+"&reviewName="+reviewName;
-			var uri = "${basePath}/adminEnter/project/projectReview_mistake_batchImport.jsp?"+paramValue;
-			window.location.href=uri;
-		};
 		
 		function deleteProRew(obj){
 			var hrefUrl = $(obj).data("purl");
