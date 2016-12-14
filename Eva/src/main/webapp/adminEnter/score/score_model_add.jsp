@@ -212,29 +212,30 @@
 							<div class="form-group">
 								<label class="control-label">专利加分</label>
 								<div class="row">
-									<div class="col-md-4">
+									<div class="col-md-6">
 										<div class="input-group">
 											<span class="input-group-addon">发明</span>
 											<input type="text" name="patentA" class="form-control"/>
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-6">
 										<div class="input-group">
 											<span class="input-group-addon">使用新型</span>
 											<input type="text" name="patentB" class="form-control" />
 										</div>
 									</div>
-									<div class="col-md-4">
+									
+								</div>
+							</div>
+							<div class="form-group">
+							    <div class="row ">
+							    <div class="col-md-6">
 										<div class="input-group">
 											<span class="input-group-addon">外观</span>
 											<input type="text" name="patentC" class="form-control" />
 										</div>
 									</div>
-								</div>
-							</div>
-							<div class="form-group">
-							    <div class="row ">
-									<div class="col-md-4">
+									<div class="col-md-6">
 										<div class="input-group">
 											<span class="input-group-addon">权重</span>
 											<input type="text" name="patentWeight" placeholder="1-100" class="form-control" />
@@ -328,7 +329,7 @@
 								<div class="row">	
 									<div class="col-md-6">
 										<div class="input-group">
-											<span class="input-group-addon">重要信息收集权重</span>
+											<span class="input-group-addon">重要信息收集</span>
 											<input type="text" name="importentWeight" placeholder="0-100" class="form-control"/>
 										</div>
 									</div>

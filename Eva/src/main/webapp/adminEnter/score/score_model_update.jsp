@@ -229,27 +229,28 @@
 								<c:choose>
 								<c:when test="${sw.secondLevel=='专利' }">
 								<div class="row">
-									<div class="col-md-4">
+									<div class="col-md-6">
 										<div class="input-group">
 											<span class="input-group-addon">发明</span>
 											<input type="text" name="patentA" value="${sw.a }" class="form-control"/>
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-6">
 										<div class="input-group">
-											<span class="input-group-addon">使用新</span>
+											<span class="input-group-addon">使用新型</span>
 											<input type="text" name="patentB" value="${sw.b }" class="form-control" />
 										</div>
 									</div>
-									<div class="col-md-4">
+									
+								</div>
+								<div class="row " style="margin-top: 10px;">
+									<div class="col-md-6">
 										<div class="input-group">
 											<span class="input-group-addon">外观</span>
 											<input type="text" name="patentC" value="${sw.c }" class="form-control" />
 										</div>
 									</div>
-								</div>
-								<div class="row " style="margin-top: 10px;">
-									<div class="col-md-4">
+									<div class="col-md-6">
 										<div class="input-group">
 											<span class="input-group-addon">权重</span>
 											<input type="text" name="patentWeight" value="${sw.weightly*100 }" placeholder="1-100" class="form-control" />
@@ -380,7 +381,7 @@
 										<c:forEach items="${secondweights }" var="sw">
 											<c:choose>
 											<c:when test="${sw.secondLevel=='重要信息收集' }">
-											<span class="input-group-addon">重要信息收集权重</span>
+											<span class="input-group-addon">信息收集权重</span>
 											<input type="text" name="importentWeight" value="${sw.weightly*100 }" placeholder="0-100" class="form-control"/>
 											</c:when>
 											</c:choose>
