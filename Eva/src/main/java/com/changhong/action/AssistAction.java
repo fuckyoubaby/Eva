@@ -72,8 +72,16 @@ public class AssistAction {
 	private int orderId;
 	private int assistId;
 	
+	private String explainX;
 	
 	
+	
+	public String getExplainX() {
+		return explainX;
+	}
+	public void setExplainX(String explainX) {
+		this.explainX = explainX;
+	}
 	public int getOrderId() {
 		return orderId;
 	}
@@ -212,7 +220,7 @@ public class AssistAction {
 				patent.setPatentType(patentType);
 				patent.setDate(startTime);
 				patent.setPatentId(patentId);
-				
+				patent.setPatentExplain(explainX);
 				patentService.save(patent);
 				message="专利添加成功";
 			}else if (assistType==2) {
@@ -221,7 +229,7 @@ public class AssistAction {
 				order.setEmployee(employee);
 				order.setNum(num);
 				order.setOrderName(assistName);
-				
+				order.setOrderExplain(explainX);
 				orderService.save(order);
 				message="订单添加成功";
 			}else {
@@ -230,7 +238,7 @@ public class AssistAction {
 				assist.setDate(startTime);
 				assist.setEmployee(employee);
 				assist.setScore(num);
-				
+				assist.setAssistExplain(explainX);
 				assistService.save(assist);
 				message="其他加分添加成功";
 			}

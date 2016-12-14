@@ -56,7 +56,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public List<Employee> getAllEmployees() {
 		// TODO Auto-generated method stub
-		return employeeDao.findAll(Employee.class);
+		return employeeDao.getAll();
 	}
 
 	@Override
@@ -85,7 +85,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public void delete(Employee employee) {
-		employeeDao.delete(employee);
+		employee.setEnabled(false);
+		employeeDao.update(employee);
+		//employeeDao.delete(employee);
 	}
 
 	@Override

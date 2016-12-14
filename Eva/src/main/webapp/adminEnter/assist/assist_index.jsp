@@ -76,13 +76,14 @@
 									<th>专利名称</th>
 									<th>专利类型</th>
 									<th>专利作者</th>
+									<th>说明</th>
 									<th>时间</th>
 									<th>操作</th>
 								</tr>
 							</thead>
 							<tbody id="tbody_patent">
 								<tr>
-									<td colspan="6" style="padding:100px;">
+									<td colspan="7" style="padding:100px;">
 										<div class="empty" style="text-align: center;font-size: 18px;line-height: 25px;">
 											<img src="<%=basePath%>images/loading.gif" width="25" height="25" style="vertical-align: text-top;margin-right: 5px;" />正在加载数据....
 										</div>
@@ -104,13 +105,14 @@
 									<th class="p-hover" data-colname='orderId'>订单名称<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
 									<th class="p-hover" data-colname='num'>订单数量<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
 									<th class="p-hover" data-colname='employee.id'>负责人<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
+									<th>说明</th>
 									<th class="p-hover" data-colname='date'>时间<i class="glyphicon glyphicon-sort icon-hidden"></i></th>
 									<th>操作</th>
 								</tr>
 							</thead>
 							<tbody id="tbody_order">
 								<tr>
-									<td colspan="5" style="padding:100px;">
+									<td colspan="6" style="padding:100px;">
 										<div class="empty" style="text-align: center;font-size: 18px;line-height: 25px;">
 											<img src="<%=basePath%>images/loading.gif" width="25" height="25" style="vertical-align: text-top;margin-right: 5px;" />正在加载数据....
 										</div>
@@ -132,13 +134,14 @@
 									<th>加分类别</th>
 									<th>分数</th>
 									<th>员工</th>
+									<th>说明</th>
 									<th>时间</th>
 									<th>操作</th>
 								</tr>
 							</thead>
 							<tbody id="tbody_other">
 								<tr>
-									<td colspan="5" style="padding:100px;">
+									<td colspan="6" style="padding:100px;">
 										<div class="empty" style="text-align: center;font-size: 18px;line-height: 25px;">
 											<img src="<%=basePath%>images/loading.gif" width="25" height="25" style="vertical-align: text-top;margin-right: 5px;" />正在加载数据....
 										</div>

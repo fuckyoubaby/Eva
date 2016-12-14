@@ -12,16 +12,21 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.changhong.dao.EmployeeDao;
 import com.changhong.dao.ProblemDao;
 import com.changhong.dao.ProjectReviewDao;
 import com.changhong.dao.ResultDao;
 import com.changhong.dao.StructureProblemDao;
+import com.changhong.dao.TrainDao;
 import com.changhong.entities.Comment;
+import com.changhong.entities.Employeeexamr;
+import com.changhong.entities.Employeetrainr;
 import com.changhong.entities.Problem;
 import com.changhong.entities.Result;
 import com.changhong.entities.Secondweight;
 import com.changhong.entities.Structureproblem;
 import com.changhong.service.CommentService;
+import com.changhong.service.EmployeeExamService;
 import com.changhong.service.ProblemService;
 import com.changhong.service.SecondWeightService;
 import com.changhong.support.FinalConstant;
@@ -36,42 +41,26 @@ public class ServiceTest {
 	
 	@Test
 	public void test() throws ParseException {
-		/*ResultDao resultDao = (ResultDao) applicationContext.getBean("resultDao");
-		List<Result> results = resultDao.getResultsByEmployeeIdAndDate("20158935");
-		System.out.println(results.get(0).getEmployee().getName());*/
-		
-		/*SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-	     Date startdate = format.parse("2011-10-10");
-	     Date enddate = format.parse("2016-10-10");
-		ProblemDao problemDao = (ProblemDao) applicationContext.getBean("problemDao");
-		int count = problemDao.getCommentAmountByEmployeeId("20158935", startdate, enddate);
-		System.out.println("count = "+count);*/
-		/*
-		ResultDao resultDao = (ResultDao) applicationContext.getBean("resultDao");
-		resultDao.getResult();*/
+	
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date startdate = format.parse("2014-01-01");
-	     Date enddate = format.parse("2014-12-31");
-	     
-	    /* ProjectReviewDao projectReviewDao = (ProjectReviewDao) applicationContext.getBean("projectReviewDao");
-	     int count = projectReviewDao.getProjectCountByDateAndEmployee("12138029", startdate, enddate);
-	     System.out.println("count="+count);*/
-	     StructureProblemDao structureProblemDao = (StructureProblemDao) applicationContext.getBean("structureProblemDao");
-	     
-	     /*double result = structureProblemDao.getSum("11020843", startdate, enddate, 1);
-	     System.out.println("result = "+result);*/
-	     
-	     List<Structureproblem> list = structureProblemDao.getListForUser("11020843", 3, "HD2000HS", null);
-	     if (list.size()>0) {
-			System.out.println(list.get(0).getName());
-		}
-	     
-	    /* ProblemService problemService = (ProblemService) applicationContext.getBean("problemService");
-	     int pingshenTimes = problemService.getCountByCommentIdAndEmployeeIdAndDate("11020809", startdate, enddate);
-	     List<Problem> problems = problemService.getProblems();
-	     
-	     System.out.println("pingshencishu = "+pingshenTimes+" problems .size = "+problems.size());*/
+		Date startDate = format.parse("2016-01-01");
+	    Date endDate = format.parse("2016-12-31");
+	  /*  
+	    EmployeeExamService employeeExamService = (EmployeeExamService) applicationContext.getBean("employeeExamService");
+	    Employeeexamr eer = employeeExamService.getEmployeeexamrByEmployeeIdAndExamId(1, "2");
+	    
+	    System.out.println("eer = "+eer);*/
+	    
+	    EmployeeDao employeeDao = (EmployeeDao) applicationContext.getBean("employeeDao");
+	    boolean is =  employeeDao.isExist("12138029");
+	    System.out.println("is="+is);
+	    /*TrainDao trainDao = (TrainDao) applicationContext.getBean("trainDao");
+	    
+	    List<Employeetrainr> list = trainDao.getTrainsByEmployeeIdAndDate("20155708", startDate, endDate);
+	    System.out.println(list.size());*/
+	    
+	    
 	     
 	    /* SecondWeightService secondWeightService = (SecondWeightService) applicationContext.getBean("secondWeightService");
 	     Secondweight secondweight_shejiguiding = secondWeightService.getSecondweightByModeIdAndType(1, FinalConstant.COMPLIANCE_enum.设计规定.toString());

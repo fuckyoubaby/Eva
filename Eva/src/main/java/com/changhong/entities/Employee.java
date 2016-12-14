@@ -46,7 +46,7 @@ public class Employee implements java.io.Serializable {
 	private Set<Problem> problems = new HashSet<Problem>(0);
 	private Set<Experience> experiences = new HashSet<Experience>(0);
 	// Constructors
-
+	private boolean enabled = true;
 	/** default constructor */
 	public Employee() {
 	}
@@ -65,7 +65,7 @@ public class Employee implements java.io.Serializable {
 			Set<Employeeexamr> employeeexamrs,
 			Set<Communication> communications, Set<Project> projects,
 			Set<Employeemoder> employeemoders, Set<Problem> problems,
-			Set<Experience> experience) {
+			Set<Experience> experience,boolean enabled) {
 		this.id = id;
 		this.job = job;
 		this.department = department;
@@ -88,6 +88,7 @@ public class Employee implements java.io.Serializable {
 		this.employeemoders = employeemoders;
 		this.problems = problems;
 		this.experiences = experiences;
+		this.enabled = enabled;
 	}
 
 	// Property accessors
@@ -101,7 +102,7 @@ public class Employee implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "job")
 	public Job getJob() {
 		return this.job;
@@ -111,7 +112,7 @@ public class Employee implements java.io.Serializable {
 		this.job = job;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "department")
 	public Department getDepartment() {
 		return this.department;
@@ -294,7 +295,17 @@ public class Employee implements java.io.Serializable {
 		this.experiences = experiences;
 	}
 	
+	@Column(name="enabled")
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 	
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Employee) {

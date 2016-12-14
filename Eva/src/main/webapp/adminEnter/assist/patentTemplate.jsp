@@ -11,6 +11,7 @@
 		<td>${patent.patentName}</td>
 		<td>${patent.patentType}</td>
 		<td>${patent.employee.name}</td>
+		<td>${patent.patentExplain}</td>
 		<td>${patent.date}</td>
 		
 		<%-- <td><a href="assistAction!deletePatent.action?patentId=${patent.patentId }" >删除</a></td> --%>

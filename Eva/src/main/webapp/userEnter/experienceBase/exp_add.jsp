@@ -96,14 +96,14 @@
 			                        }
 			                    }
 			                },
-			                dataDirtNId :{
+			               /*  dataDirtNId :{
 			                    message:'分类无效',
 			                    validators: {
 			                        notEmpty: {
 			                            message: '二级分类不能为空'
 			                        }
 			                    }
-			                },
+			                }, */
 			                main_word :{
 			                    message:'关键词无效',
 			                    validators: {

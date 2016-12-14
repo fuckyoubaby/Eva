@@ -30,7 +30,7 @@ public class EmployeeDaoImpl extends BaseDaoImpl<Employee> implements EmployeeDa
 	}
 	@Override
 	public boolean isExist(String userName) {
-		String hql = "from Employee where id=?";
+		String hql = "from Employee where id=? and enabled=1";
 		Query query = getSession().createQuery(hql);
 		query.setParameter(0, userName);
 		if (query.list().size()>0) {
@@ -42,7 +42,7 @@ public class EmployeeDaoImpl extends BaseDaoImpl<Employee> implements EmployeeDa
 
 	@Override
 	public Employee login(String userName, String password) {
-		String hql = "from Employee where id=? and password=?";
+		String hql = "from Employee where id=? and password=? and enabled=1";
 		Query query = getSession().createQuery(hql);
 		query.setParameter(0, userName);
 		query.setParameter(1, password);
@@ -108,10 +108,10 @@ public class EmployeeDaoImpl extends BaseDaoImpl<Employee> implements EmployeeDa
 			String keyword) {
 		Query query = null;
 		if (keyword==null||keyword.equals("")) {
-			String hql = "from Employee";
+			String hql = "from Employee where enabled=1";
 			query=getSession().createQuery(hql);
 		}else {
-			String hql = "from Employee where name like ? or id like ?";
+			String hql = "from Employee where (name like ? or id like ?) and enabled=1";
 			query=getSession().createQuery(hql);
 			query.setParameter(0, "%"+keyword+"%");
 			query.setParameter(1, "%"+keyword+"%");
@@ -124,10 +124,10 @@ public class EmployeeDaoImpl extends BaseDaoImpl<Employee> implements EmployeeDa
 	public int getCount(String keyword) {
 		Query query = null;
 		if (keyword==null||keyword.equals("")) {
-			String hql = "from Employee";
+			String hql = "from Employee where enabled=1";
 			query=getSession().createQuery(hql);
 		}else {
-			String hql = "from Employee where name like ? or id like ?";
+			String hql = "from Employee where (name like ? or id like ?) and enabled=1";
 			query=getSession().createQuery(hql);
 			query.setParameter(0, "%"+keyword+"%");
 			query.setParameter(1, "%"+keyword+"%");
@@ -140,34 +140,34 @@ public class EmployeeDaoImpl extends BaseDaoImpl<Employee> implements EmployeeDa
 		String hql = null;
 		if (params.getKeyword()==null||params.getKeyword().equals("")) {
 			if (params.getOrderName()==null||params.getOrderName().equals("")) {
-				hql = "from Employee";
+				hql = "from Employee where enabled=1";
 				query = getSession().createQuery(hql);
 			}else {
 				if (params.getOrderType().equals("asc")) {
-					hql = "from Employee order by " +params.getOrderName() +" asc";
+					hql = "from Employee where enabled=1 order by " +params.getOrderName() +" asc";
 					query = getSession().createQuery(hql);
 				}else {
-					hql = "from Employee order by " +params.getOrderName() +" desc";
+					hql = "from Employee where enabled=1 order by " +params.getOrderName() +" desc";
 					query = getSession().createQuery(hql);
 				}
 				
 			}/// username  username or 1=1;  :=id    set("id",value);
 		}else {
 			if (params.getOrderName()==null||params.getOrderName().equals("")) {
-				hql = "from Employee where name like ? or id like ? or job.jobName like ?";
+				hql = "from Employee where (name like ? or id like ? or job.jobName like ?) and enabled=1";
 				query = getSession().createQuery(hql);
 				query.setParameter(0, "%"+params.getKeyword()+"%");
 				query.setParameter(1, "%"+params.getKeyword()+"%");
 				query.setParameter(2, "%"+params.getKeyword()+"%");
 			}else {
 				if (params.getOrderType().equals("asc")) {
-					hql = "from Employee where (name like ? or id like ? or job.jobName like ?) order by " +params.getOrderName() +" asc";
+					hql = "from Employee where (name like ? or id like ? or job.jobName like ?) and enabled=1 order by " +params.getOrderName() +" asc";
 					query = getSession().createQuery(hql);
 					query.setParameter(0, "%"+params.getKeyword()+"%");
 					query.setParameter(1, "%"+params.getKeyword()+"%");
 					query.setParameter(2, "%"+params.getKeyword()+"%");
 				}else {
-					hql = "from Employee where (name like ? or id like ? or job.jobName like ?) order by " +params.getOrderName() +" desc";
+					hql = "from Employee where (name like ? or id like ? or job.jobName like ?) and enabled=1 order by " +params.getOrderName() +" desc";
 					query = getSession().createQuery(hql);
 					query.setParameter(0, "%"+params.getKeyword()+"%");
 					query.setParameter(1, "%"+params.getKeyword()+"%");
@@ -184,10 +184,10 @@ public class EmployeeDaoImpl extends BaseDaoImpl<Employee> implements EmployeeDa
 	public int getCount(Params params) {
 		Query query = null;
 		if (params.getKeyword()==null||params.getKeyword().equals("")) {
-			String hql = "from Employee";
+			String hql = "from Employee where enabled=1";
 			query=getSession().createQuery(hql);
 		}else {
-			String hql = "from Employee where name like ? or id like ?  or job.jobName like ?";
+			String hql = "from Employee where (name like ? or id like ?  or job.jobName like ?) and enabled=1";
 			query=getSession().createQuery(hql);
 			query.setParameter(0, "%"+params.getKeyword()+"%");
 			query.setParameter(1, "%"+params.getKeyword()+"%");
@@ -197,7 +197,7 @@ public class EmployeeDaoImpl extends BaseDaoImpl<Employee> implements EmployeeDa
 	}
 	@Override
 	public List<Employee> getEmployeesByJobId(int jobId) {
-		String hql = "from Employee where job.jobId=?";
+		String hql = "from Employee where job.jobId=? and enabled=1";
 		Query query = getSession().createQuery(hql);
 		query.setParameter(0, jobId);
 		return query.list();
@@ -207,6 +207,12 @@ public class EmployeeDaoImpl extends BaseDaoImpl<Employee> implements EmployeeDa
 		String hql = "from Employee where name=?";
 		Query query = getSession().createQuery(hql);
 		query.setParameter(0, employeeName);
+		return query.list();
+	}
+	@Override
+	public List<Employee> getAll() {
+		String hql = "from Employee where enabled=1";
+		Query query = getSession().createQuery(hql);
 		return query.list();
 	}
 

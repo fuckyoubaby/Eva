@@ -135,6 +135,10 @@
 				<label class="control-label">数量/分数</label> <input type="text"
 					name="num" id="num" class="form-control" />
 			</div>
+			<div id="explainDiv" style="display: none" class="form-group">
+				<label class="control-label">说明</label> <input type="text"
+					name="explainX" id="explainX" class="form-control" />
+			</div>
 			<div class="form-group">
 				<label class="control-label">员工</label> <select name="employeeId"
 					id="chosen-select" class="form-control" style="height: 40;">
@@ -149,6 +153,10 @@
 					});
 				</script>
 			</div>
+			<div id="explainDiv" class="form-group">
+				<label class="control-label">说明</label> <input type="text"
+					name="explainX" id="explainX" class="form-control" />
+			</div>
 			<div class="form-group">
 				<label class="control-label">时间</label>
 				<div class="input-group">
@@ -159,6 +167,7 @@
 						class="glyphicon glyphicon-time"></i></span>
 				</div>
 			</div>
+			
 			<div class="process-area">
 				<button type="submit" onclick="clickButton();" class="btn btn-info"
 					class="glyphicon glyphicon-saved icon-padr">

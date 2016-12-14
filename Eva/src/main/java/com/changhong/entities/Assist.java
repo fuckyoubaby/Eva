@@ -31,6 +31,7 @@ public class Assist implements java.io.Serializable {
 	private String assistName;
 	private Integer score;
 	private Date date;
+	private String assistExplain;
 
 	// Constructors
 
@@ -39,11 +40,12 @@ public class Assist implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Assist(Employee employee, String assistName, Integer score, Date date) {
+	public Assist(Employee employee, String assistName, Integer score, Date date,String assistExplain) {
 		this.employee = employee;
 		this.assistName = assistName;
 		this.score = score;
 		this.date = date;
+		this.assistExplain = assistExplain;
 	}
 
 	// Property accessors
@@ -96,4 +98,13 @@ public class Assist implements java.io.Serializable {
 		this.date = date;
 	}
 
+	public String getAssistExplain() {
+		return assistExplain;
+	}
+	@Column(name="assistExplain")
+	public void setAssistExplain(String assistExplain) {
+		this.assistExplain = assistExplain;
+	}
+
+	
 }

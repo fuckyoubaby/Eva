@@ -26,7 +26,7 @@
 		<!--start the left side-->
 		<div class="left-content">
 			<div class="log">
-				<a href="${basePath}/adminEnter/common/common_main.jsp" target="main"><img src="../../img/log.jpg" alt="logo"  width="220px;" height="70px;"/></a>
+				<a href="${basePath}/adminEnter/common/common_main.jsp" target="main"><img src="../../img/log.jpg" alt="logo"  width="220px;" height="50px;"/></a>
 			</div>
 			<div class="list-group">
 				<a href="${basePath}/adminEnter/project/project_index.jsp" class="list-group-item " target="main"><i class="glyphicon glyphicon-list-alt icon-padr10"></i>项目相关</a>

@@ -72,9 +72,9 @@
 						  		</c:when>
 						  		<c:otherwise>
 						  		<span class="item-style"><i class="glyphicon glyphicon-user icon-padr"></i>${emp.name} (${emp.id})</span>
+						  		<a href="javascript:void(0);" onclick="removeMember(this)"><i class="glyphicon  glyphicon-minus-sign icon-padl"></i></a>
 						  		</c:otherwise>
 						  	  </c:choose>
-						  	<a href="javascript:void(0);" onclick="removeMember(this)"><i class="glyphicon  glyphicon-minus-sign icon-padl"></i></a>
 						  </div>	
 						</li>
 						</c:forEach>

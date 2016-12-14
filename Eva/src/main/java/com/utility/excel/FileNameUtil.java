@@ -47,7 +47,8 @@ public class FileNameUtil {
 	 * 			指定文件名
 	 * @return
 	 */
-	public static String bulidNewFileName(File directory, String fileName){
+	public synchronized static String bulidNewFileName(File directory, String fileName){
+		 
 		String targetFilePrefix = getFileNamePrefix(fileName);
 		String targetFileSuffix = getFileSuffix(fileName);
 		File [] files = directory.listFiles();

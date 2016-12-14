@@ -10,6 +10,7 @@
 		<td>${order.orderName}</td>
 		<td>${order.num}</td>
 		<td>${order.employee.name}</td>
+		<td>${order.orderExplain}</td>
 		<td>${order.date}</td>
 		
 		<%-- <td><a href="assistAction!deleteOrder.action?orderId=${order.orderId }">删除</a></td> --%>

@@ -22,9 +22,13 @@ public class PDF2SWF {
 		
 		//String sWFTools_Home = "D:/Program Files (x86)/SWFTools";
 		String sWFTools_Home = GetPdf2SwfPath.getPath();
+		String xpdf = GetPdf2SwfPath.getXPDFPath();
 		
-		String command = sWFTools_Home+"\\pdf2swf.exe "+sourceFile+" -o "+destFile+" -T 9";
-		Process process = Runtime.getRuntime().exec(command);
+		//String command = sWFTools_Home+"\\pdf2swf.exe "+sourceFile+" -o "+destFile+" -T 9";
+	
+		
+		String command2 = sWFTools_Home+"\\pdf2swf.exe "+sourceFile+" -o "+destFile+" -T 9" + " -s languagedir="+xpdf;
+		Process process = Runtime.getRuntime().exec(command2);
 		process.waitFor();
 		dest.createNewFile();
 		/*BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -34,18 +38,13 @@ public class PDF2SWF {
 		}*/
 		return 0;
 	}
+	
 	public static void main(String[] args) throws IOException, InterruptedException {
-		PDF2SWF.pdf2swf("", "");
-	}
-	/*public static void main(String[] args) {
-		String sourcePath = "C:/Users/shijinxiang/Desktop/[�������]��ƵbufferӰ��EMC�������.pdf";
-		String destPath = "C:/Users/shijinxiang/Desktop/[�������]��ƵbufferӰ��EMC�������.swf";
+		String sourcePath = "C:/Users/shijinxiang/Desktop/[经验分享]（HI3796真待机重启问题（针对特定电视连接HDMI情况））.pdf";
+		String destPath = "C:/Users/shijinxiang/Desktop/[经验分享]（HI3796真待机重启问题（针对特定电视连接HDMI情况））.swf";
 		
-		try {
+	
 			PDF2SWF.pdf2swf(sourcePath, destPath);
-		} catch (IOException | InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}*/
+		
+	}
 }

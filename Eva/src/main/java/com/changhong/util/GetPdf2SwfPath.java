@@ -30,4 +30,23 @@ public class GetPdf2SwfPath {
 		}
 		return path;
 	}
+	public static String getXPDFPath()
+	{
+		Properties properties = new Properties();
+		String propertiesPath = GetPdf2SwfPath.class.getClassLoader().getResource("").getPath();
+		String path = "";
+		
+		try {
+			InputStream in = new BufferedInputStream(new FileInputStream(propertiesPath+"path.properties"));
+			properties.load(in);
+			path = properties.getProperty("xpdf");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return path;
+	}
 }

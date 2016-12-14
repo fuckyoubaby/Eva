@@ -26,6 +26,7 @@ public class Order implements java.io.Serializable {
 	private String orderName;
 	private Integer num;
 	private Date date;
+	private String orderExplain;
 
 	// Constructors
 
@@ -34,11 +35,12 @@ public class Order implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Order(Employee employee, String orderName, Integer num, Date date) {
+	public Order(Employee employee, String orderName, Integer num, Date date,String orderExplain) {
 		this.employee = employee;
 		this.orderName = orderName;
 		this.num = num;
 		this.date = date;
+		this.orderExplain = orderExplain;
 	}
 
 	// Property accessors
@@ -91,4 +93,14 @@ public class Order implements java.io.Serializable {
 		this.date = date;
 	}
 
+	public String getOrderExplain() {
+		return orderExplain;
+	}
+
+	@Column(name="orderExplain")
+	public void setOrderExplain(String orderExplain) {
+		this.orderExplain = orderExplain;
+	}
+
+	
 }

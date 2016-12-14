@@ -28,7 +28,7 @@
 		<!--start the left side-->
 		<div class="left-content">
 			<div class="log">
-				<img src="<%=basePath%>/img/log.jpg" alt="logo"  width="220px;" heigth="70px;"/>
+				<img src="<%=basePath%>/img/log.jpg" alt="logo"  width="220px;" heigth="50px;"/>
 			</div>
 			<div class="list-group">
 				<a href="<%=basePath%>/userEnter/project/project_main.jsp" target="main" class="list-group-item "><i class="glyphicon glyphicon-list-alt icon-padr10"></i>项目 </a>

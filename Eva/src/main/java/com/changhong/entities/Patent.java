@@ -25,6 +25,7 @@ public class Patent implements java.io.Serializable {
 	private String patentName;
 	private String patentType;
 	private Date date;
+	private String patentExplain;
 
 	// Constructors
 
@@ -39,12 +40,13 @@ public class Patent implements java.io.Serializable {
 
 	/** full constructor */
 	public Patent(String patentId, Employee employee, String patentName,
-			String patentType, Date date) {
+			String patentType, Date date,String patentExplain) {
 		this.patentId = patentId;
 		this.employee = employee;
 		this.patentName = patentName;
 		this.patentType = patentType;
 		this.date = date;
+		this.patentExplain = patentExplain;
 	}
 
 	// Property accessors
@@ -96,4 +98,14 @@ public class Patent implements java.io.Serializable {
 		this.date = date;
 	}
 
+	public String getPatentExplain() {
+		return patentExplain;
+	}
+
+	@Column(name="patentExplain")
+	public void setPatentExplain(String patentExplain) {
+		this.patentExplain = patentExplain;
+	}
+
+	
 }

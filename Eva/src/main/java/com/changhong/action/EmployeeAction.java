@@ -40,6 +40,7 @@ import com.opensymphony.xwork2.ActionContext;
 			@Result(name="employeesPage",location="/adminEnter/employee/employeeTemplate.jsp"),
 			@Result(name="employeesMembersPage",location="/adminEnter/project/projectEmployeeTemplate.jsp"),
 			@Result(name="employee",location="/adminEnter/employee/employee_info.jsp"),
+			@Result(name="employeeForUser",location="/userEnter/common/employee_info.jsp"),
 			@Result(name="employeeForUpdate",location="/adminEnter/employee/employee_update.jsp"),
 			@Result(name="save",location="/adminEnter/employee/employees_index.jsp"),
 			@Result(name="update",location="/adminEnter/employee/employees_index.jsp"),
@@ -446,6 +447,8 @@ public class EmployeeAction {
 		employee.setId(employeeId);
 		employee.setPhone(phoneNum);
 		employee.setVPhone(shortPhone);
+		employee.setPassword(employeeId.substring(employeeId.length()-4,employeeId.length()));
+		employee.setPermission(1);
 		employeeService.save(employee);
 		return "save";
 	}
@@ -608,6 +611,6 @@ public class EmployeeAction {
 		ActionContext context = ActionContext.getContext();
 		employee = (Employee) context.getSession().get("employee");
 		context.getSession().put("employee", employee);
-		return "employee";
+		return "employeeForUser";
 	}
 }

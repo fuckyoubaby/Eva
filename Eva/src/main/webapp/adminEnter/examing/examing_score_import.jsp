@@ -12,9 +12,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>管理员-竞赛成绩录入</title>
-		<link rel="stylesheet" href="../../css/bootstrap.css" />
-		<script src="../../js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../../js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="<%=basePath %>/css/bootstrap.css" />
+		<script src="<%=basePath %>/js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="<%=basePath %>/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 		<style type="text/css">
 			.mg-b15{margin-bottom:15px}
 			.mg-b20{margin-bottom:20px}

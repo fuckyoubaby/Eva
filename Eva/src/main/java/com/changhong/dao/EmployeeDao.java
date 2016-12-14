@@ -12,6 +12,7 @@ public interface EmployeeDao extends BaseDao<Employee>{
 	boolean isExist(String userName);
 	Employee login(String userName,String password);
 	List<Integer> getAllNum(int type,String employeeId);
+	List<Employee> getAll();
 	List<Employee> getEmployeesByPage(int offset,int length,String keyword);
 	int getCount(String keyword);
 	

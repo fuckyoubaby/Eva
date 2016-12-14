@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../taglib.jsp" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<jsp:useBean id="now" class="java.util.Date" scope="page"></jsp:useBean>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -46,6 +47,15 @@
 		</script>
 	</head>
 	<body>
+	<fmt:formatDate value="${empty project.endTime ? now:project.endTime}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="maxDate"/>
+	<c:choose>
+		<c:when test="${empty project.startTime}">
+			<fmt:formatDate value="${now}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="minDate"/>
+		</c:when>
+		<c:otherwise>
+			<fmt:formatDate value="${project.startTime}" type="both" dateStyle="long" pattern="yyyy-MM-dd" var="minDate"/>
+		</c:otherwise>
+	</c:choose>
 		<div class="container">
 			<h3 class="bolder mg-b20">${project.projectName}评审问题批量录入</h3>
 			<div class="hr mg-b15"></div>
@@ -99,7 +109,7 @@
 						<div class="input-group">
 							<input type="text" class="form-control" id="modifyDate" name="modifyDate" readonly="readonly" 
 							placeholder="选取日期" style="cursor:not-allowed"/>
-							<span class="input-group-addon" onclick="WdatePicker({el:'modifyDate',dateFmt:'yyyy-MM-dd'})">
+							<span class="input-group-addon" onclick="WdatePicker({el:'modifyDate',dateFmt:'yyyy-MM-dd',realDateFmt:'yyyy-MM-dd',minDate:'${minDate}',maxDate:'${maxDate}'})">
 								<i class="glyphicon glyphicon-time"></i>
 							</span>
 						</div>

@@ -10,6 +10,7 @@
 		<td>${assist.assistName}</td>
 		<td>${assist.score}</td>
 		<td>${assist.employee.name}</td>
+		<td>${assist.assistExplain}</td>
 		<td>${assist.date}</td>
 		
 		<%-- <td><a href="assistAction!deleteOther.action?assistId=${assist.assistId }">删除</a></td> --%>

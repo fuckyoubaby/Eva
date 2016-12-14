@@ -32,6 +32,7 @@ import com.opensymphony.xwork2.ActionContext;
 	@Result(name="employeeListForImport",location="/adminEnter/examing/examing_score_import.jsp"),//addExamGrade
 	@Result(name="addExamGrade",location="/adminEnter/examing/examing_score_lists.jsp"),
 	@Result(name="examScoreForUpdate",location="/adminEnter/examing/examing_score_update.jsp"),
+	@Result(name="hasExist",location="/adminEnter/examing/hasExist.jsp"),
 	
 	
 	@Result(name="employeeExamForEmployee",location="/userEnter/others/examTemplate.jsp"),
@@ -346,7 +347,12 @@ public class ExamAction {
 	public String turntolist()
 	{
 		ActionContext context = ActionContext.getContext();
-		context.getSession().put("examId", examId);
+		if (examId>0) {
+			context.getSession().put("examId", examId);
+		}else {
+			examId = (Integer) context.getSession().get("examId");
+		}
+		
 		Exam examExample = examService.getExam(examId);
 		setExam(examExample);
 		return "turntolist";
@@ -461,14 +467,21 @@ public class ExamAction {
 	{
 		ActionContext context = ActionContext.getContext();
 		int examId = (Integer) context.getSession().get("examId");
-		exam = examService.getExam(examId);
-		Employee employee = employeeService.getEmployee(employeeId);
-		Employeeexamr employeeexamr = new Employeeexamr();
-		employeeexamr.setEmployee(employee);
-		employeeexamr.setExam(exam);
-		employeeexamr.setScore(grade);
-		employeeExamService.save(employeeexamr);
-		return "addExamGrade";
+		
+		
+		Employeeexamr eer = employeeExamService.getEmployeeexamrByEmployeeIdAndExamId(examId, employeeId);
+		if (eer != null) {
+			return "hasExist";
+		}else{
+			exam = examService.getExam(examId);
+			Employee employee = employeeService.getEmployee(employeeId);
+			Employeeexamr employeeexamr = new Employeeexamr();
+			employeeexamr.setEmployee(employee);
+			employeeexamr.setExam(exam);
+			employeeexamr.setScore(grade);
+			employeeExamService.save(employeeexamr);
+			return "addExamGrade";
+		}
 	}
 	
 	
