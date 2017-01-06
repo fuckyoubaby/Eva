@@ -151,10 +151,10 @@
 								},
 								//等待remote或者callback
 								callback:{
-									message:'编号仅能含有数字、字母、短线、下划线!',
+									message:'项目编号是以0-9或A-Z开始的11-30位编号，且仅含有数字、字母、-、/ ',
 									callback: function(value, validator){
-										var regex = /[^0-9a-zA-Z_-]/g;
-										return !regex.test(value);
+										var regex = /^[0-9A-Z][0-9a-zA-Z\-\/]{10,29}$/g;
+										return regex.test(value);
 									}
 								},
 								remote:{
