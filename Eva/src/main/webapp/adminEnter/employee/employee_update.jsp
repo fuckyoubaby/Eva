@@ -57,8 +57,7 @@
 			.tab-content .tab-pane.active{border:1px solid #ccc;}
 			div.tab-pane{padding:30px 20px 20px 30px;}
 			div.tab-pane div.control-label{padding-top:7px;font-weight:700;}
-			.form-control-feedback {top:25px !important; right:-30px}
-			#contact-way-form .form-control-feedback {top:0px !important; right:-30px}
+			.form-control-feedback {top:0px !important; right:-30px}
 		</style>
 	</head>
 	<body>

@@ -44,6 +44,7 @@
 			        checkAllText: "全选",
 			        uncheckAllText: "全不选",
 					selectedList: 4,
+					height:250,
 					create:function(event , ui){
 						$('#employeeList_ms').parent().addClass('has-feedback')
 						.append('<i class="form-control-feedback glyphicon"  style="display:none"></i>')
@@ -63,7 +64,7 @@
 	</script>
 	</head>
 	<body>
-		<div class="container">
+		<div class="container" style="margin-bottom:100px">
 			<!--head-->
 			<h3 class="bolder mg-b15">
 				新项目录入

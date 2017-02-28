@@ -529,8 +529,10 @@ public class EmployeeAction {
 		if(department!=null){
 			employee.setDepartment(department);
 		}
-		int oldPermission = employee.getPermission();
-		if(oldPermission != permission ){
+		Integer oldPermission = employee.getPermission();
+		if(oldPermission!=null && oldPermission != permission ){
+			employee.setPermission(permission);
+		}else{
 			employee.setPermission(permission);
 		}
 		jobs = jobService.getJobs();
